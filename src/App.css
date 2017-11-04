@@ -2,15 +2,25 @@
   height: 35px;
 }
 
-.home {
-  margin: auto;
-  padding: 20px 15px 10px 15px;
-}
-
-.str {
+.estrangela {
   font-family: 'Estrangelo-V1.1';
   font-size: larger;
-  font-weight: bold;
+  font-weight: normal;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.syriac {
+  font-family: 'SertoJerusalem';
+  font-size: larger;
+  font-weight: normal;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.semitic {
+  font-size: larger;
+  font-weight: normal;
   direction: rtl;
   unicode-bidi: bidi-override;
 }

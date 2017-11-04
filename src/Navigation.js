@@ -28,17 +28,17 @@ export default class Navigation extends React.Component {
     return (
       <div>
         <Navbar color="faded" light expand="md">
-          <NavbarBrand href="/">
+          <NavbarBrand href="#/">
             <img src={logo} className="App-logo" alt="Peshitta Logo" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink href="#/">Peshitta</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/about/">About</NavLink>
+                <NavLink href="#/about">About</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
