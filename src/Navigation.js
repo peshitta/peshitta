@@ -38,6 +38,9 @@ export default class Navigation extends React.Component {
                 <NavLink href="#/">Peshitta</NavLink>
               </NavItem>
               <NavItem>
+                <NavLink href="#/mapper">Mapper</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="#/about">About</NavLink>
               </NavItem>
             </Nav>
