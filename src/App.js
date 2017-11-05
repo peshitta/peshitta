@@ -1,7 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Navigation from './Navigation';
-import Mapper from './Mapper';
+import Peshitta from './Peshitta';
+import TextMapper from './mapper/TextMapper';
+import NumberMapper from './mapper/NumberMapper';
 import About from './About';
 import './font.css';
 import './App.css';
@@ -10,8 +12,9 @@ const App = () => (
   <div>
     <Navigation />
     <Switch>
-      <Route exact path="/" component={About} />
-      <Route path="/mapper" component={Mapper} />
+      <Route exact path="/" component={Peshitta} />
+      <Route path="/map/text" component={TextMapper} />
+      <Route path="/map/number" component={NumberMapper} />
       <Route path="/about" component={About} />
     </Switch>
   </div>

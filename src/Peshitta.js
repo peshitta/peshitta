@@ -2,7 +2,18 @@ import React from 'react';
 
 const Peshitta = () => (
   <div class="container">
-    Welcome to Peshitta
+    <p>Welcome to Peshitta Web Application.</p>
+    <p>
+      This is currently work in progress. Following pages are finalized and
+      ready to use:
+    </p>
+    <ul>
+      <li>
+        <a href="#/about">About</a>
+      </li>
+    </ul>
+    Feel free to browse other unfinished pages to get a sense for where the
+    implementation is going.
   </div>
 );
 
