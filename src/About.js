@@ -15,24 +15,38 @@ import { Container, Table, Row, Col } from 'reactstrap';
 
 const About = () => (
   <Container>
-    <Row>
-      <Col>
-        <p>
-          Welcome to Peshitta Web Application. Project home is found at{' '}
-          <a
-            href="https://github.com/peshitta/peshitta"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {' '}
-            https://github.com/peshitta/peshitta
-          </a>
-        </p>
-      </Col>
-    </Row>
-    <Row>
-      <Col>The following mappings are being used:</Col>
-    </Row>
+    <p>
+      Welcome to Peshitta Web Application. Project home is found at{' '}
+      <a
+        href="https://github.com/peshitta/peshitta"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {' '}
+        https://github.com/peshitta/peshitta
+      </a>
+    </p>
+    <p>
+      Follow IPA or Latin links for each letter to learn its pronunciation. All
+      Aramaic consonants are common to Standard Arabic as well, except for{' '}
+      <a
+        title="Voiced velar stop"
+        href="https://en.wikipedia.org/wiki/Voiced_velar_stop"
+      >
+        Gamal
+      </a>{' '}
+      which is pronounced as Egyptian{' '}
+      <a title="Jeem" href="https://en.wiktionary.org/wiki/%D8%AC">
+        Jeem
+      </a>.
+    </p>
+    <p>
+      For vowel pronunciation see{' '}
+      <a href="https://en.wikipedia.org/wiki/IPA_vowel_chart_with_audio">
+        IPA vowel chart with audio
+      </a>{' '}
+      or follow the links for each individual vowel.
+    </p>
     <Row>
       <Col>
         Consonants
@@ -81,63 +95,357 @@ const About = () => (
             <tr>
               <td style={{ textAlign: 'left' }}>IPA</td>
               <td title="ܐ">{toIpa(calConsonants.alaph)}</td>
-              <td title="ܒ"><a title="Voiced bilabial stop" href="https://en.wikipedia.org/wiki/Voiced_bilabial_stop">{toIpa(calConsonants.beth)}</a></td>
-              <td title="ܓ"><a title="" href="">{toIpa(calConsonants.gamal)}</a></td>
-              <td title="ܕ"><a title="" href="">{toIpa(calConsonants.dalath)}</a></td>
+              <td title="ܒ">
+                <a
+                  title="Voiced bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_bilabial_stop"
+                >
+                  {toIpa(calConsonants.beth)}
+                </a>
+              </td>
+              <td title="ܓ">
+                <a
+                  title="Voiced velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_velar_stop"
+                >
+                  {toIpa(calConsonants.gamal)}
+                </a>
+              </td>
+              <td title="ܕ">
+                <a
+                  title="Voiced alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toIpa(calConsonants.dalath)}
+                </a>
+              </td>
 
-              <td title="ܗ"><a title="" href="">{toIpa(calConsonants.he)}</a></td>
-              <td title="ܘ"><a title="Voiced labio-velar approximant" href="https://en.wikipedia.org/wiki/Voiced_labio-velar_approximant">{toIpa(calConsonants.waw)}</a></td>
-              <td title="ܙ"><a title="Non-retracted alveolar" href="https://en.wikipedia.org/wiki/Voiced_alveolar_fricative#Non-retracted_alveolar">{toIpa(calConsonants.zayn)}</a></td>
+              <td title="ܗ">
+                <a
+                  title="Voiceless glottal fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_glottal_fricative"
+                >
+                  {toIpa(calConsonants.he)}
+                </a>
+              </td>
+              <td title="ܘ">
+                <a
+                  title="Voiced labio-velar approximant"
+                  href="https://en.wikipedia.org/wiki/Voiced_labio-velar_approximant"
+                >
+                  {toIpa(calConsonants.waw)}
+                </a>
+              </td>
+              <td title="ܙ">
+                <a
+                  title="Non-retracted alveolar"
+                  href="https://en.wikipedia.org/wiki/Voiced_alveolar_fricative#Non-retracted_alveolar"
+                >
+                  {toIpa(calConsonants.zayn)}
+                </a>
+              </td>
 
-              <td title="ܚ"><a title="Voiceless pharyngeal fricative" href="https://en.wikipedia.org/wiki/Voiceless_pharyngeal_fricative">{toIpa(calConsonants.heth)}</a></td>
-              <td title="ܛ"><a title="Pharyngealized voiceless alveolar stop" href="https://en.wikipedia.org/wiki/Pharyngealization#Stops">{toIpa(calConsonants.teth)}</a></td>
-              <td title="ܝ"><a title="Voiced palatal approximant" href="https://en.wikipedia.org/wiki/Palatal_approximant#Palatal">{toIpa(calConsonants.yod)}</a></td>
+              <td title="ܚ">
+                <a
+                  title="Voiceless pharyngeal fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_pharyngeal_fricative"
+                >
+                  {toIpa(calConsonants.heth)}
+                </a>
+              </td>
+              <td title="ܛ">
+                <a
+                  title="Pharyngealized voiceless alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Pharyngealization#Stops"
+                >
+                  {toIpa(calConsonants.teth)}
+                </a>
+              </td>
+              <td title="ܝ">
+                <a
+                  title="Voiced palatal approximant"
+                  href="https://en.wikipedia.org/wiki/Palatal_approximant#Palatal"
+                >
+                  {toIpa(calConsonants.yod)}
+                </a>
+              </td>
 
-              <td title="ܟ"><a title="Voiceless velar stop" href="https://en.wikipedia.org/wiki/Voiceless_velar_stop">{toIpa(calConsonants.kaph)}</a></td>
-              <td title="ܠ"><a title="Alveolar lateral approximant" href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_lateral_approximants#Alveolar">{toIpa(calConsonants.lamadh)}</a></td>
-              <td title="ܡ"><a title="Bilabial nasal" href="https://en.wikipedia.org/wiki/Bilabial_nasal">{toIpa(calConsonants.mim)}</a></td>
-              <td title="ܢ"><a title="Alveolar nasal" href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_nasals#Alveolar">{toIpa(calConsonants.nun)}</a></td>
+              <td title="ܟ">
+                <a
+                  title="Voiceless velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_velar_stop"
+                >
+                  {toIpa(calConsonants.kaph)}
+                </a>
+              </td>
+              <td title="ܠ">
+                <a
+                  title="Alveolar lateral approximant"
+                  href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_lateral_approximants#Alveolar"
+                >
+                  {toIpa(calConsonants.lamadh)}
+                </a>
+              </td>
+              <td title="ܡ">
+                <a
+                  title="Bilabial nasal"
+                  href="https://en.wikipedia.org/wiki/Bilabial_nasal"
+                >
+                  {toIpa(calConsonants.mim)}
+                </a>
+              </td>
+              <td title="ܢ">
+                <a
+                  title="Alveolar nasal"
+                  href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_nasals#Alveolar"
+                >
+                  {toIpa(calConsonants.nun)}
+                </a>
+              </td>
 
-              <td title="ܣ"><a title="Voiceless alveolar sibilant" href="https://en.wikipedia.org/wiki/Voiceless_alveolar_fricative#Voiceless_alveolar_sibilant">{toIpa(calConsonants.semkath)}</a></td>
-              <td title="ܥ"><a title="Voiced pharyngeal fricative" href="https://en.wikipedia.org/wiki/Voiced_pharyngeal_fricative">{toIpa(calConsonants.e)}</a></td>
-              <td title="ܦ"><a title="Voiceless bilabial stop" href="https://en.wikipedia.org/wiki/Voiceless_bilabial_stop">{toIpa(calConsonants.pe)}</a></td>
-              <td title="ܨ"><a title="Pharyngealized voiceless alveolar sibilant" href="https://en.wikipedia.org/wiki/Pharyngealization#Fricatives">{toIpa(calConsonants.sadhe)}</a></td>
+              <td title="ܣ">
+                <a
+                  title="Voiceless alveolar sibilant"
+                  href="https://en.wikipedia.org/wiki/Voiceless_alveolar_fricative#Voiceless_alveolar_sibilant"
+                >
+                  {toIpa(calConsonants.semkath)}
+                </a>
+              </td>
+              <td title="ܥ">
+                <a
+                  title="Voiced pharyngeal fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_pharyngeal_fricative"
+                >
+                  {toIpa(calConsonants.e)}
+                </a>
+              </td>
+              <td title="ܦ">
+                <a
+                  title="Voiceless bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_bilabial_stop"
+                >
+                  {toIpa(calConsonants.pe)}
+                </a>
+              </td>
+              <td title="ܨ">
+                <a
+                  title="Pharyngealized voiceless alveolar sibilant"
+                  href="https://en.wikipedia.org/wiki/Pharyngealization#Fricatives"
+                >
+                  {toIpa(calConsonants.sadhe)}
+                </a>
+              </td>
 
-              <td title="ܩ"><a title="Voiceless uvular stop" href="https://en.wikipedia.org/wiki/Voiceless_uvular_stop">{toIpa(calConsonants.qoph)}</a></td>
-              <td title="ܪ"><a title="Voiced alveolar trill" href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_trills#Voiced_alveolar_trill">{toIpa(calConsonants.resh)}</a></td>
-              <td title="ܫ"><a title="Voiceless palato-alveolar sibilant" href="https://en.wikipedia.org/wiki/Voiceless_palato-alveolar_sibilant">{toIpa(calConsonants.shin)}</a></td>
-              <td title="ܬ"><a title="Voiceless alveolar stop" href="https://en.wikipedia.org/wiki/Voiceless_dental_and_alveolar_stops#Alveolar">{toIpa(calConsonants.taw)}</a></td>
+              <td title="ܩ">
+                <a
+                  title="Voiceless uvular stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_uvular_stop"
+                >
+                  {toIpa(calConsonants.qoph)}
+                </a>
+              </td>
+              <td title="ܪ">
+                <a
+                  title="Voiced alveolar trill"
+                  href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_trills#Voiced_alveolar_trill"
+                >
+                  {toIpa(calConsonants.resh)}
+                </a>
+              </td>
+              <td title="ܫ">
+                <a
+                  title="Voiceless palato-alveolar sibilant"
+                  href="https://en.wikipedia.org/wiki/Voiceless_palato-alveolar_sibilant"
+                >
+                  {toIpa(calConsonants.shin)}
+                </a>
+              </td>
+              <td title="ܬ">
+                <a
+                  title="Voiceless alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toIpa(calConsonants.taw)}
+                </a>
+              </td>
             </tr>
 
             <tr>
               <td style={{ textAlign: 'left' }}>Latin</td>
-              <td title="ܐ"><a title="" href="">{toPhonetic(calConsonants.alaph)}</a></td>
-              <td title="ܒ"><a title="" href="">{toPhonetic(calConsonants.beth)}</a></td>
-              <td title="ܓ"><a title="" href="">{toPhonetic(calConsonants.gamal)}</a></td>
-              <td title="ܕ"><a title="" href="">{toPhonetic(calConsonants.dalath)}</a></td>
+              <td title="ܐ">{toPhonetic(calConsonants.alaph)}</td>
+              <td title="ܒ">
+                <a
+                  title="Voiced bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_bilabial_stop"
+                >
+                  {toPhonetic(calConsonants.beth)}
+                </a>
+              </td>
+              <td title="ܓ">
+                <a
+                  title="Voiced velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_velar_stop"
+                >
+                  {toPhonetic(calConsonants.gamal)}
+                </a>
+              </td>
+              <td title="ܕ">
+                <a
+                  title="Voiced alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toPhonetic(calConsonants.dalath)}
+                </a>
+              </td>
 
-              <td title="ܗ"><a title="" href="">{toPhonetic(calConsonants.he)}</a></td>
-              <td title="ܘ"><a title="Voiced labio-velar approximant" href="https://en.wikipedia.org/wiki/Voiced_labio-velar_approximant">{toPhonetic(calConsonants.waw)}</a></td>
-              <td title="ܙ"><a title="Non-retracted alveolar" href="https://en.wikipedia.org/wiki/Voiced_alveolar_fricative#Non-retracted_alveolar">{toPhonetic(calConsonants.zayn)}</a></td>
+              <td title="ܗ">
+                <a
+                  title="Voiceless glottal fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_glottal_fricative"
+                >
+                  {toPhonetic(calConsonants.he)}
+                </a>
+              </td>
+              <td title="ܘ">
+                <a
+                  title="Voiced labio-velar approximant"
+                  href="https://en.wikipedia.org/wiki/Voiced_labio-velar_approximant"
+                >
+                  {toPhonetic(calConsonants.waw)}
+                </a>
+              </td>
+              <td title="ܙ">
+                <a
+                  title="Non-retracted alveolar"
+                  href="https://en.wikipedia.org/wiki/Voiced_alveolar_fricative#Non-retracted_alveolar"
+                >
+                  {toPhonetic(calConsonants.zayn)}
+                </a>
+              </td>
 
-              <td title="ܚ"><a title="Voiceless pharyngeal fricative" href="https://en.wikipedia.org/wiki/Voiceless_pharyngeal_fricative">{toPhonetic(calConsonants.heth)}</a></td>
-              <td title="ܛ"><a title="Pharyngealized voiceless alveolar stop" href="https://en.wikipedia.org/wiki/Pharyngealization#Stops">{toPhonetic(calConsonants.teth)}</a></td>
-              <td title="ܝ"><a title="voiced palatal approximant" href="https://en.wikipedia.org/wiki/Palatal_approximant#Palatal">{toPhonetic(calConsonants.yod)}</a></td>
+              <td title="ܚ">
+                <a
+                  title="Voiceless pharyngeal fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_pharyngeal_fricative"
+                >
+                  {toPhonetic(calConsonants.heth)}
+                </a>
+              </td>
+              <td title="ܛ">
+                <a
+                  title="Pharyngealized voiceless alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Pharyngealization#Stops"
+                >
+                  {toPhonetic(calConsonants.teth)}
+                </a>
+              </td>
+              <td title="ܝ">
+                <a
+                  title="voiced palatal approximant"
+                  href="https://en.wikipedia.org/wiki/Palatal_approximant#Palatal"
+                >
+                  {toPhonetic(calConsonants.yod)}
+                </a>
+              </td>
 
-              <td title="ܟ"><a title="Voiceless velar stop" href="https://en.wikipedia.org/wiki/Voiceless_velar_stop">{toPhonetic(calConsonants.kaph)}</a></td>
-              <td title="ܠ"><a title="Alveolar lateral approximant" href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_lateral_approximants#Alveolar">{toPhonetic(calConsonants.lamadh)}</a></td>
-              <td title="ܡ"><a title="Bilabial nasal" href="https://en.wikipedia.org/wiki/Bilabial_nasal">{toPhonetic(calConsonants.mim)}</a></td>
-              <td title="ܢ"><a title="Alveolar nasal" href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_nasals#Alveolar">{toPhonetic(calConsonants.nun)}</a></td>
+              <td title="ܟ">
+                <a
+                  title="Voiceless velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_velar_stop"
+                >
+                  {toPhonetic(calConsonants.kaph)}
+                </a>
+              </td>
+              <td title="ܠ">
+                <a
+                  title="Alveolar lateral approximant"
+                  href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_lateral_approximants#Alveolar"
+                >
+                  {toPhonetic(calConsonants.lamadh)}
+                </a>
+              </td>
+              <td title="ܡ">
+                <a
+                  title="Bilabial nasal"
+                  href="https://en.wikipedia.org/wiki/Bilabial_nasal"
+                >
+                  {toPhonetic(calConsonants.mim)}
+                </a>
+              </td>
+              <td title="ܢ">
+                <a
+                  title="Alveolar nasal"
+                  href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_nasals#Alveolar"
+                >
+                  {toPhonetic(calConsonants.nun)}
+                </a>
+              </td>
 
-              <td title="ܣ"><a title="Voiceless alveolar sibilant" href="https://en.wikipedia.org/wiki/Voiceless_alveolar_fricative#Voiceless_alveolar_sibilant">{toPhonetic(calConsonants.semkath)}</a></td>
-              <td title="ܥ"><a title="Voiced pharyngeal fricative" href="https://en.wikipedia.org/wiki/Voiced_pharyngeal_fricative">{toPhonetic(calConsonants.e)}</a></td>
-              <td title="ܦ"><a title="Voiceless bilabial stop" href="https://en.wikipedia.org/wiki/Voiceless_bilabial_stop">{toPhonetic(calConsonants.pe)}</a></td>
-              <td title="ܨ"><a title="Pharyngealized voiceless alveolar sibilant" href="https://en.wikipedia.org/wiki/Pharyngealization#Fricatives">{toPhonetic(calConsonants.sadhe)}</a></td>
+              <td title="ܣ">
+                <a
+                  title="Voiceless alveolar sibilant"
+                  href="https://en.wikipedia.org/wiki/Voiceless_alveolar_fricative#Voiceless_alveolar_sibilant"
+                >
+                  {toPhonetic(calConsonants.semkath)}
+                </a>
+              </td>
+              <td title="ܥ">
+                <a
+                  title="Voiced pharyngeal fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_pharyngeal_fricative"
+                >
+                  {toPhonetic(calConsonants.e)}
+                </a>
+              </td>
+              <td title="ܦ">
+                <a
+                  title="Voiceless bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_bilabial_stop"
+                >
+                  {toPhonetic(calConsonants.pe)}
+                </a>
+              </td>
+              <td title="ܨ">
+                <a
+                  title="Pharyngealized voiceless alveolar sibilant"
+                  href="https://en.wikipedia.org/wiki/Pharyngealization#Fricatives"
+                >
+                  {toPhonetic(calConsonants.sadhe)}
+                </a>
+              </td>
 
-              <td title="ܩ"><a title="Voiceless uvular stop" href="https://en.wikipedia.org/wiki/Voiceless_uvular_stop">{toPhonetic(calConsonants.qoph)}</a></td>
-              <td title="ܪ"><a title="Voiced alveolar trill" href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_trills#Voiced_alveolar_trill">{toPhonetic(calConsonants.resh)}</a></td>
-              <td title="ܫ"><a title="Voiceless palato-alveolar sibilant" href="https://en.wikipedia.org/wiki/Voiceless_palato-alveolar_sibilant">{toPhonetic(calConsonants.shin)}</a></td>
-              <td title="ܬ"><a title="Voiceless alveolar stop" href="https://en.wikipedia.org/wiki/Voiceless_dental_and_alveolar_stops#Alveolar">{toPhonetic(calConsonants.taw)}</a></td>
+              <td title="ܩ">
+                <a
+                  title="Voiceless uvular stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_uvular_stop"
+                >
+                  {toPhonetic(calConsonants.qoph)}
+                </a>
+              </td>
+              <td title="ܪ">
+                <a
+                  title="Voiced alveolar trill"
+                  href="https://en.wikipedia.org/wiki/Dental,_alveolar_and_postalveolar_trills#Voiced_alveolar_trill"
+                >
+                  {toPhonetic(calConsonants.resh)}
+                </a>
+              </td>
+              <td title="ܫ">
+                <a
+                  title="Voiceless palato-alveolar sibilant"
+                  href="https://en.wikipedia.org/wiki/Voiceless_palato-alveolar_sibilant"
+                >
+                  {toPhonetic(calConsonants.shin)}
+                </a>
+              </td>
+              <td title="ܬ">
+                <a
+                  title="Voiceless alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toPhonetic(calConsonants.taw)}
+                </a>
+              </td>
             </tr>
 
             <tr>
@@ -493,23 +801,121 @@ const About = () => (
           <tbody>
             <tr>
               <td style={{ textAlign: 'left' }}>IPA</td>
-              <td title="ܐܲ">{toIpa(calVowels.pthaha)}</td>
-              <td title="ܐܵ">{toIpa(calVowels.zqapha)}</td>
-              <td title="ܐܹ">{toIpa(calVowels.rbasa)}</td>
-              <td title="ܝܼ">{toIpa(calVowels.hbasa)}</td>
-              <td title="ܘܼ">{toIpa(calVowels.esasa)}</td>
-              <td title="ܐܸ">{toIpa(calVowels.zlama)}</td>
-              <td title="ܘܿ">{toIpa(calVowels.rwaha)}</td>
+              <td title="ܐܲ">
+                <a
+                  title="Open front unrounded"
+                  href="https://en.wikipedia.org/wiki/Open_front_unrounded_vowel"
+                >
+                  {toIpa(calVowels.pthaha)}
+                </a>
+              </td>
+              <td title="ܐܵ">
+                <a
+                  title="Open back unrounded"
+                  href="https://en.wikipedia.org/wiki/Open_back_unrounded_vowel"
+                >
+                  {toIpa(calVowels.zqapha)}
+                </a>
+              </td>
+              <td title="ܐܹ">
+                <a
+                  title="Close-mid front unrounded"
+                  href="https://en.wikipedia.org/wiki/Close-mid_front_unrounded_vowel"
+                >
+                  {toIpa(calVowels.rbasa)}
+                </a>
+              </td>
+              <td title="ܝܼ">
+                <a
+                  title="Close front unrounded"
+                  href="https://en.wikipedia.org/wiki/Close_front_unrounded_vowel"
+                >
+                  {toIpa(calVowels.hbasa)}
+                </a>
+              </td>
+              <td title="ܘܼ">
+                <a
+                  title="Close back rounded"
+                  href="https://en.wikipedia.org/wiki/Close_back_rounded_vowel"
+                >
+                  {toIpa(calVowels.esasa)}
+                </a>
+              </td>
+              <td title="ܐܸ">
+                <a
+                  title="Open-mid front unrounded"
+                  href="https://en.wikipedia.org/wiki/Open-mid_front_unrounded_vowel"
+                >
+                  {toIpa(calVowels.zlama)}
+                </a>
+              </td>
+              <td title="ܘܿ">
+                <a
+                  title="Close-mid back rounded"
+                  href="https://en.wikipedia.org/wiki/Close-mid_back_rounded_vowel"
+                >
+                  {toIpa(calVowels.rwaha)}
+                </a>
+              </td>
             </tr>
             <tr>
               <td style={{ textAlign: 'left' }}>Latin</td>
-              <td title="ܐܲ">{toPhonetic(calVowels.pthaha)}</td>
-              <td title="ܐܵ">{toPhonetic(calVowels.zqapha)}</td>
-              <td title="ܐܹ">{toPhonetic(calVowels.rbasa)}</td>
-              <td title="ܝܼ">{toPhonetic(calVowels.hbasa)}</td>
-              <td title="ܘܼ">{toPhonetic(calVowels.esasa)}</td>
-              <td title="ܐܸ">{toPhonetic(calVowels.zlama)}</td>
-              <td title="ܘܿ">{toPhonetic(calVowels.rwaha)}</td>
+              <td title="ܐܲ">
+                <a
+                  title="Open front unrounded"
+                  href="https://en.wikipedia.org/wiki/Open_front_unrounded_vowel"
+                >
+                  {toPhonetic(calVowels.pthaha)}
+                </a>
+              </td>
+              <td title="ܐܵ">
+                <a
+                  title="Open back unrounded"
+                  href="https://en.wikipedia.org/wiki/Open_back_unrounded_vowel"
+                >
+                  {toPhonetic(calVowels.zqapha)}
+                </a>
+              </td>
+              <td title="ܐܹ">
+                <a
+                  title="Close-mid front unrounded"
+                  href="https://en.wikipedia.org/wiki/Close-mid_front_unrounded_vowel"
+                >
+                  {toPhonetic(calVowels.rbasa)}
+                </a>
+              </td>
+              <td title="ܝܼ">
+                <a
+                  title="Close front unrounded"
+                  href="https://en.wikipedia.org/wiki/Close_front_unrounded_vowel"
+                >
+                  {toPhonetic(calVowels.hbasa)}
+                </a>
+              </td>
+              <td title="ܘܼ">
+                <a
+                  title="Close back rounded"
+                  href="https://en.wikipedia.org/wiki/Close_back_rounded_vowel"
+                >
+                  {toPhonetic(calVowels.esasa)}
+                </a>
+              </td>
+              <td title="ܐܸ">
+                <a
+                  title="Open-mid front unrounded"
+                  href="https://en.wikipedia.org/wiki/Open-mid_front_unrounded_vowel"
+                >
+                  {toPhonetic(calVowels.zlama)}
+                </a>
+              </td>
+              <td title="ܘܿ">
+                <a
+                  title="Close-mid back rounded"
+                  href="https://en.wikipedia.org/wiki/Close-mid_back_rounded_vowel"
+                >
+                  {toPhonetic(calVowels.rwaha)}
+                </a>
+              </td>
             </tr>
             <tr>
               <td style={{ textAlign: 'left' }}>Sedra</td>
@@ -660,10 +1066,20 @@ const About = () => (
             <tr>
               <td style={{ textAlign: 'left' }}>IPA</td>
               <td title="ܕ݁">
-                {toIpa(calConsonants.dalath + calDiacritics.qushaya)}
+                <a
+                  title="Voiced alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toIpa(calConsonants.dalath + calDiacritics.qushaya)}
+                </a>
               </td>
               <td title="ܕ݂">
-                {toIpa(calConsonants.dalath + calDiacritics.rukkakha)}
+                <a
+                  title="Voiced dental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_fricative"
+                >
+                  {toIpa(calConsonants.dalath + calDiacritics.rukkakha)}
+                </a>
               </td>
               <td title="ܕ݇">
                 {toIpa(calConsonants.dalath + calDiacritics.lineaOccultans)}
@@ -675,10 +1091,20 @@ const About = () => (
             <tr>
               <td style={{ textAlign: 'left' }}>Latin</td>
               <td title="ܕ݁">
-                {toPhonetic(calConsonants.dalath + calDiacritics.qushaya)}
+                <a
+                  title="Voiced alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toPhonetic(calConsonants.dalath + calDiacritics.qushaya)}
+                </a>
               </td>
               <td title="ܕ݂">
-                {toPhonetic(calConsonants.dalath + calDiacritics.rukkakha)}
+                <a
+                  title="Voiced dental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_fricative"
+                >
+                  {toPhonetic(calConsonants.dalath + calDiacritics.rukkakha)}
+                </a>
               </td>
               <td title="ܕ݇">
                 {toPhonetic(
@@ -855,12 +1281,54 @@ const About = () => (
               <td rowSpan="2" style={{ textAlign: 'left' }}>
                 IPA
               </td>
-              <td>{toIpa(calConsonants.beth + calDiacritics.qushaya)}</td>
-              <td>{toIpa(calConsonants.gamal + calDiacritics.qushaya)}</td>
-              <td>{toIpa(calConsonants.dalath + calDiacritics.qushaya)}</td>
-              <td>{toIpa(calConsonants.kaph + calDiacritics.qushaya)}</td>
-              <td>{toIpa(calConsonants.pe + calDiacritics.qushaya)}</td>
-              <td>{toIpa(calConsonants.taw + calDiacritics.qushaya)}</td>
+              <td>
+                <a
+                  title="Voiced bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_bilabial_stop"
+                >
+                  {toIpa(calConsonants.beth + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiced velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_velar_stop"
+                >
+                  {toIpa(calConsonants.gamal + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiced alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toIpa(calConsonants.dalath + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_velar_stop"
+                >
+                  {toIpa(calConsonants.kaph + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_bilabial_stop"
+                >
+                  {toIpa(calConsonants.pe + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toIpa(calConsonants.taw + calDiacritics.qushaya)}
+                </a>
+              </td>
 
               <td rowSpan="2" style={{ textAlign: 'left' }}>
                 Hebrew
@@ -885,12 +1353,54 @@ const About = () => (
               </td>
             </tr>
             <tr>
-              <td>{toIpa(calConsonants.beth + calDiacritics.rukkakha)}</td>
-              <td>{toIpa(calConsonants.gamal + calDiacritics.rukkakha)}</td>
-              <td>{toIpa(calConsonants.dalath + calDiacritics.rukkakha)}</td>
-              <td>{toIpa(calConsonants.kaph + calDiacritics.rukkakha)}</td>
-              <td>{toIpa(calConsonants.pe + calDiacritics.rukkakha)}</td>
-              <td>{toIpa(calConsonants.taw + calDiacritics.rukkakha)}</td>
+              <td>
+                <a
+                  title="Voiced labiodental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_labiodental_fricative"
+                >
+                  {toIpa(calConsonants.beth + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiced velar fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_velar_fricative"
+                >
+                  {toIpa(calConsonants.gamal + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiced dental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_fricative"
+                >
+                  {toIpa(calConsonants.dalath + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless velar fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_labiodental_fricative"
+                >
+                  {toIpa(calConsonants.kaph + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless labiodental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_labiodental_fricative"
+                >
+                  {toIpa(calConsonants.pe + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless dental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_dental_fricative"
+                >
+                  {toIpa(calConsonants.taw + calDiacritics.rukkakha)}
+                </a>
+              </td>
 
               <td className="semitic">
                 {toHebrew(calConsonants.beth + calDiacritics.rukkakha)}
@@ -915,14 +1425,54 @@ const About = () => (
               <td rowSpan="2" style={{ textAlign: 'left' }}>
                 Latin
               </td>
-              <td>{toPhonetic(calConsonants.beth + calDiacritics.qushaya)}</td>
-              <td>{toPhonetic(calConsonants.gamal + calDiacritics.qushaya)}</td>
               <td>
-                {toPhonetic(calConsonants.dalath + calDiacritics.qushaya)}
+                <a
+                  title="Voiced bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_bilabial_stop"
+                >
+                  {toPhonetic(calConsonants.beth + calDiacritics.qushaya)}
+                </a>
               </td>
-              <td>{toPhonetic(calConsonants.kaph + calDiacritics.qushaya)}</td>
-              <td>{toPhonetic(calConsonants.pe + calDiacritics.qushaya)}</td>
-              <td>{toPhonetic(calConsonants.taw)}</td>
+              <td>
+                <a
+                  title="Voiced velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_velar_stop"
+                >
+                  {toPhonetic(calConsonants.gamal + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless velar stop"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toPhonetic(calConsonants.dalath + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title=""
+                  href="https://en.wikipedia.org/wiki/Voiceless_velar_stop"
+                >
+                  {toPhonetic(calConsonants.kaph + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless bilabial stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_bilabial_stop"
+                >
+                  {toPhonetic(calConsonants.pe + calDiacritics.qushaya)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless alveolar stop"
+                  href="https://en.wikipedia.org/wiki/Voiceless_dental_and_alveolar_stops#Alveolar"
+                >
+                  {toPhonetic(calConsonants.taw + calDiacritics.qushaya)}
+                </a>
+              </td>
 
               <td rowSpan="2" style={{ textAlign: 'left' }}>
                 Syriac
@@ -947,16 +1497,54 @@ const About = () => (
               </td>
             </tr>
             <tr>
-              <td>{toPhonetic(calConsonants.beth + calDiacritics.rukkakha)}</td>
               <td>
-                {toPhonetic(calConsonants.gamal + calDiacritics.rukkakha)}
+                <a
+                  title="Voiced labiodental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_labiodental_fricative"
+                >
+                  {toPhonetic(calConsonants.beth + calDiacritics.rukkakha)}
+                </a>
               </td>
               <td>
-                {toPhonetic(calConsonants.dalath + calDiacritics.rukkakha)}
+                <a
+                  title="Voiced velar fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_velar_fricative"
+                >
+                  {toPhonetic(calConsonants.gamal + calDiacritics.rukkakha)}
+                </a>
               </td>
-              <td>{toPhonetic(calConsonants.kaph + calDiacritics.rukkakha)}</td>
-              <td>{toPhonetic(calConsonants.pe + calDiacritics.rukkakha)}</td>
-              <td>{toPhonetic(calConsonants.taw + calDiacritics.rukkakha)}</td>
+              <td>
+                <a
+                  title="Voiced dental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiced_dental_fricative"
+                >
+                  {toPhonetic(calConsonants.dalath + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless velar fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_labiodental_fricative"
+                >
+                  {toPhonetic(calConsonants.kaph + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless labiodental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_labiodental_fricative"
+                >
+                  {toPhonetic(calConsonants.pe + calDiacritics.rukkakha)}
+                </a>
+              </td>
+              <td>
+                <a
+                  title="Voiceless dental fricative"
+                  href="https://en.wikipedia.org/wiki/Voiceless_dental_fricative"
+                >
+                  {toPhonetic(calConsonants.taw + calDiacritics.rukkakha)}
+                </a>
+              </td>
 
               <td className="syriac">
                 {toSyriac(calConsonants.beth + calDiacritics.rukkakha)}
