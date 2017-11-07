@@ -56,15 +56,15 @@ export default class Navigation extends React.Component {
                 toggle={this.toggleMap}
               >
                 <DropdownToggle nav caret>
-                  Map
+                  Convert
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem>
-                    <NavLink href="#/map/text">Text</NavLink>
+                    <NavLink href="#/convert/text">Text</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
-                    <NavLink href="#/map/number">Number</NavLink>
+                    <NavLink href="#/convert/number">Number</NavLink>
                   </DropdownItem>
                 </DropdownMenu>
               </NavDropdown>

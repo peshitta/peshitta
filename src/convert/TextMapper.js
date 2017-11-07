@@ -73,7 +73,7 @@ export default class TextMapper extends React.Component {
         </FormGroup>
         <Row>
           <Col style={{ textAlign: 'center' }}>
-            <Button>&nbsp;&nbsp;Map&nbsp;&nbsp;</Button>
+            <Button>Convert</Button>
           </Col>
         </Row>
         <FormGroup tag="fieldset">
