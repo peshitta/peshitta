@@ -31,7 +31,7 @@ export default class NumberMapper extends React.Component {
   }
 
   handleNumericClick = () => {
-    this.setState({ numeric: !this.state.numeric });
+    this.setState({ numeric: !this.state.numeric, input: '', output: '' });
   };
 
   handlePositionalClick = () => {
@@ -46,36 +46,20 @@ export default class NumberMapper extends React.Component {
     let val = event.target.value.trim();
     if (this.state.numeric) {
       val = val.replace(nonNumeric, '');
-      event.target.value = val;
-      val = Number.parseInt(val, 10);
     }
     this.setState({ input: val });
   };
 
-  getInputClass() {
-    return this.state.numeric ? '' : this.getClassByCode();
-  }
-
-  getOutputClass() {
-    return this.state.numeric ? this.getClassByCode() : '';
-  }
-
-  getClassByCode() {
-    switch (this.state.code) {
-      case 'estrangela':
-      case 'syriac':
-        return this.state.code;
-      case 'hebrew':
-      case 'arabic':
-        return 'semitic';
-      default:
-        return '';
-    }
-  }
-
   handleConvert = () => {
     let val = this.state.input;
-    if (!this.state.numeric) {
+    if (!val) {
+      this.setState({ output: '' });
+      return;
+    }
+
+    if (this.state.numeric) {
+      val = Number.parseInt(val, 10);
+    } else {
       switch (this.state.code) {
         case 'estrangela':
           val = estrangelaToCal(val);
@@ -118,6 +102,27 @@ export default class NumberMapper extends React.Component {
 
     this.setState({ output: convertedVal });
   };
+
+  getInputClass() {
+    return this.state.numeric ? '' : this.getClassByCode();
+  }
+
+  getOutputClass() {
+    return this.state.numeric ? this.getClassByCode() : '';
+  }
+
+  getClassByCode() {
+    switch (this.state.code) {
+      case 'estrangela':
+      case 'syriac':
+        return this.state.code;
+      case 'hebrew':
+      case 'arabic':
+        return 'semitic';
+      default:
+        return '';
+    }
+  }
 
   render() {
     return (
@@ -216,11 +221,12 @@ export default class NumberMapper extends React.Component {
             }
             className={this.getInputClass()}
             onChange={this.handleInputChange}
+            value={this.state.input}
           />
         </FormGroup>
         <FormGroup style={{ textAlign: 'center' }}>
           <Button color="primary" onClick={this.handleConvert}>
-            Convert
+            {this.state.numeric ? 'To Letters' : 'To Number'}
           </Button>
         </FormGroup>
         <FormGroup>
