@@ -28,26 +28,21 @@ export default class NumberMapper extends React.Component {
       positional: true,
       code: 'estrangela'
     };
-
-    this.onNumericClick = this.onNumericClick.bind(this);
-    this.onPositionalClick = this.onPositionalClick.bind(this);
-    this.onCodeClick = this.onCodeClick.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
   }
 
-  onNumericClick() {
+  handleNumericClick = () => {
     this.setState({ numeric: !this.state.numeric });
-  }
+  };
 
-  onPositionalClick() {
+  handlePositionalClick = () => {
     this.setState({ positional: !this.state.positional });
-  }
+  };
 
-  onCodeClick(code) {
-    this.setState({ code, output: '' });
-  }
+  handleCodeClick = event => {
+    this.setState({ code: event.target.id, output: '' });
+  };
 
-  onInputChange(event) {
+  handleInputChange = event => {
     let val = event.target.value.trim();
     if (this.state.numeric) {
       val = val.replace(nonNumeric, '');
@@ -55,7 +50,7 @@ export default class NumberMapper extends React.Component {
       val = Number.parseInt(val, 10);
     }
     this.setState({ input: val });
-  }
+  };
 
   getInputClass() {
     return this.state.numeric ? '' : this.getClassByCode();
@@ -78,7 +73,7 @@ export default class NumberMapper extends React.Component {
     }
   }
 
-  convert() {
+  handleConvert = () => {
     let val = this.state.input;
     if (!this.state.numeric) {
       switch (this.state.code) {
@@ -100,8 +95,11 @@ export default class NumberMapper extends React.Component {
       this.state.code === 'hebrew' || this.state.code === 'syriac'
         ? new AramaicNumber(this.state.code)
         : new AramaicNumber('cal');
+    let convertedVal =
+      this.state.numeric || this.state.positional
+        ? converter.getNumber(val)
+        : converter.getNumber(val, true);
 
-    let convertedVal = converter.getNumber(val);
     if (this.state.numeric) {
       switch (this.state.code) {
         case 'estrangela':
@@ -119,7 +117,7 @@ export default class NumberMapper extends React.Component {
     }
 
     this.setState({ output: convertedVal });
-  }
+  };
 
   render() {
     return (
@@ -133,7 +131,7 @@ export default class NumberMapper extends React.Component {
           <ButtonGroup>
             <Button
               color="light"
-              onClick={() => this.onNumericClick()}
+              onClick={this.handleNumericClick}
               active={this.state.numeric}
               title="Input is a number"
             >
@@ -141,7 +139,7 @@ export default class NumberMapper extends React.Component {
             </Button>
             <Button
               color="light"
-              onClick={() => this.onPositionalClick()}
+              onClick={this.handlePositionalClick}
               active={this.state.positional}
               disabled={this.state.numeric}
               title="Use letter position when computing number"
@@ -152,24 +150,27 @@ export default class NumberMapper extends React.Component {
           &nbsp;
           <ButtonGroup>
             <Button
+              id="estrangela"
               color="light"
-              onClick={() => this.onCodeClick('estrangela')}
+              onClick={this.handleCodeClick}
               active={this.state.code === 'estrangela'}
               title="Estrangela ASCII code"
             >
               Estrangela
             </Button>
             <Button
+              id="syriac"
               color="light"
-              onClick={() => this.onCodeClick('syriac')}
+              onClick={this.handleCodeClick}
               active={this.state.code === 'syriac'}
               title="Syriac Unicode"
             >
               Syriac
             </Button>
             <Button
+              id="hebrew"
               color="light"
-              onClick={() => this.onCodeClick('hebrew')}
+              onClick={this.handleCodeClick}
               active={this.state.code === 'hebrew'}
               title="Hebrew Unicode"
             >
@@ -178,24 +179,27 @@ export default class NumberMapper extends React.Component {
           </ButtonGroup>
           <ButtonGroup>
             <Button
+              id="arabic"
               color="light"
-              onClick={() => this.onCodeClick('arabic')}
+              onClick={this.handleCodeClick}
               active={this.state.code === 'arabic'}
               title="Arabic Unicode"
             >
               Arabic
             </Button>
             <Button
+              id="cal"
               color="light"
-              onClick={() => this.onCodeClick('cal')}
+              onClick={this.handleCodeClick}
               active={this.state.code === 'cal'}
               title="CAL ASCII Code"
             >
               CAL Code
             </Button>
             <Button
+              id="sedra"
               color="light"
-              onClick={() => this.onCodeClick('sedra')}
+              onClick={this.handleCodeClick}
               active={this.state.code === 'sedra'}
               title="Sedra ASCII Code"
             >
@@ -206,26 +210,22 @@ export default class NumberMapper extends React.Component {
         <FormGroup>
           <Input
             type="textarea"
-            name="number"
-            id="number"
             rows="3"
             title={
               this.state.numeric ? 'Number to convert' : 'Letters to convert'
             }
             className={this.getInputClass()}
-            onChange={this.onInputChange}
+            onChange={this.handleInputChange}
           />
         </FormGroup>
         <FormGroup style={{ textAlign: 'center' }}>
-          <Button color="primary" onClick={event => this.convert(event)}>
+          <Button color="primary" onClick={this.handleConvert}>
             Convert
           </Button>
         </FormGroup>
         <FormGroup>
           <Input
             type="textarea"
-            name="convertedNumber"
-            id="convertedNumber"
             rows="3"
             readOnly
             title="Converted number"
