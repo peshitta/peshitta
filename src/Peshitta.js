@@ -6,11 +6,15 @@ const Peshitta = () => (
     <p>This is currently work in progress. Following pages are ready to use:</p>
     <ul>
       <li>
-        <a href="#/about">About</a> - pronunciation and character mapping
+        <a href="#/convert/text">Convert Text</a> - convert text to different
+        representations
       </li>
       <li>
         <a href="#/convert/number">Convert Number</a> - convert number to/from
         Aramaic letters
+      </li>
+      <li>
+        <a href="#/about">About</a> - pronunciation and character mapping
       </li>
     </ul>
     Feel free to browse other unfinished pages to get a sense for where the
