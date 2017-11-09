@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, ButtonGroup, FormGroup, Input, Container } from 'reactstrap';
+import {
+  Button,
+  ButtonGroup,
+  FormGroup,
+  Input,
+  Label,
+  Container
+} from 'reactstrap';
 
 import { removeDotting as calRemoveDotting } from 'cal-code-util';
 import { removeDotting as sedraRemoveDotting } from 'sedra-code-util';
@@ -23,25 +30,23 @@ import { toCal as hebrewToCal } from 'hebrew-cal';
 import { toCal as arabicToCal } from 'arabic-cal';
 
 export default class TextMapper extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      input: '',
-      output: '',
-      niqqud: true,
-      inputCode: 'estrangela',
-      outputCode: 'ipa'
-    };
-  }
+  state = {
+    input: '',
+    output: '',
+    niqqud: true,
+    inputCode: 'estrangela',
+    outputCode: 'ipa'
+  };
 
   handleInputCodeClick = event => {
     const inputCode = event.target.dataset['code'];
-    const outputCode =
-      this.state.niqqud && inputCode === this.state.outputCode
-        ? 'ipa'
-        : this.state.outputCode;
-    this.setState({ inputCode, outputCode, output: '' });
+    this.setState(prevState => {
+      const outputCode =
+        prevState.niqqud && inputCode === prevState.outputCode
+          ? 'ipa'
+          : prevState.outputCode;
+      return { inputCode, outputCode, output: '' };
+    });
   };
 
   handleSourceChange = event => {
@@ -54,195 +59,199 @@ export default class TextMapper extends React.Component {
   };
 
   handleNiqqudClick = () => {
-    const niqqud = !this.state.niqqud;
-    const outputCode =
-      niqqud && this.state.inputCode === this.state.outputCode
-        ? 'ipa'
-        : this.state.outputCode;
-    this.setState({ niqqud, outputCode, output: '' });
+    this.setState(prevState => {
+      const niqqud = !prevState.niqqud;
+      const outputCode =
+        niqqud && prevState.inputCode === prevState.outputCode
+          ? 'ipa'
+          : prevState.outputCode;
+      return { niqqud, outputCode, output: '' };
+    });
   };
 
   handleConvert = () => {
-    const inputCode = this.state.inputCode;
-    const outputCode = this.state.outputCode;
-    const text = this.state.input;
-    const clearDotting =
-      !this.state.niqqud && outputCode !== 'ipa' && outputCode !== 'latin';
+    this.setState(prevState => {
+      const inputCode = prevState.inputCode;
+      const outputCode = prevState.outputCode;
+      const text = prevState.input;
+      const clearDotting =
+        !prevState.niqqud && outputCode !== 'ipa' && outputCode !== 'latin';
 
-    let output = '';
-    switch (inputCode) {
-      case 'estrangela':
-        output = clearDotting ? estrangelaRemoveDotting(text) : text;
-        switch (outputCode) {
-          case 'ipa':
-            output = toIpa(estrangelaToCal(output));
-            break;
-          case 'latin':
-            output = toLatin(estrangelaToCal(output));
-            break;
-          case 'syriac':
-            output = toSyriac(estrangelaToCal(output));
-            break;
-          case 'hebrew':
-            output = toHebrew(estrangelaToCal(output));
-            break;
-          case 'arabic':
-            output = toArabic(estrangelaToCal(output));
-            break;
-          case 'cal':
-            output = estrangelaToCal(output);
-            break;
-          case 'sedra':
-            output = toSedra(estrangelaToCal(output));
-            break;
-          default:
-            break;
-        }
-        break;
-      case 'syriac':
-        output = clearDotting ? syriacRemoveDotting(text) : text;
-        switch (outputCode) {
-          case 'ipa':
-            output = toIpa(syriacToCal(output));
-            break;
-          case 'latin':
-            output = toLatin(syriacToCal(output));
-            break;
-          case 'estrangela':
-            output = toEstrangela(syriacToCal(output));
-            break;
-          case 'hebrew':
-            output = toHebrew(syriacToCal(output));
-            break;
-          case 'arabic':
-            output = toArabic(syriacToCal(output));
-            break;
-          case 'cal':
-            output = syriacToCal(output);
-            break;
-          case 'sedra':
-            output = toSedra(syriacToCal(output));
-            break;
-          default:
-            break;
-        }
-        break;
-      case 'hebrew':
-        output = clearDotting ? hebrewRemoveDotting(text) : text;
-        switch (outputCode) {
-          case 'ipa':
-            output = toIpa(hebrewToCal(output));
-            break;
-          case 'latin':
-            output = toLatin(hebrewToCal(output));
-            break;
-          case 'estrangela':
-            output = toEstrangela(hebrewToCal(output));
-            break;
-          case 'syriac':
-            output = toSyriac(hebrewToCal(output));
-            break;
-          case 'arabic':
-            output = toArabic(hebrewToCal(output));
-            break;
-          case 'cal':
-            output = hebrewToCal(output);
-            break;
-          case 'sedra':
-            output = toSedra(hebrewToCal(output));
-            break;
-          default:
-            break;
-        }
-        break;
-      case 'arabic':
-        output = clearDotting ? arabicRemoveDotting(text) : text;
-        switch (outputCode) {
-          case 'ipa':
-            output = toIpa(arabicToCal(text));
-            break;
-          case 'latin':
-            output = toLatin(arabicToCal(text));
-            break;
-          case 'estrangela':
-            output = toEstrangela(arabicToCal(text));
-            break;
-          case 'syriac':
-            output = toSyriac(arabicToCal(text));
-            break;
-          case 'hebrew':
-            output = toHebrew(arabicToCal(text));
-            break;
-          case 'cal':
-            output = arabicToCal(text);
-            break;
-          case 'sedra':
-            output = toSedra(arabicToCal(text));
-            break;
-          default:
-            break;
-        }
-        break;
-      case 'cal':
-        output = clearDotting ? calRemoveDotting(text) : text;
-        switch (outputCode) {
-          case 'ipa':
-            output = toIpa(output);
-            break;
-          case 'latin':
-            output = toLatin(output);
-            break;
-          case 'estrangela':
-            output = toEstrangela(output);
-            break;
-          case 'syriac':
-            output = toSyriac(output);
-            break;
-          case 'hebrew':
-            output = toHebrew(output);
-            break;
-          case 'arabic':
-            output = toArabic(output);
-            break;
-          case 'sedra':
-            output = toSedra(output);
-            break;
-          default:
-            break;
-        }
-        break;
-      case 'sedra':
-        output = clearDotting ? sedraRemoveDotting(text) : text;
-        switch (outputCode) {
-          case 'ipa':
-            output = toIpa(sedraToCal(output));
-            break;
-          case 'latin':
-            output = toLatin(sedraToCal(output));
-            break;
-          case 'estrangela':
-            output = toEstrangela(sedraToCal(output));
-            break;
-          case 'syriac':
-            output = toSyriac(sedraToCal(output));
-            break;
-          case 'hebrew':
-            output = toHebrew(sedraToCal(output));
-            break;
-          case 'arabic':
-            output = toArabic(sedraToCal(output));
-            break;
-          case 'cal':
-            output = sedraToCal(output);
-            break;
-          default:
-            break;
-        }
-        break;
-      default:
-        break;
-    }
-    this.setState({ output });
+      let output = '';
+      switch (inputCode) {
+        case 'estrangela':
+          output = clearDotting ? estrangelaRemoveDotting(text) : text;
+          switch (outputCode) {
+            case 'ipa':
+              output = toIpa(estrangelaToCal(output));
+              break;
+            case 'latin':
+              output = toLatin(estrangelaToCal(output));
+              break;
+            case 'syriac':
+              output = toSyriac(estrangelaToCal(output));
+              break;
+            case 'hebrew':
+              output = toHebrew(estrangelaToCal(output));
+              break;
+            case 'arabic':
+              output = toArabic(estrangelaToCal(output));
+              break;
+            case 'cal':
+              output = estrangelaToCal(output);
+              break;
+            case 'sedra':
+              output = toSedra(estrangelaToCal(output));
+              break;
+            default:
+              break;
+          }
+          break;
+        case 'syriac':
+          output = clearDotting ? syriacRemoveDotting(text) : text;
+          switch (outputCode) {
+            case 'ipa':
+              output = toIpa(syriacToCal(output));
+              break;
+            case 'latin':
+              output = toLatin(syriacToCal(output));
+              break;
+            case 'estrangela':
+              output = toEstrangela(syriacToCal(output));
+              break;
+            case 'hebrew':
+              output = toHebrew(syriacToCal(output));
+              break;
+            case 'arabic':
+              output = toArabic(syriacToCal(output));
+              break;
+            case 'cal':
+              output = syriacToCal(output);
+              break;
+            case 'sedra':
+              output = toSedra(syriacToCal(output));
+              break;
+            default:
+              break;
+          }
+          break;
+        case 'hebrew':
+          output = clearDotting ? hebrewRemoveDotting(text) : text;
+          switch (outputCode) {
+            case 'ipa':
+              output = toIpa(hebrewToCal(output));
+              break;
+            case 'latin':
+              output = toLatin(hebrewToCal(output));
+              break;
+            case 'estrangela':
+              output = toEstrangela(hebrewToCal(output));
+              break;
+            case 'syriac':
+              output = toSyriac(hebrewToCal(output));
+              break;
+            case 'arabic':
+              output = toArabic(hebrewToCal(output));
+              break;
+            case 'cal':
+              output = hebrewToCal(output);
+              break;
+            case 'sedra':
+              output = toSedra(hebrewToCal(output));
+              break;
+            default:
+              break;
+          }
+          break;
+        case 'arabic':
+          output = clearDotting ? arabicRemoveDotting(text) : text;
+          switch (outputCode) {
+            case 'ipa':
+              output = toIpa(arabicToCal(text));
+              break;
+            case 'latin':
+              output = toLatin(arabicToCal(text));
+              break;
+            case 'estrangela':
+              output = toEstrangela(arabicToCal(text));
+              break;
+            case 'syriac':
+              output = toSyriac(arabicToCal(text));
+              break;
+            case 'hebrew':
+              output = toHebrew(arabicToCal(text));
+              break;
+            case 'cal':
+              output = arabicToCal(text);
+              break;
+            case 'sedra':
+              output = toSedra(arabicToCal(text));
+              break;
+            default:
+              break;
+          }
+          break;
+        case 'cal':
+          output = clearDotting ? calRemoveDotting(text) : text;
+          switch (outputCode) {
+            case 'ipa':
+              output = toIpa(output);
+              break;
+            case 'latin':
+              output = toLatin(output);
+              break;
+            case 'estrangela':
+              output = toEstrangela(output);
+              break;
+            case 'syriac':
+              output = toSyriac(output);
+              break;
+            case 'hebrew':
+              output = toHebrew(output);
+              break;
+            case 'arabic':
+              output = toArabic(output);
+              break;
+            case 'sedra':
+              output = toSedra(output);
+              break;
+            default:
+              break;
+          }
+          break;
+        case 'sedra':
+          output = clearDotting ? sedraRemoveDotting(text) : text;
+          switch (outputCode) {
+            case 'ipa':
+              output = toIpa(sedraToCal(output));
+              break;
+            case 'latin':
+              output = toLatin(sedraToCal(output));
+              break;
+            case 'estrangela':
+              output = toEstrangela(sedraToCal(output));
+              break;
+            case 'syriac':
+              output = toSyriac(sedraToCal(output));
+              break;
+            case 'hebrew':
+              output = toHebrew(sedraToCal(output));
+              break;
+            case 'arabic':
+              output = toArabic(sedraToCal(output));
+              break;
+            case 'cal':
+              output = sedraToCal(output);
+              break;
+            default:
+              break;
+          }
+          break;
+        default:
+          break;
+      }
+      return { output };
+    });
   };
 
   getClassByCode(code) {
@@ -258,9 +267,29 @@ export default class TextMapper extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.niqqudButton.style.width = this.ipaButton.style.width = this.latinButton.style.width = this.syriacInputButton.style.width = this.hebrewInputButton.style.width = this.arabicInputButton.style.width = this.calInputButton.style.width = this.sedraInputButton.style.width = this.syriacOutputButton.style.width = this.hebrewOutputButton.style.width = this.arabicOutputButton.style.width = this.calOutputButton.style.width = this.sedraOutputButton.style.width = this.estrangelaOutputButton.style.width =
+      this.estrangelaInputButton.offsetWidth + 'px';
+  }
+
+  initCap(s) {
+    return s[0].toUpperCase() + s.slice(1);
+  }
+
   render() {
     return (
       <Container>
+        <FormGroup>
+          <Label>
+            Convert {this.initCap(this.state.inputCode)} to{' '}
+            {this.state.niqqud ||
+            this.state.code === 'ipa' ||
+            this.state.code === 'latin'
+              ? ''
+              : 'consonantal'}{' '}
+            {this.initCap(this.state.outputCode)} text
+          </Label>
+        </FormGroup>
         <FormGroup>
           <ButtonGroup>
             <Button
@@ -269,6 +298,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleInputCodeClick}
               active={this.state.inputCode === 'estrangela'}
               title="Estrangela ASCII code"
+              innerRef={button => (this.estrangelaInputButton = button)}
             >
               Estrangela
             </Button>
@@ -278,6 +308,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleInputCodeClick}
               active={this.state.inputCode === 'syriac'}
               title="Syriac Unicode"
+              innerRef={button => (this.syriacInputButton = button)}
             >
               Syriac
             </Button>
@@ -287,6 +318,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleInputCodeClick}
               active={this.state.inputCode === 'hebrew'}
               title="Hebrew Unicode"
+              innerRef={button => (this.hebrewInputButton = button)}
             >
               Hebrew
             </Button>
@@ -298,6 +330,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleInputCodeClick}
               active={this.state.inputCode === 'arabic'}
               title="Arabic Unicode"
+              innerRef={button => (this.arabicInputButton = button)}
             >
               Arabic
             </Button>
@@ -307,6 +340,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleInputCodeClick}
               active={this.state.inputCode === 'cal'}
               title="CAL ASCII Code"
+              innerRef={button => (this.calInputButton = button)}
             >
               CAL Code
             </Button>
@@ -316,6 +350,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleInputCodeClick}
               active={this.state.inputCode === 'sedra'}
               title="Sedra ASCII Code"
+              innerRef={button => (this.sedraInputButton = button)}
             >
               Sedra
             </Button>
@@ -338,6 +373,7 @@ export default class TextMapper extends React.Component {
               onClick={this.handleOutputCodeClick}
               active={this.state.outputCode === 'ipa'}
               title="IPA Unicode"
+              innerRef={button => (this.ipaButton = button)}
             >
               IPA code
             </Button>
@@ -347,8 +383,20 @@ export default class TextMapper extends React.Component {
               onClick={this.handleOutputCodeClick}
               active={this.state.outputCode === 'latin'}
               title="Latin Unicode"
+              innerRef={button => (this.latinButton = button)}
             >
               Latin
+            </Button>
+          </ButtonGroup>
+          <ButtonGroup>
+            <Button
+              color="light"
+              onClick={this.handleNiqqudClick}
+              active={this.state.niqqud}
+              title="Include vowels and diacritics"
+              innerRef={button => (this.niqqudButton = button)}
+            >
+              Niqqud
             </Button>
           </ButtonGroup>
           <ButtonGroup>
@@ -361,6 +409,7 @@ export default class TextMapper extends React.Component {
               }
               active={this.state.outputCode === 'estrangela'}
               title="Estrangela ASCII code"
+              innerRef={button => (this.estrangelaOutputButton = button)}
             >
               Estrangela
             </Button>
@@ -371,6 +420,7 @@ export default class TextMapper extends React.Component {
               disabled={this.state.niqqud && this.state.inputCode === 'syriac'}
               active={this.state.outputCode === 'syriac'}
               title="Syriac Unicode"
+              innerRef={button => (this.syriacOutputButton = button)}
             >
               Syriac
             </Button>
@@ -381,6 +431,7 @@ export default class TextMapper extends React.Component {
               disabled={this.state.niqqud && this.state.inputCode === 'hebrew'}
               active={this.state.outputCode === 'hebrew'}
               title="Hebrew Unicode"
+              innerRef={button => (this.hebrewOutputButton = button)}
             >
               Hebrew
             </Button>
@@ -393,6 +444,7 @@ export default class TextMapper extends React.Component {
               disabled={this.state.niqqud && this.state.inputCode === 'arabic'}
               active={this.state.outputCode === 'arabic'}
               title="Arabic Unicode"
+              innerRef={button => (this.arabicOutputButton = button)}
             >
               Arabic
             </Button>
@@ -403,6 +455,7 @@ export default class TextMapper extends React.Component {
               disabled={this.state.niqqud && this.state.inputCode === 'cal'}
               active={this.state.outputCode === 'cal'}
               title="CAL ASCII Code"
+              innerRef={button => (this.calOutputButton = button)}
             >
               CAL Code
             </Button>
@@ -413,18 +466,9 @@ export default class TextMapper extends React.Component {
               disabled={this.state.niqqud && this.state.inputCode === 'sedra'}
               active={this.state.outputCode === 'sedra'}
               title="Sedra ASCII Code"
+              innerRef={button => (this.sedraOutputButton = button)}
             >
               Sedra
-            </Button>
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button
-              color="light"
-              onClick={this.handleNiqqudClick}
-              active={this.state.niqqud}
-              title="Include vowels and diacritics"
-            >
-              Niqqud
             </Button>
           </ButtonGroup>
         </FormGroup>
