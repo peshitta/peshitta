@@ -18,24 +18,24 @@ import { toSedra } from 'cal-sedra';
 const nonNumeric = /[^0-9]+/gi;
 
 export default class NumberMapper extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      input: '',
-      output: '',
-      numeric: true,
-      positional: true,
-      code: 'estrangela'
-    };
-  }
+  state = {
+    input: '',
+    output: '',
+    numeric: true,
+    positional: true,
+    code: 'estrangela'
+  };
 
   handleNumericClick = () => {
-    this.setState({ numeric: !this.state.numeric, input: '', output: '' });
+    this.setState(prevState => ({
+      numeric: !prevState.numeric,
+      input: '',
+      output: ''
+    }));
   };
 
   handlePositionalClick = () => {
-    this.setState({ positional: !this.state.positional });
+    this.setState(prevState => ({ positional: !prevState.positional }));
   };
 
   handleCodeClick = event => {
@@ -44,63 +44,64 @@ export default class NumberMapper extends React.Component {
 
   handleInputChange = event => {
     let val = event.target.value.trim();
-    if (this.state.numeric) {
-      val = val.replace(nonNumeric, '');
-    }
-    this.setState({ input: val });
+    this.setState(prevState => {
+      if (prevState.numeric) {
+        val = val.replace(nonNumeric, '');
+      }
+      return { input: val };
+    });
   };
 
   handleConvert = () => {
-    let val = this.state.input;
-    if (!val) {
-      this.setState({ output: '' });
-      return;
-    }
-
-    if (this.state.numeric) {
-      val = Number.parseInt(val, 10);
-    } else {
-      switch (this.state.code) {
-        case 'estrangela':
-          val = estrangelaToCal(val);
-          break;
-        case 'arabic':
-          val = arabicToCal(val);
-          break;
-        case 'sedra':
-          val = sedraToCal(val);
-          break;
-        default:
-          break;
+    this.setState(prevState => {
+      let val = prevState.input;
+      if (!val) {
+        return { output: '' };
       }
-    }
-
-    const converter =
-      this.state.code === 'hebrew' || this.state.code === 'syriac'
-        ? new AramaicNumber(this.state.code)
-        : new AramaicNumber('cal');
-    let convertedVal =
-      this.state.numeric || this.state.positional
-        ? converter.getNumber(val)
-        : converter.getNumber(val, true);
-
-    if (this.state.numeric) {
-      switch (this.state.code) {
-        case 'estrangela':
-          convertedVal = toEstrangela(convertedVal);
-          break;
-        case 'arabic':
-          convertedVal = toArabic(convertedVal);
-          break;
-        case 'sedra':
-          convertedVal = toSedra(convertedVal);
-          break;
-        default:
-          break;
+      if (prevState.numeric) {
+        val = Number.parseInt(val, 10);
+      } else {
+        switch (prevState.code) {
+          case 'estrangela':
+            val = estrangelaToCal(val);
+            break;
+          case 'arabic':
+            val = arabicToCal(val);
+            break;
+          case 'sedra':
+            val = sedraToCal(val);
+            break;
+          default:
+            break;
+        }
       }
-    }
 
-    this.setState({ output: convertedVal });
+      const converter =
+        prevState.code === 'hebrew' || prevState.code === 'syriac'
+          ? new AramaicNumber(prevState.code)
+          : new AramaicNumber('cal');
+      let convertedVal =
+        prevState.numeric || prevState.positional
+          ? converter.getNumber(val)
+          : converter.getNumber(val, true);
+
+      if (prevState.numeric) {
+        switch (prevState.code) {
+          case 'estrangela':
+            convertedVal = toEstrangela(convertedVal);
+            break;
+          case 'arabic':
+            convertedVal = toArabic(convertedVal);
+            break;
+          case 'sedra':
+            convertedVal = toSedra(convertedVal);
+            break;
+          default:
+            break;
+        }
+      }
+      return { output: convertedVal };
+    });
   };
 
   getInputClass() {
@@ -124,35 +125,34 @@ export default class NumberMapper extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.numberButton.style.width = this.positionalButton.style.width = this.syriacButton.style.width = this.hebrewButton.style.width = this.arabicButton.style.width = this.calButton.style.width = this.sedraButton.style.width =
+      this.estrangelaButton.offsetWidth + 'px';
+  }
+
+  initCap(s) {
+    return s[0].toUpperCase() + s.slice(1);
+  }
+
   render() {
     return (
       <Container>
         <FormGroup>
-          <Label style={{ fontSize: 'larger' }}>
-            Number to or from Aramaic letters
+          <Label>
+            <span>
+              {this.state.numeric
+                ? 'Number'
+                : this.initCap(this.state.code) + ' letters'}
+            </span>{' '}
+            to{' '}
+            <span>
+              {this.state.numeric
+                ? this.initCap(this.state.code) + ' letters'
+                : 'Number'}
+            </span>
           </Label>
         </FormGroup>
         <FormGroup>
-          <ButtonGroup>
-            <Button
-              color="light"
-              onClick={this.handleNumericClick}
-              active={this.state.numeric}
-              title="Input is a number"
-            >
-              Number
-            </Button>
-            <Button
-              color="light"
-              onClick={this.handlePositionalClick}
-              active={this.state.positional}
-              disabled={this.state.numeric}
-              title="Use letter position when computing number"
-            >
-              Positional
-            </Button>
-          </ButtonGroup>
-          &nbsp;
           <ButtonGroup>
             <Button
               id="estrangela"
@@ -160,6 +160,7 @@ export default class NumberMapper extends React.Component {
               onClick={this.handleCodeClick}
               active={this.state.code === 'estrangela'}
               title="Estrangela ASCII code"
+              innerRef={button => (this.estrangelaButton = button)}
             >
               Estrangela
             </Button>
@@ -169,6 +170,7 @@ export default class NumberMapper extends React.Component {
               onClick={this.handleCodeClick}
               active={this.state.code === 'syriac'}
               title="Syriac Unicode"
+              innerRef={button => (this.syriacButton = button)}
             >
               Syriac
             </Button>
@@ -178,6 +180,7 @@ export default class NumberMapper extends React.Component {
               onClick={this.handleCodeClick}
               active={this.state.code === 'hebrew'}
               title="Hebrew Unicode"
+              innerRef={button => (this.hebrewButton = button)}
             >
               Hebrew
             </Button>
@@ -189,6 +192,7 @@ export default class NumberMapper extends React.Component {
               onClick={this.handleCodeClick}
               active={this.state.code === 'arabic'}
               title="Arabic Unicode"
+              innerRef={button => (this.arabicButton = button)}
             >
               Arabic
             </Button>
@@ -198,6 +202,7 @@ export default class NumberMapper extends React.Component {
               onClick={this.handleCodeClick}
               active={this.state.code === 'cal'}
               title="CAL ASCII Code"
+              innerRef={button => (this.calButton = button)}
             >
               CAL Code
             </Button>
@@ -207,8 +212,31 @@ export default class NumberMapper extends React.Component {
               onClick={this.handleCodeClick}
               active={this.state.code === 'sedra'}
               title="Sedra ASCII Code"
+              innerRef={button => (this.sedraButton = button)}
             >
               Sedra
+            </Button>
+          </ButtonGroup>
+          &nbsp;
+          <ButtonGroup>
+            <Button
+              color="light"
+              onClick={this.handleNumericClick}
+              active={this.state.numeric}
+              title="Input is a number"
+              innerRef={button => (this.numberButton = button)}
+            >
+              Number
+            </Button>
+            <Button
+              color="light"
+              onClick={this.handlePositionalClick}
+              active={this.state.positional}
+              disabled={this.state.numeric}
+              title="Use letter position when computing number"
+              innerRef={button => (this.positionalButton = button)}
+            >
+              Positional
             </Button>
           </ButtonGroup>
         </FormGroup>
