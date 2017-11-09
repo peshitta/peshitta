@@ -281,13 +281,14 @@ export default class TextMapper extends React.Component {
       <Container>
         <FormGroup>
           <Label>
-            Convert {this.initCap(this.state.inputCode)} to{' '}
+            {this.initCap(this.state.inputCode)} to{' '}
+            {this.initCap(this.state.outputCode)}{' '}
             {this.state.niqqud ||
-            this.state.code === 'ipa' ||
-            this.state.code === 'latin'
+            this.state.outputCode === 'ipa' ||
+            this.state.outputCode === 'latin'
               ? ''
-              : 'consonantal'}{' '}
-            {this.initCap(this.state.outputCode)} text
+              : 'consonant'}{' '}
+            text
           </Label>
         </FormGroup>
         <FormGroup>
@@ -387,8 +388,6 @@ export default class TextMapper extends React.Component {
             >
               Latin
             </Button>
-          </ButtonGroup>
-          <ButtonGroup>
             <Button
               color="light"
               onClick={this.handleNiqqudClick}
