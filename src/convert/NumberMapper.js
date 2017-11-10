@@ -290,6 +290,7 @@ export default class NumberMapper extends React.Component {
         <FormGroup>
           <Input
             type="input"
+            style={{ textAlign: 'center' }}
             title={
               this.state.numeric ? 'Number to convert' : 'Letters to convert'
             }
@@ -308,6 +309,7 @@ export default class NumberMapper extends React.Component {
         <FormGroup>
           <Input
             type="input"
+            style={{ textAlign: 'center' }}
             readOnly
             title="Converted number"
             className={this.getOutputClass()}
