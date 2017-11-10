@@ -15,7 +15,13 @@ import { toEstrangela } from 'cal-estrangela';
 import { toArabic } from 'cal-arabic';
 import { toSedra } from 'cal-sedra';
 
-const nonNumeric = /[^0-9]+/gi;
+const nonNumberRegExp = /[^0-9]+/g;
+const estrangelaNonNumberRegExp = /[^0bgdhwzx=yklmns9pcqr4tfFBGX+YKLMNS(PQ$<J]+/g;
+const syriacNonNumberRegExp = /[^ܐܒܓܕܗܘܙܚܛܝܟܠܡܢܣܥܦܨܩܪܫܬ]+/;
+const hebrewNonNumberRegExp = /[^'"אבגדהוזחטיכלמנסעפצקרשת״׳]+/g;
+const arabicNonNumberRegExp = /[^ابجدهوزحطيكلمنسعفصقرشت]+/g;
+const calNonNumberRegExp = /[^)bgdhwzxTyklmns(pcqr$t]+/g;
+const sedraNonNumberRegExp = /[^ABGDHOZKY;CLMNSEI/XRWT]+/g;
 
 export default class NumberMapper extends React.Component {
   state = {
@@ -32,30 +38,70 @@ export default class NumberMapper extends React.Component {
       input: '',
       output: ''
     }));
+    this.inputElement.focus();
   };
 
   handlePositionalClick = () => {
     this.setState(prevState => ({ positional: !prevState.positional }));
+    this.inputElement.focus();
   };
 
   handleCodeClick = event => {
-    this.setState({ code: event.target.id, output: '' });
+    this.setState({ code: event.target.id }, () => {
+      if (this.state.numeric) {
+        this.handleConvert();
+      } else {
+        this.setState({ input: '', output: '' });
+      }
+      this.inputElement.focus();
+    });
   };
 
   handleInputChange = event => {
     let val = event.target.value.trim();
     this.setState(prevState => {
+      let input = val;
       if (prevState.numeric) {
-        val = val.replace(nonNumeric, '');
+        input = val.replace(nonNumberRegExp, '');
+        return { input };
       }
-      return { input: val };
+      switch (prevState.code) {
+        case 'estrangela':
+          input = val.replace(estrangelaNonNumberRegExp, '');
+          break;
+        case 'syriac':
+          input = val.replace(syriacNonNumberRegExp, '');
+          break;
+        case 'hebrew':
+          input = val.replace(hebrewNonNumberRegExp, '');
+          break;
+        case 'arabic':
+          input = val.replace(arabicNonNumberRegExp, '');
+          break;
+        case 'cal':
+          input = val.replace(calNonNumberRegExp, '');
+          break;
+        case 'sedra':
+          input = val.replace(sedraNonNumberRegExp, '');
+          break;
+        default:
+          break;
+      }
+      return { input };
     });
+  };
+
+  handleInputKeyPress = event => {
+    if (event.charCode === 13) {
+      this.handleConvert();
+    }
   };
 
   handleConvert = () => {
     this.setState(prevState => {
       let val = prevState.input;
       if (!val) {
+        this.inputElement.focus();
         return { output: '' };
       }
       if (prevState.numeric) {
@@ -100,6 +146,7 @@ export default class NumberMapper extends React.Component {
             break;
         }
       }
+      this.outputElement.focus();
       return { output: convertedVal };
     });
   };
@@ -242,14 +289,15 @@ export default class NumberMapper extends React.Component {
         </FormGroup>
         <FormGroup>
           <Input
-            type="textarea"
-            rows="3"
+            type="input"
             title={
               this.state.numeric ? 'Number to convert' : 'Letters to convert'
             }
             className={this.getInputClass()}
             onChange={this.handleInputChange}
+            onKeyPress={this.handleInputKeyPress}
             value={this.state.input}
+            innerRef={input => (this.inputElement = input)}
           />
         </FormGroup>
         <FormGroup style={{ textAlign: 'center' }}>
@@ -259,12 +307,12 @@ export default class NumberMapper extends React.Component {
         </FormGroup>
         <FormGroup>
           <Input
-            type="textarea"
-            rows="3"
+            type="input"
             readOnly
             title="Converted number"
             className={this.getOutputClass()}
             value={this.state.output}
+            innerRef={input => (this.outputElement = input)}
           />
         </FormGroup>
       </Container>

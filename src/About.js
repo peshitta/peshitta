@@ -93,7 +93,15 @@ const About = () => (
           </thead>
           <tbody>
             <tr>
-              <td style={{ textAlign: 'left' }}>IPA</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="http://www.ipachart.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  IPA
+                </a>
+              </td>
               <td title="ܐ">{toIpa(calConsonants.alaph)}</td>
               <td title="ܒ">
                 <a
@@ -271,7 +279,15 @@ const About = () => (
             </tr>
 
             <tr>
-              <td style={{ textAlign: 'left' }}>Latin</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="https://en.wikipedia.org/wiki/Help:IPA/Latin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Latin
+                </a>
+              </td>
               <td title="ܐ">{toPhonetic(calConsonants.alaph)}</td>
               <td title="ܒ">
                 <a
@@ -449,7 +465,15 @@ const About = () => (
             </tr>
 
             <tr>
-              <td style={{ textAlign: 'left' }}>Sedra</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="https://sedra.bethmardutho.org/about/fonts"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Sedra
+                </a>
+              </td>
               <td title="ܐ">{toSedra(calConsonants.alaph)}</td>
               <td title="ܒ">{toSedra(calConsonants.beth)}</td>
               <td title="ܓ">{toSedra(calConsonants.gamal)}</td>
@@ -480,7 +504,15 @@ const About = () => (
             </tr>
 
             <tr>
-              <td style={{ textAlign: 'left' }}>Aramaic</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="http://www.peshitta.org/initial/standard.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Estrangela
+                </a>
+              </td>
               <td className="estrangela" title=")">
                 {toEstrangela(calConsonants.alaph)}
               </td>
@@ -555,7 +587,15 @@ const About = () => (
             </tr>
 
             <tr>
-              <td style={{ textAlign: 'left' }}>Hebrew</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="https://en.wikipedia.org/wiki/Hebrew_alphabet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hebrew
+                </a>
+              </td>
               <td className="semitic" title=")">
                 {toHebrew(calConsonants.alaph)}
               </td>
@@ -630,7 +670,15 @@ const About = () => (
             </tr>
 
             <tr>
-              <td style={{ textAlign: 'left' }}>Syriac</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="https://en.wikipedia.org/wiki/Syriac_alphabet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Syriac
+                </a>
+              </td>
               <td className="syriac" title=")">
                 {toSyriac(calConsonants.alaph)}
               </td>
@@ -705,7 +753,15 @@ const About = () => (
             </tr>
 
             <tr>
-              <td style={{ textAlign: 'left' }}>Arabic</td>
+              <td style={{ textAlign: 'left' }}>
+                <a
+                  href="https://en.wikipedia.org/wiki/Arabic_alphabet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Arabic
+                </a>
+              </td>
               <td className="semitic" title=")">
                 {toArabic(calConsonants.alaph)}
               </td>
@@ -928,7 +984,7 @@ const About = () => (
               <td title="ܘܿ">{toSedra(calVowels.rwaha)}</td>
             </tr>
             <tr>
-              <td style={{ textAlign: 'left' }}>Aramaic</td>
+              <td style={{ textAlign: 'left' }}>Estrangela</td>
               <td title="a" className="estrangela">
                 {toEstrangela(calConsonants.alaph + calVowels.pthaha)}
               </td>
@@ -1131,7 +1187,7 @@ const About = () => (
               </td>
             </tr>
             <tr>
-              <td style={{ textAlign: 'left' }}>Aramaic</td>
+              <td style={{ textAlign: 'left' }}>Estrangela</td>
               <td title="'" className="estrangela">
                 {toEstrangela(calConsonants.dalath + calDiacritics.qushaya)}
               </td>
@@ -1198,7 +1254,13 @@ const About = () => (
     </Row>
     <Row>
       <Col>
-        Begadkepat
+        <a
+          href="https://en.wikipedia.org/wiki/Begadkefat"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Begadkepat
+        </a>
         <Table responsive hover bordered>
           <thead>
             <tr>
@@ -1227,7 +1289,7 @@ const About = () => (
                   verticalAlign: 'top'
                 }}
               >
-                Aramaic
+                Estrangela
               </th>
               <th className="estrangela">
                 {toEstrangela(calConsonants.beth + calDiacritics.qushaya)}
