@@ -264,7 +264,6 @@ export default class NumberMapper extends React.Component {
               Sedra
             </Button>
           </ButtonGroup>
-          &nbsp;
           <ButtonGroup>
             <Button
               color="light"

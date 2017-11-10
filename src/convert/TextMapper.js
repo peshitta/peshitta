@@ -45,28 +45,36 @@ export default class TextMapper extends React.Component {
         prevState.niqqud && inputCode === prevState.outputCode
           ? 'ipa'
           : prevState.outputCode;
-      return { inputCode, outputCode, output: '' };
+      return { inputCode, outputCode, input: '', output: '' };
     });
+    this.inputElement.focus();
   };
 
   handleSourceChange = event => {
-    this.setState({ input: event.target.value.trim() });
+    this.setState({ input: event.target.value });
   };
 
   handleOutputCodeClick = event => {
     const outputCode = event.target.dataset['code'];
-    this.setState({ outputCode, output: '' });
+    this.setState({ outputCode }, () => {
+      this.handleConvert();
+    });
   };
 
   handleNiqqudClick = () => {
-    this.setState(prevState => {
-      const niqqud = !prevState.niqqud;
-      const outputCode =
-        niqqud && prevState.inputCode === prevState.outputCode
-          ? 'ipa'
-          : prevState.outputCode;
-      return { niqqud, outputCode, output: '' };
-    });
+    this.setState(
+      prevState => {
+        const niqqud = !prevState.niqqud;
+        const outputCode =
+          niqqud && prevState.inputCode === prevState.outputCode
+            ? 'ipa'
+            : prevState.outputCode;
+        return { niqqud, outputCode, output: '' };
+      },
+      () => {
+        this.handleConvert();
+      }
+    );
   };
 
   handleConvert = () => {
@@ -76,8 +84,12 @@ export default class TextMapper extends React.Component {
       const text = prevState.input;
       const clearDotting =
         !prevState.niqqud && outputCode !== 'ipa' && outputCode !== 'latin';
-
       let output = '';
+      if (!text) {
+        this.inputElement.focus();
+        return { output };
+      }
+
       switch (inputCode) {
         case 'estrangela':
           output = clearDotting ? estrangelaRemoveDotting(text) : text;
@@ -250,6 +262,7 @@ export default class TextMapper extends React.Component {
         default:
           break;
       }
+      this.outputElement.focus();
       return { output };
     });
   };
@@ -360,10 +373,12 @@ export default class TextMapper extends React.Component {
         <FormGroup>
           <Input
             type="textarea"
+            innerRef={input => (this.inputElement = input)}
             rows="3"
             title="Source text"
             className={this.getClassByCode(this.state.inputCode)}
             onChange={this.handleSourceChange}
+            value={this.state.input}
           />
         </FormGroup>
         <FormGroup>
@@ -479,6 +494,7 @@ export default class TextMapper extends React.Component {
         <FormGroup>
           <Input
             type="textarea"
+            innerRef={input => (this.outputElement = input)}
             rows="3"
             readOnly
             title="Converted text"
