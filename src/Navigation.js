@@ -69,6 +69,9 @@ export default class Navigation extends React.Component {
                 </DropdownMenu>
               </NavDropdown>
               <NavItem>
+                <NavLink href="#/settings">Settings</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink href="#/about">About</NavLink>
               </NavItem>
             </Nav>

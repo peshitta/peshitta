@@ -7,6 +7,7 @@ import {
   Label,
   Container
 } from 'reactstrap';
+import { initCap } from '../util';
 
 import { removeDotting as calRemoveDotting } from 'cal-code-util';
 import { removeDotting as sedraRemoveDotting } from 'sedra-code-util';
@@ -285,17 +286,13 @@ export default class TextMapper extends React.Component {
       this.estrangelaInputButton.offsetWidth + 'px';
   }
 
-  initCap(s) {
-    return s[0].toUpperCase() + s.slice(1);
-  }
-
   render() {
     return (
       <Container>
         <FormGroup>
           <Label>
-            {this.initCap(this.state.inputCode)} to{' '}
-            {this.initCap(this.state.outputCode)}{' '}
+            {initCap(this.state.inputCode)} to{' '}
+            {initCap(this.state.outputCode)}{' '}
             {this.state.niqqud ||
             this.state.outputCode === 'ipa' ||
             this.state.outputCode === 'latin'

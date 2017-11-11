@@ -14,6 +14,7 @@ import { toCal as sedraToCal } from 'sedra-cal';
 import { toEstrangela } from 'cal-estrangela';
 import { toArabic } from 'cal-arabic';
 import { toSedra } from 'cal-sedra';
+import { initCap } from '../util';
 
 const nonNumberRegExp = /[^0-9]+/g;
 const estrangelaNonNumberRegExp = /[^0bgdhwzx=yklmns9pcqr4tfFBGX+YKLMNS(PQ$<J]+/g;
@@ -177,10 +178,6 @@ export default class NumberMapper extends React.Component {
       this.estrangelaButton.offsetWidth + 'px';
   }
 
-  initCap(s) {
-    return s[0].toUpperCase() + s.slice(1);
-  }
-
   render() {
     return (
       <Container>
@@ -189,12 +186,12 @@ export default class NumberMapper extends React.Component {
             <span>
               {this.state.numeric
                 ? 'Number'
-                : this.initCap(this.state.code) + ' letters'}
+                : initCap(this.state.code) + ' letters'}
             </span>{' '}
             to{' '}
             <span>
               {this.state.numeric
-                ? this.initCap(this.state.code) + ' letters'
+                ? initCap(this.state.code) + ' letters'
                 : 'Number'}
             </span>
           </Label>
