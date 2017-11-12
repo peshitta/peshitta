@@ -15,28 +15,29 @@ import {
 import logo from './logo.jpg';
 
 export default class Navigation extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    navbarCollapsed: true,
+    convertDropdownOpen: false,
+    dataDropdownOpen: false
+  };
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.toggleMap = this.toggleMap.bind(this);
-    this.state = {
-      collapsed: true,
-      dropdownOpen: false
-    };
-  }
+  toggleNavbar = () => {
+    this.setState(prevState => ({
+      navbarCollapsed: !prevState.navbarCollapsed
+    }));
+  };
 
-  toggleNavbar() {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
+  toggleConvert = () => {
+    this.setState(prevState => ({
+      convertDropdownOpen: !prevState.convertDropdownOpen
+    }));
+  };
 
-  toggleMap() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
-  }
+  toggleData = () => {
+    this.setState(prevState => ({
+      dataDropdownOpen: !prevState.dataDropdownOpen
+    }));
+  };
 
   render() {
     return (
@@ -46,14 +47,39 @@ export default class Navigation extends React.Component {
             <img src={logo} className="App-logo" alt="Peshitta Logo" />
           </NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} />
-          <Collapse isOpen={this.state.collapsed} navbar>
+          <Collapse isOpen={this.state.navbarCollapsed} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink href="#/">Peshitta</NavLink>
               </NavItem>
               <NavDropdown
-                isOpen={this.state.dropdownOpen}
-                toggle={this.toggleMap}
+                isOpen={this.state.dataDropdownOpen}
+                toggle={this.toggleData}
+              >
+                <DropdownToggle nav caret>
+                  Lexicon
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem>
+                    <NavLink href="#/lexicon/root">Root</NavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href="#/lexicon/lexeme">Lexeme</NavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href="#/lexicon/word">Word</NavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href="#/lexicon/english">English</NavLink>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href="#/lexicon/etymology">Etymology</NavLink>
+                  </DropdownItem>
+                </DropdownMenu>
+              </NavDropdown>
+              <NavDropdown
+                isOpen={this.state.convertDropdownOpen}
+                toggle={this.toggleConvert}
               >
                 <DropdownToggle nav caret>
                   Convert

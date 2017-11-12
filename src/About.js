@@ -41,11 +41,11 @@ const About = () => (
       </a>.
     </p>
     <p>
-      For vowel pronunciation see{' '}
+      For vowel pronunciation follow the links for each individual vowel or see{' '}
       <a href="https://en.wikipedia.org/wiki/IPA_vowel_chart_with_audio">
         IPA vowel chart with audio
       </a>{' '}
-      or follow the links for each individual vowel.
+      .
     </p>
     <Row>
       <Col>

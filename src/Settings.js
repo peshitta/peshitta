@@ -5,12 +5,16 @@ import {
   ButtonGroup,
   FormGroup,
   Label,
-  Input
+  Input,
+  Row,
+  Col
 } from 'reactstrap';
 import { initCap } from './util';
 
 export default class Settings extends React.Component {
   state = {
+    version: 'eastern',
+    filter: 'none',
     searchCode: 'cal',
     niqqud: true,
     transliteration: {
@@ -23,6 +27,30 @@ export default class Settings extends React.Component {
       cal: false,
       sedra: false
     }
+  };
+
+  handleVersionChange = event => {
+    const version = event.target.value;
+    this.setState(prevState => {
+      let filter = prevState.filter;
+      if (
+        version === 'eastern' &&
+        (filter === 'western' ||
+          filter === '2pet' ||
+          filter === '2jn' ||
+          filter === '3jn' ||
+          filter === 'jude' ||
+          filter === 'rev')
+      ) {
+        filter = 'none';
+      }
+      return { version, filter };
+    });
+  };
+
+  handleFilterChange = event => {
+    const filter = event.target.value;
+    this.setState({ filter });
   };
 
   handleTransliterationClick = event => {
@@ -53,15 +81,80 @@ export default class Settings extends React.Component {
   render() {
     return (
       <Container>
-        <FormGroup>
-          <Label for="viewSelect">Peshitta View</Label>
-          <Input type="select" id="viewSelect">
+        <FormGroup title="Select Peshitta version to use">
+          <Label for="versionSelect">Peshitta Version</Label>
+          <Input
+            type="select"
+            id="versionSelect"
+            value={this.state.version}
+            onChange={this.handleVersionChange}
+          >
             <option value="eastern">Eastern Peshitta</option>
-            <option value="western">Western Peshitta</option>
             <option value="ubs">UBS Peshitta</option>
+            <option value="western" disabled>
+              Western Peshitta
+            </option>
+            <option value="khaboris" disabled>
+              Khaboris Codex
+            </option>
           </Input>
         </FormGroup>
-        <Label>Transliteration</Label>
+        <FormGroup title="Display only a subset of Peshitta books">
+          <Label for="filterSelect">Apply Filter</Label>
+          <Input
+            type="select"
+            id="filterSelect"
+            onChange={this.handleFilterChange}
+            value={this.state.filter}
+          >
+            <option value="none">None</option>
+            <optgroup label="Gospels">
+              <option value="gospels">All Gospels</option>
+              <option value="mt">Matthew</option>
+              <option value="mk">Mark</option>
+              <option value="lk">Luke</option>
+              <option value="jn">John</option>
+            </optgroup>
+            <optgroup label="General">
+              <option value="general">All General</option>
+              <option value="acts">Acts of the Apostles</option>
+              <option value="jas">James</option>
+              <option value="1pet">1 Peter</option>
+              <option value="1jn">1 John</option>
+            </optgroup>
+            <optgroup label="Paulines">
+              <option value="paulines">All Paulines</option>
+              <option value="rom">Romans</option>
+              <option value="1cor">1 Corinthians</option>
+              <option value="2cor">2 Corinthians</option>
+              <option value="gal">Galatians</option>
+              <option value="eph">Ephesians</option>
+              <option value="phil">Philippians</option>
+              <option value="col">Colossians</option>
+              <option value="1thes">1 Thessalonians</option>
+              <option value="2thes">2 Thessalonians</option>
+              <option value="1tim">1 Timothy</option>
+              <option value="2tim">2 Timothy</option>
+              <option value="tit">Titus</option>
+              <option value="philem">Philemon</option>
+              <option value="heb">Hebrews</option>
+            </optgroup>
+            <optgroup
+              label="Western"
+              disabled={this.state.version === 'eastern'}
+            >
+              <option value="western">All Western</option>
+              <option value="2pet">2 Peter</option>
+              <option value="2jn">2 John</option>
+              <option value="3jn">3 John</option>
+              <option value="jude">Jude</option>
+              <option value="rev">Revelation</option>
+            </optgroup>
+          </Input>
+        </FormGroup>
+        <Label title="Display selected transliterations or none if no selection">
+          Transliteration
+        </Label>
         <FormGroup>
           <ButtonGroup>
             <Button
@@ -166,7 +259,9 @@ export default class Settings extends React.Component {
             </Button>
           </ButtonGroup>
         </FormGroup>
-        <Label>{initCap(this.state.searchCode)} Search Input</Label>
+        <Label title="Font to use for search inputs">
+          Using {initCap(this.state.searchCode)} for Search Input
+        </Label>
         <FormGroup>
           <ButtonGroup>
             <Button
@@ -239,9 +334,28 @@ export default class Settings extends React.Component {
             </Button>
           </ButtonGroup>
         </FormGroup>
-        <FormGroup>
-          <Button color="primary">Refresh Application</Button>
-        </FormGroup>
+        <Row>
+          <Col>
+            <Button
+              title="Clear cached computed data to release memory"
+              color="primary"
+              onClick={() => {}}
+            >
+              Clear Cached
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              title="Get latest content from server"
+              color="warning"
+              onClick={() => {
+                window.location.reload(true);
+              }}
+            >
+              Upgrade App
+            </Button>
+          </Col>
+        </Row>
       </Container>
     );
   }
