@@ -24,6 +24,28 @@ const About = () => (
       >
         {' '}
         https://github.com/peshitta/peshitta
+      </a>{' '}
+      . To read quick updates about the app or post questions or feedback,
+      follow{' '}
+      <a
+        href="https://www.twitter.com/peshittap"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        @peshittap
+      </a>{' '}
+      at{' '}
+      <a
+        href="https://www.twitter.com/peshittap"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://i.imgur.com/tXSoThF.png"
+          alt="@peshittap"
+          title="@peshittap"
+          style={{ maxWidth: '100%' }}
+        />
       </a>
     </p>
     <p>
