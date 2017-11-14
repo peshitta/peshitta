@@ -56,24 +56,24 @@ export default class Navigation extends React.Component {
                 isOpen={this.state.dataDropdownOpen}
                 toggle={this.toggleData}
               >
-                <DropdownToggle nav caret>
+                <DropdownToggle nav caret disabled>
                   Lexicon
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem>
-                    <NavLink href="#/lexicon/root">Root</NavLink>
+                    <NavLink href="#/db/root">Root</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href="#/lexicon/lexeme">Lexeme</NavLink>
+                    <NavLink href="#/db/lexeme">Lexeme</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href="#/lexicon/word">Word</NavLink>
+                    <NavLink href="#/db/word">Word</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href="#/lexicon/english">English</NavLink>
+                    <NavLink href="#/db/english">English</NavLink>
                   </DropdownItem>
                   <DropdownItem>
-                    <NavLink href="#/lexicon/etymology">Etymology</NavLink>
+                    <NavLink href="#/db/etymology">Etymology</NavLink>
                   </DropdownItem>
                 </DropdownMenu>
               </NavDropdown>
@@ -86,11 +86,11 @@ export default class Navigation extends React.Component {
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem>
-                    <NavLink href="#/convert/text">Text</NavLink>
+                    <NavLink href="#/map/text">Text</NavLink>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
-                    <NavLink href="#/convert/number">Number</NavLink>
+                    <NavLink href="#/map/number">Number</NavLink>
                   </DropdownItem>
                 </DropdownMenu>
               </NavDropdown>

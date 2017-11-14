@@ -30,7 +30,7 @@ import { toCal as syriacToCal } from 'syriac-cal';
 import { toCal as hebrewToCal } from 'hebrew-cal';
 import { toCal as arabicToCal } from 'arabic-cal';
 
-export default class TextMapper extends React.Component {
+export default class MapText extends React.Component {
   state = {
     input: '',
     output: '',

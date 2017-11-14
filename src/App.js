@@ -4,8 +4,8 @@ import About from './About';
 import Settings from './Settings';
 import Navigation from './Navigation';
 import Peshitta from './Peshitta';
-import TextMapper from './convert/TextMapper';
-import NumberMapper from './convert/NumberMapper';
+import TextMap from './convert/MapText';
+import NumberMap from './convert/MapNumber';
 import Root from './lexicon/Root';
 import Lexeme from './lexicon/Lexeme';
 import Word from './lexicon/Word';
@@ -20,14 +20,14 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={Peshitta} />
 
-      <Route path="/lexicon/root" component={Root} />
-      <Route path="/lexicon/lexeme" component={Lexeme} />
-      <Route path="/lexicon/word" component={Word} />
-      <Route path="/lexicon/english" component={English} />
-      <Route path="/lexicon/etymology" component={Etymology} />
-      
-      <Route path="/convert/text" component={TextMapper} />
-      <Route path="/convert/number" component={NumberMapper} />
+      <Route path="/db/root" component={Root} />
+      <Route path="/db/lexeme" component={Lexeme} />
+      <Route path="/db/word" component={Word} />
+      <Route path="/db/english" component={English} />
+      <Route path="/db/etymology" component={Etymology} />
+
+      <Route path="/map/text" component={TextMap} />
+      <Route path="/map/number" component={NumberMap} />
 
       <Route path="/settings" component={Settings} />
       <Route path="/about" component={About} />

@@ -24,7 +24,7 @@ const arabicNonNumberRegExp = /[^ابجدهوزحطيكلمنسعفصقرشت]+/
 const calNonNumberRegExp = /[^)bgdhwzxTyklmns(pcqr$t]+/g;
 const sedraNonNumberRegExp = /[^ABGDHOZKY;CLMNSEI/XRWT]+/g;
 
-export default class NumberMapper extends React.Component {
+export default class MapNumber extends React.Component {
   state = {
     input: '',
     output: '',

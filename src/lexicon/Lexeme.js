@@ -1,5 +1,6 @@
 import React from 'react';
+import { toEstrangela } from 'cal-estrangela';
 
-export default class Lexeme {
+export default class Lexeme extends React.Component {
 
 }

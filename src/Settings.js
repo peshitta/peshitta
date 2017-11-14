@@ -352,7 +352,7 @@ export default class Settings extends React.Component {
                 window.location.reload(true);
               }}
             >
-              Upgrade App
+              Upgrade
             </Button>
           </Col>
         </Row>

@@ -34,7 +34,7 @@ const About = () => (
       >
         @peshittap
       </a>{' '}
-      at{' '}
+      at
       <a
         href="https://www.twitter.com/peshittap"
         target="_blank"
@@ -45,6 +45,18 @@ const About = () => (
           alt="@peshittap"
           title="@peshittap"
           style={{ maxWidth: '100%' }}
+        />
+      </a>
+      or{' '}
+      <a
+        href="https://gitter.im/peshitta/Lobby?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://badges.gitter.im/peshitta/peshitta.svg"
+          alt="Gitter"
+          title="Join the chat at https://gitter.im/peshitta/Lobby"
         />
       </a>
     </p>
