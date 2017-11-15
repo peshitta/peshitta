@@ -56,7 +56,7 @@ export default class Navigation extends React.Component {
                 isOpen={this.state.dataDropdownOpen}
                 toggle={this.toggleData}
               >
-                <DropdownToggle nav caret>
+                <DropdownToggle nav caret disabled>
                   Lexicon
                 </DropdownToggle>
                 <DropdownMenu>
