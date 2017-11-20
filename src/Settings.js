@@ -9,7 +9,6 @@ import {
   Row,
   Col
 } from 'reactstrap';
-import { initCap } from './util';
 
 export default class Settings extends React.Component {
   state = {
@@ -260,7 +259,7 @@ export default class Settings extends React.Component {
           </ButtonGroup>
         </FormGroup>
         <Label title="Font to use for search inputs">
-          Using {initCap(this.state.searchCode)} for Search Input
+          Using <span className="text-capitalize">{this.state.searchCode}</span> for Search Input
         </Label>
         <FormGroup>
           <ButtonGroup>

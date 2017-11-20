@@ -7,7 +7,6 @@ import {
   Label,
   Container
 } from 'reactstrap';
-import { initCap } from '../util';
 
 import { removeDotting as calRemoveDotting } from 'cal-code-util';
 import { removeDotting as sedraRemoveDotting } from 'sedra-code-util';
@@ -291,8 +290,10 @@ export default class MapText extends React.Component {
       <Container>
         <FormGroup>
           <Label>
-            {initCap(this.state.inputCode)} to{' '}
-            {initCap(this.state.outputCode)}{' '}
+            <span className="text-capitalize">{this.state.inputCode}</span> to{' '}
+            <span className="text-capitalize">
+              {this.state.outputCode}
+            </span>{' '}
             {this.state.niqqud ||
             this.state.outputCode === 'ipa' ||
             this.state.outputCode === 'latin'

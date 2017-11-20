@@ -14,7 +14,6 @@ import { toCal as sedraToCal } from 'sedra-cal';
 import { toEstrangela } from 'cal-estrangela';
 import { toArabic } from 'cal-arabic';
 import { toSedra } from 'cal-sedra';
-import { initCap } from '../util';
 
 const nonNumberRegExp = /[^0-9]+/g;
 const estrangelaNonNumberRegExp = /[^0bgdhwzx=yklmns9pcqr4tfFBGX+YKLMNS(PQ$<J]+/g;
@@ -183,15 +182,15 @@ export default class MapNumber extends React.Component {
       <Container>
         <FormGroup>
           <Label>
-            <span>
+            <span className="text-capitalize">
               {this.state.numeric
                 ? 'Number'
-                : initCap(this.state.code) + ' letters'}
+                : this.state.code + ' Letters'}
             </span>{' '}
             to{' '}
-            <span>
+            <span className="text-capitalize">
               {this.state.numeric
-                ? initCap(this.state.code) + ' letters'
+                ? this.state.code + ' Letters'
                 : 'Number'}
             </span>
           </Label>

@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import logo from './logo.jpg';
 
-export default class Navigation extends React.Component {
+export default class Navigation extends React.PureComponent {
   state = {
     navbarCollapsed: true,
     convertDropdownOpen: false,
