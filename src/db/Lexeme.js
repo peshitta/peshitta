@@ -30,7 +30,7 @@ export default class Lexeme extends React.PureComponent {
               rowGetter={({ index }) => list.get(index)}
             >
               <Column label="Id" dataKey="id" width={40} />
-              <Column label="Root Id" dataKey="rootId" width={40} />
+              <Column label="Root" dataKey="root" width={70} />
               <Column label="Lexeme" dataKey="lexeme" width={100} />
               <Column label="1st Suffix" dataKey="firstSuffix" width={40} />
               <Column label="2nd Suffix" dataKey="secondSuffix" width={40} />

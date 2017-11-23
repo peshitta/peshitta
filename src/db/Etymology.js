@@ -30,7 +30,7 @@ export default class Etymology extends React.PureComponent {
               rowGetter={({ index }) => list.get(index)}
             >
               <Column label="Id" dataKey="id" width={40} />
-              <Column label="Lexeme Id" dataKey="lexemeId" width={40} />
+              <Column label="Lexeme" dataKey="lexeme" width={70} />
               <Column label="Word" dataKey="word" width={140} />
               <Column label="Language" dataKey="language" width={40} />
               <Column label="Word Type" dataKey="wordType" width={40} />

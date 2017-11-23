@@ -30,7 +30,7 @@ export default class English extends React.PureComponent {
               rowGetter={({ index }) => list.get(index)}
             >
               <Column label="Id" dataKey="id" width={40} />
-              <Column label="Lexeme Id" dataKey="lexemeId" width={40} />
+              <Column label="Lexeme" dataKey="lexeme" width={70} />
               <Column label="Word" dataKey="word" width={140} />
               <Column label="Before" dataKey="before" width={40} />
               <Column label="After" dataKey="after" width={40} />

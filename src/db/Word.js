@@ -29,10 +29,10 @@ export default class Word extends React.PureComponent {
               rowCount={this.context.wordLen}
               rowGetter={({ index }) => list.get(index)}
             >
-              <Column label="Id" dataKey="id" width={40} />
-              <Column label="Lexeme" dataKey="lexemeId" width={40} />
-              <Column label="Word" dataKey="word" width={40} />
-              <Column label="Vocalised" dataKey="vocalised" width={40} />
+              <Column label="Id" dataKey="id" width={50} />
+              <Column label="Lexeme" dataKey="lexeme" width={70} />
+              <Column label="Word" dataKey="word" width={100} />
+              <Column label="Vocalised" dataKey="vocalised" width={140} />
               <Column label="Suffix Gender" dataKey="suffixGender" width={40} />
 
               <Column label="Suffix Person" dataKey="suffixPerson" width={40} />
@@ -50,7 +50,7 @@ export default class Word extends React.PureComponent {
               <Column label="Seyame" dataKey="seyame" width={40} />
               <Column label="Listing" dataKey="listing" width={40} />
               <Column label="Enclitic" dataKey="enclitic" width={40} />
-              <Column label="Lexeme" dataKey="lexeme" width={40} />
+              <Column label="Is Lexeme" dataKey="isLexeme" width={50} />
             </Table>
           )}
         </AutoSizer>

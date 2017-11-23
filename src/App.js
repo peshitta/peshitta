@@ -38,23 +38,23 @@ const cached = Object.freeze(
   })
 );
 
-const flatten = (modelName, getModel) => {
+const flatten = (modelName, getModel, parentData) => {
   return (raw, index) => {
     const cm = cached[modelName];
     let model = cm[index];
     if (model) {
       return model;
     }
-    model = getModel(index, raw);
+    model = getModel(index, raw, parentData);
     cm[index] = model;
     return model;
   };
 };
 const flattenRoot = flatten('roots', getRoot);
-const flattenLexeme = flatten('lexemes', getLexeme);
-const flattenWord = flatten('words', getWord);
-const flattenEnglish = flatten('english', getEnglish);
-const flattenEtymology = flatten('etymology', getEtymology);
+const flattenLexeme = flatten('lexemes', getLexeme, roots);
+const flattenWord = flatten('words', getWord, lexemes);
+const flattenEnglish = flatten('english', getEnglish, lexemes);
+const flattenEtymology = flatten('etymology', getEtymology, lexemes);
 
 class App extends React.Component {
   static childContextTypes = {
