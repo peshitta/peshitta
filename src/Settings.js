@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Container,
   Button,
@@ -10,7 +12,11 @@ import {
   Col
 } from 'reactstrap';
 
-export default class Settings extends React.Component {
+export default class Settings extends React.PureComponent {
+  static contextTypes = {
+    flexify: PropTypes.instanceOf(Function).isRequired
+  };
+
   state = {
     version: 'eastern',
     filter: 'none',
@@ -70,6 +76,10 @@ export default class Settings extends React.Component {
   handleSearchCodeClick = event => {
     const searchCode = event.target.dataset['code'];
     this.setState({ searchCode });
+  };
+
+  componentWillMount = () => {
+    this.context.flexify(false);
   };
 
   componentDidMount() {
@@ -259,7 +269,8 @@ export default class Settings extends React.Component {
           </ButtonGroup>
         </FormGroup>
         <Label title="Font to use for search inputs">
-          Using <span className="text-capitalize">{this.state.searchCode}</span> for Search Input
+          Using <span className="text-capitalize">{this.state.searchCode}</span>{' '}
+          for Search Input
         </Label>
         <FormGroup>
           <ButtonGroup>

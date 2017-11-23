@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import AramaicNumber from 'aramaic-number';
 import {
   Button,
@@ -23,7 +25,11 @@ const arabicNonNumberRegExp = /[^ابجدهوزحطيكلمنسعفصقرشت]+/
 const calNonNumberRegExp = /[^)bgdhwzxTyklmns(pcqr$t]+/g;
 const sedraNonNumberRegExp = /[^ABGDHOZKY;CLMNSEI/XRWT]+/g;
 
-export default class MapNumber extends React.Component {
+export default class MapNumber extends React.PureComponent {
+  static contextTypes = {
+    flexify: PropTypes.instanceOf(Function).isRequired
+  };
+
   state = {
     input: '',
     output: '',
@@ -172,6 +178,10 @@ export default class MapNumber extends React.Component {
     }
   }
 
+  componentWillMount = () => {
+    this.context.flexify(false);
+  };
+
   componentDidMount() {
     this.numberButton.style.width = this.positionalButton.style.width = this.syriacButton.style.width = this.hebrewButton.style.width = this.arabicButton.style.width = this.calButton.style.width = this.sedraButton.style.width =
       this.estrangelaButton.offsetWidth + 'px';
@@ -183,15 +193,11 @@ export default class MapNumber extends React.Component {
         <FormGroup>
           <Label>
             <span className="text-capitalize">
-              {this.state.numeric
-                ? 'Number'
-                : this.state.code + ' Letters'}
+              {this.state.numeric ? 'Number' : this.state.code + ' Letters'}
             </span>{' '}
             to{' '}
             <span className="text-capitalize">
-              {this.state.numeric
-                ? this.state.code + ' Letters'
-                : 'Number'}
+              {this.state.numeric ? this.state.code + ' Letters' : 'Number'}
             </span>
           </Label>
         </FormGroup>

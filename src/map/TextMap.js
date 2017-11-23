@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Button,
   ButtonGroup,
@@ -29,7 +31,11 @@ import { toCal as syriacToCal } from 'syriac-cal';
 import { toCal as hebrewToCal } from 'hebrew-cal';
 import { toCal as arabicToCal } from 'arabic-cal';
 
-export default class MapText extends React.Component {
+export default class MapText extends React.PureComponent {
+  static contextTypes = {
+    flexify: PropTypes.instanceOf(Function).isRequired
+  };
+
   state = {
     input: '',
     output: '',
@@ -280,6 +286,10 @@ export default class MapText extends React.Component {
     }
   }
 
+  componentWillMount = () => {
+    this.context.flexify(false);
+  };
+
   componentDidMount() {
     this.niqqudButton.style.width = this.ipaButton.style.width = this.latinButton.style.width = this.syriacInputButton.style.width = this.hebrewInputButton.style.width = this.arabicInputButton.style.width = this.calInputButton.style.width = this.sedraInputButton.style.width = this.syriacOutputButton.style.width = this.hebrewOutputButton.style.width = this.arabicOutputButton.style.width = this.calOutputButton.style.width = this.sedraOutputButton.style.width = this.estrangelaOutputButton.style.width =
       this.estrangelaInputButton.offsetWidth + 'px';
@@ -291,9 +301,7 @@ export default class MapText extends React.Component {
         <FormGroup>
           <Label>
             <span className="text-capitalize">{this.state.inputCode}</span> to{' '}
-            <span className="text-capitalize">
-              {this.state.outputCode}
-            </span>{' '}
+            <span className="text-capitalize">{this.state.outputCode}</span>{' '}
             {this.state.niqqud ||
             this.state.outputCode === 'ipa' ||
             this.state.outputCode === 'latin'

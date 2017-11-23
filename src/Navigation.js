@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -7,7 +8,7 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavDropdown,
+  Dropdown,
   DropdownItem,
   DropdownToggle,
   DropdownMenu
@@ -41,69 +42,67 @@ export default class Navigation extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <Navbar color="faded" light expand="md">
-          <NavbarBrand href="#/">
-            <img src={logo} className="App-logo" alt="Peshitta Logo" />
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} />
-          <Collapse isOpen={this.state.navbarCollapsed} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="#/">Peshitta</NavLink>
-              </NavItem>
-              <NavDropdown
-                isOpen={this.state.dataDropdownOpen}
-                toggle={this.toggleData}
-              >
-                <DropdownToggle nav caret disabled>
-                  Lexicon
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>
-                    <NavLink href="#/db/root">Root</NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink href="#/db/lexeme">Lexeme</NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink href="#/db/word">Word</NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink href="#/db/english">English</NavLink>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavLink href="#/db/etymology">Etymology</NavLink>
-                  </DropdownItem>
-                </DropdownMenu>
-              </NavDropdown>
-              <NavDropdown
-                isOpen={this.state.convertDropdownOpen}
-                toggle={this.toggleConvert}
-              >
-                <DropdownToggle nav caret>
-                  Convert
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem>
-                    <NavLink href="#/map/text">Text</NavLink>
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    <NavLink href="#/map/number">Number</NavLink>
-                  </DropdownItem>
-                </DropdownMenu>
-              </NavDropdown>
-              <NavItem>
-                <NavLink href="#/settings">Settings</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#/about">About</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+      <Navbar color="faded" light expand="md">
+        <NavbarBrand tag={Link} to="/">
+          <img src={logo} className="App-logo" alt="Peshitta Logo" />
+        </NavbarBrand>
+        <NavbarToggler onClick={this.toggleNavbar} />
+        <Collapse isOpen={this.state.navbarCollapsed} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink tag={Link} to="/">Peshitta</NavLink>
+            </NavItem>
+            <Dropdown
+              isOpen={this.state.dataDropdownOpen}
+              toggle={this.toggleData}
+            >
+              <DropdownToggle nav caret>
+                Lexicon
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem>
+                  <NavLink tag={Link} to="/root">Root</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink tag={Link} to="/lexeme">Lexeme</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink tag={Link} to="/word">Word</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink tag={Link} to="/english">English</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink tag={Link} to="/etymology">Etymology</NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            <Dropdown
+              isOpen={this.state.convertDropdownOpen}
+              toggle={this.toggleConvert}
+            >
+              <DropdownToggle nav caret>
+                Convert
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem>
+                  <NavLink tag={Link} to="/text">Text</NavLink>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <NavLink tag={Link} to="/number">Number</NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+            <NavItem>
+              <NavLink tag={Link} to="/settings">Settings</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/about">About</NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
     );
   }
 }
