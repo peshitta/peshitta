@@ -26,7 +26,7 @@ import english from 'sedrajs/build/sedra/english';
 import { getEtymology } from 'sedra-model';
 import etymology from 'sedrajs/build/sedra/etymology';
 
-import './App.css';
+import './css/App.css';
 
 const cached = Object.freeze(
   Object.create(null, {

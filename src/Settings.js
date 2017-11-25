@@ -348,9 +348,10 @@ export default class Settings extends React.PureComponent {
           <Col>
             <Button
               title="Clear cached computed data to release memory"
-              color="primary"
+              color="warning"
               onClick={() => {}}
             >
+              <i class="fa fa-times" aria-hidden="true" title="Clear Cached" />{' '}
               Clear Cached
             </Button>
           </Col>
@@ -362,6 +363,7 @@ export default class Settings extends React.PureComponent {
                 window.location.reload(true);
               }}
             >
+              <i class="fa fa-repeat" aria-hidden="true" title="Upgrade" />{' '}
               Upgrade
             </Button>
           </Col>

@@ -6,8 +6,9 @@ import App from './App';
 // import registerServiceWorker from './registerServiceWorker';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'react-virtualized/styles.css';
-import './font.css';
+import "font-awesome/css/font-awesome.css";
+import './css/react-virtualized.css';
+import './css/font.css';
 
 ReactDOM.render(
   <HashRouter>

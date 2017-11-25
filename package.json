@@ -18,6 +18,7 @@
     "cal-syriac": "^1.0.7",
     "estrangela-cal": "^1.0.6",
     "estrangela-code-util": "^1.0.9",
+    "font-awesome": "^4.7.0",
     "hebrew-cal": "^1.0.2",
     "hebrew-code-util": "^1.0.5",
     "immutable": "^3.8.2",
