@@ -26,7 +26,7 @@ class Peshitta extends React.PureComponent {
           letters
         </li>
         <li>
-          <a href="#about">About</a> - pronunciation and character mapping
+          <a href="#help">Help</a> - pronunciation and character mapping
         </li>
       </ul>
       Feel free to browse other unfinished pages to get a sense for where the
