@@ -351,7 +351,7 @@ export default class Settings extends React.PureComponent {
               color="warning"
               onClick={() => {}}
             >
-              <i class="fa fa-times" aria-hidden="true" title="Clear Cached" />{' '}
+              <i className="fa fa-times" aria-hidden="true" title="Clear Cached" />{' '}
               Clear Cached
             </Button>
           </Col>
@@ -363,7 +363,7 @@ export default class Settings extends React.PureComponent {
                 window.location.reload(true);
               }}
             >
-              <i class="fa fa-repeat" aria-hidden="true" title="Upgrade" />{' '}
+              <i className="fa fa-repeat" aria-hidden="true" title="Upgrade" />{' '}
               Upgrade
             </Button>
           </Col>

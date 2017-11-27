@@ -22,13 +22,20 @@ import logo from './logo.jpg';
 export default class Navigation extends React.PureComponent {
   state = {
     navbarCollapsed: true,
+    lexiconDropdownOpen: false,
     convertDropdownOpen: false,
-    dataDropdownOpen: false
+    settingsDropdownOpen: false
   };
 
   toggleNavbar = () => {
     this.setState(prevState => ({
       navbarCollapsed: !prevState.navbarCollapsed
+    }));
+  };
+
+  toggleLexicon = () => {
+    this.setState(prevState => ({
+      lexiconDropdownOpen: !prevState.lexiconDropdownOpen
     }));
   };
 
@@ -38,9 +45,9 @@ export default class Navigation extends React.PureComponent {
     }));
   };
 
-  toggleData = () => {
+  toggleSettings = () => {
     this.setState(prevState => ({
-      dataDropdownOpen: !prevState.dataDropdownOpen
+      settingsDropdownOpen: !prevState.settingsDropdownOpen
     }));
   };
 
@@ -48,20 +55,14 @@ export default class Navigation extends React.PureComponent {
     return (
       <Navbar color="faded" light expand="md">
         <NavbarBrand tag={Link} to="/">
-          <img src={logo} className="App-logo" alt="Peshitta Logo" />
+          <img src={logo} className="App-logo" alt="Peshitta Logo" /> Peshitta
         </NavbarBrand>
         <NavbarToggler onClick={this.toggleNavbar} />
         <Collapse isOpen={this.state.navbarCollapsed} navbar>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink tag={Link} to="/">
-                <i className="fa fa-book" aria-hidden="true" title="Peshitta" />{' '}
-                Peshitta
-              </NavLink>
-            </NavItem>
+          <Nav navbar>
             <Dropdown
-              isOpen={this.state.dataDropdownOpen}
-              toggle={this.toggleData}
+              isOpen={this.state.lexiconDropdownOpen}
+              toggle={this.toggleLexicon}
             >
               <DropdownToggle nav caret>
                 <i className="fa fa-table" aria-hidden="true" title="Lexicon" />{' '}
@@ -148,23 +149,44 @@ export default class Navigation extends React.PureComponent {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <NavItem>
-              <NavLink tag={Link} to="/settings">
-                <i className="fa fa-cog fa-fw" title="Settings" /> Settings
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink tag={Link} to="/about">
+            <Dropdown
+              isOpen={this.state.settingsDropdownOpen}
+              toggle={this.toggleSettings}
+            >
+              <DropdownToggle nav caret>
                 <i
-                  className="fa fa-info-circle"
+                  className="fa fa-sliders"
                   aria-hidden="true"
-                  title="About"
+                  title="Settings &amp; Help"
                 />{' '}
-                About
-              </NavLink>
-            </NavItem>
+                Settings
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem>
+                  <NavItem>
+                    <NavLink tag={Link} to="/settings">
+                      <i className="fa fa-cog fa-fw" title="Settings" />{' '}
+                      Settings
+                    </NavLink>
+                  </NavItem>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <NavItem>
+                    <NavLink tag={Link} to="/help">
+                      <i
+                        className="fa fa-info-circle"
+                        aria-hidden="true"
+                        title="Help"
+                      />{' '}
+                      Help
+                    </NavLink>
+                  </NavItem>
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
             <div className="form-inline">
-              <FormGroup>
+              <FormGroup className="search">
                 <Label for="search" hidden>
                   Search
                 </Label>
@@ -177,7 +199,7 @@ export default class Navigation extends React.PureComponent {
                   spellCheck="false"
                   autoCorrect="off"
                 />{' '}
-                <Button outline color="success">
+                <Button outline>
                   <i
                     className="fa fa-search"
                     aria-hidden="true"

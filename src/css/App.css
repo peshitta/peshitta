@@ -1,3 +1,33 @@
+.navbar-light .navbar-brand {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.navbar-light .navbar-brand.active {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.navbar-brand {
+  padding-bottom: 1px;
+}
+
+a.navbar-brand {
+  font-size: 1rem;
+}
+
+div.search {
+  position: relative;
+}
+
+div.search input {
+  padding-right: 43px;
+}
+
+div.search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .App-logo {
   height: 35px;
 }

@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import Immutable from 'immutable';
 
 import Navigation from './Navigation';
-import About from './About';
 import Settings from './Settings';
+import Help from './Help';
 import TextMap from './map/TextMap';
 import NumberMap from './map/NumberMap';
 import Root from './db/Root';
@@ -25,8 +25,6 @@ import { getEnglish } from 'sedra-model';
 import english from 'sedrajs/build/sedra/english';
 import { getEtymology } from 'sedra-model';
 import etymology from 'sedrajs/build/sedra/etymology';
-
-import './css/App.css';
 
 const cached = Object.freeze(
   Object.create(null, {
@@ -135,7 +133,7 @@ class App extends React.Component {
         <Route path="/number" component={NumberMap} />
 
         <Route path="/settings" component={Settings} />
-        <Route path="/about" component={About} />
+        <Route path="/help" component={Help} />
 
         <Route component={Peshitta} />
       </Switch>
