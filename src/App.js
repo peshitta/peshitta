@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Immutable from 'immutable';
 
 import Navigation from './Navigation';
@@ -135,7 +135,7 @@ class App extends React.Component {
         <Route path="/settings" component={Settings} />
         <Route path="/help" component={Help} />
 
-        <Route component={Peshitta} />
+        <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
   );

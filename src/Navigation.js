@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink as RouterNavLink } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -70,7 +70,7 @@ export default class Navigation extends React.PureComponent {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem>
-                  <NavLink tag={Link} to="/root">
+                  <NavLink tag={RouterNavLink} to="/root">
                     <i
                       className="fa fa-heart-o"
                       aria-hidden="true"
@@ -80,7 +80,7 @@ export default class Navigation extends React.PureComponent {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink tag={Link} to="/lexeme">
+                  <NavLink tag={RouterNavLink} to="/lexeme">
                     <i
                       className="fa fa-circle-thin"
                       aria-hidden="true"
@@ -90,13 +90,13 @@ export default class Navigation extends React.PureComponent {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink tag={Link} to="/word">
+                  <NavLink tag={RouterNavLink} to="/word">
                     <i className="fa fa-leaf" aria-hidden="true" title="Word" />{' '}
                     Word
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink tag={Link} to="/english">
+                  <NavLink tag={RouterNavLink} to="/english">
                     <i
                       className="fa fa-sticky-note-o"
                       aria-hidden="true"
@@ -106,7 +106,7 @@ export default class Navigation extends React.PureComponent {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem>
-                  <NavLink tag={Link} to="/etymology">
+                  <NavLink tag={RouterNavLink} to="/etymology">
                     <i
                       className="fa fa-object-group"
                       aria-hidden="true"
@@ -127,7 +127,7 @@ export default class Navigation extends React.PureComponent {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem>
-                  <NavLink tag={Link} to="/text">
+                  <NavLink tag={RouterNavLink} to="/text">
                     <i
                       className="fa fa-language"
                       aria-hidden="true"
@@ -138,7 +138,7 @@ export default class Navigation extends React.PureComponent {
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  <NavLink tag={Link} to="/number">
+                  <NavLink tag={RouterNavLink} to="/number">
                     <i
                       className="fa fa-hashtag"
                       aria-hidden="true"
@@ -164,7 +164,7 @@ export default class Navigation extends React.PureComponent {
               <DropdownMenu>
                 <DropdownItem>
                   <NavItem>
-                    <NavLink tag={Link} to="/settings">
+                    <NavLink tag={RouterNavLink} to="/settings">
                       <i className="fa fa-cog fa-fw" title="Settings" />{' '}
                       Settings
                     </NavLink>
@@ -173,7 +173,7 @@ export default class Navigation extends React.PureComponent {
                 <DropdownItem divider />
                 <DropdownItem>
                   <NavItem>
-                    <NavLink tag={Link} to="/help">
+                    <NavLink tag={RouterNavLink} to="/help">
                       <i
                         className="fa fa-info-circle"
                         aria-hidden="true"
