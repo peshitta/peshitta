@@ -4,7 +4,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
@@ -53,13 +52,39 @@ export default class Navigation extends React.PureComponent {
 
   render() {
     return (
-      <Navbar color="faded" light expand="md">
-        <NavbarBrand tag={Link} to="/">
-          <img src={logo} className="App-logo" alt="Peshitta Logo" /> Peshitta
-        </NavbarBrand>
-        <NavbarToggler onClick={this.toggleNavbar} />
+      <Navbar color="faded" light expand="sm">
+        <Nav navbar>
+          <NavItem>
+            <NavLink tag={Link} to="/">
+              <img
+                src={logo}
+                className="App-logo"
+                alt="Peshitta Logo"
+                title="Peshitta"
+              />
+            </NavLink>
+          </NavItem>
+          <FormGroup className="search">
+            <Label for="search" hidden>
+              Search
+            </Label>
+            <Input
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              name="search"
+              id="search"
+              spellCheck="false"
+              autoCorrect="off"
+            />
+            <Button outline>
+              <i className="fa fa-search" aria-hidden="true" title="Search" />
+            </Button>
+          </FormGroup>
+          <NavbarToggler onClick={this.toggleNavbar} />
+        </Nav>
         <Collapse isOpen={this.state.navbarCollapsed} navbar>
-          <Nav navbar>
+          <Nav className="ml-auto" navbar>
             <Dropdown
               isOpen={this.state.lexiconDropdownOpen}
               toggle={this.toggleLexicon}
@@ -185,29 +210,6 @@ export default class Navigation extends React.PureComponent {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <div className="form-inline">
-              <FormGroup className="search">
-                <Label for="search" hidden>
-                  Search
-                </Label>
-                <Input
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  name="search"
-                  id="search"
-                  spellCheck="false"
-                  autoCorrect="off"
-                />{' '}
-                <Button outline>
-                  <i
-                    className="fa fa-search"
-                    aria-hidden="true"
-                    title="Search"
-                  />
-                </Button>
-              </FormGroup>
-            </div>
           </Nav>
         </Collapse>
       </Navbar>

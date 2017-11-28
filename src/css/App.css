@@ -1,13 +1,5 @@
-.navbar-light a.navbar-brand {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.navbar-brand {
-  padding-bottom: 1px;
-}
-
-a.navbar-brand {
-  font-size: 1rem;
+.navbar-nav {
+  flex-direction: row;
 }
 
 div.search {
@@ -25,7 +17,7 @@ div.search button {
 }
 
 .App-logo {
-  height: 35px;
+  height: 40px;
 }
 
 .estrangela {
