@@ -11,7 +11,6 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  FormGroup,
   Label,
   Input,
   Button
@@ -52,10 +51,10 @@ export default class Navigation extends React.PureComponent {
 
   render() {
     return (
-      <Navbar color="faded" light expand="sm">
+      <Navbar color="faded" light expand="md">
         <Nav navbar>
           <NavItem>
-            <NavLink tag={Link} to="/">
+            <NavLink tag={Link} style={{ padding: '0 1rem 0 0' }} to="/">
               <img
                 src={logo}
                 className="App-logo"
@@ -64,7 +63,7 @@ export default class Navigation extends React.PureComponent {
               />
             </NavLink>
           </NavItem>
-          <FormGroup className="search">
+          <div className="search">
             <Label for="search" hidden>
               Search
             </Label>
@@ -80,7 +79,7 @@ export default class Navigation extends React.PureComponent {
             <Button outline>
               <i className="fa fa-search" aria-hidden="true" title="Search" />
             </Button>
-          </FormGroup>
+          </div>
           <NavbarToggler onClick={this.toggleNavbar} />
         </Nav>
         <Collapse isOpen={this.state.navbarCollapsed} navbar>
