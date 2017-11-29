@@ -54,10 +54,9 @@ export default class Navigation extends React.PureComponent {
       <Navbar color="faded" light expand="md">
         <Nav navbar>
           <NavItem>
-            <NavLink tag={Link} style={{ padding: '0 1rem 0 0' }} to="/">
+            <NavLink tag={Link} className="App-logo" to="/">
               <img
                 src={logo}
-                className="App-logo"
                 alt="Peshitta Logo"
                 title="Peshitta"
               />

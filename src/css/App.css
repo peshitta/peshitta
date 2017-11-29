@@ -26,6 +26,10 @@ div.search button {
 }
 
 .App-logo {
+  padding: 0;
+}
+
+.App-logo > img {
   height: 40px;
 }
 
