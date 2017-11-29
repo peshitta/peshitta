@@ -1,9 +1,13 @@
+.navbar {
+  padding: 0.5rem 0.5rem;
+}
+
 .navbar-nav {
   flex-direction: row;
 }
 
-.navbar-nav .nav-link {
-  padding-left: 0.5rem;
+.navbar-expand-md .navbar-nav .nav-link {
+  padding-left: 0;
   padding-right: 0.5rem;
 }
 
@@ -41,6 +45,11 @@ div.search button {
   unicode-bidi: bidi-override;
 }
 
+.estrangela-cell {
+  text-align: right;
+  padding-right: 5px;
+}
+
 .syriac {
   font-family: 'SertoJerusalem';
   font-size: larger;
@@ -61,6 +70,9 @@ div.search button {
 }
 
 .verba {
+  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono',
+    'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace,
+    serif;
   white-space: pre;
 }
 
@@ -82,4 +94,5 @@ div.search button {
 
 .flex-item {
   flex: 1 1 auto;
+  margin: 0 0.5em 0.5em 0.5em;
 }

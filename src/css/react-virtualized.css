@@ -36,6 +36,10 @@
   -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  font-size: small;
+  border-top: 1px solid rgb(224, 224, 224);
+  border-right: 1px solid rgb(224, 224, 224);
+  border-bottom: 1px solid rgb(224, 224, 224);
 }
 .ReactVirtualized__Table__row {
   display: -webkit-flex;
@@ -51,6 +55,7 @@
   -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  font-size: 12px;
 }
 
 .ReactVirtualized__Table__headerTruncatedText {
@@ -61,10 +66,20 @@
   overflow: hidden;
 }
 
-.ReactVirtualized__Table__headerColumn,
-.ReactVirtualized__Table__rowColumn {
-  margin-right: 10px;
+.ReactVirtualized__Table__headerColumn {
+  padding-left: 2px;
+  padding-right: 2px;
   min-width: 0px;
+  border-right: 1px solid rgb(224, 224, 224);
+}
+
+.ReactVirtualized__Table__rowColumn {
+  padding-left: 2px;
+  padding-right: 2px;
+  min-width: 0px;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  border-right: 1px solid rgb(224, 224, 224);
+  line-height: 21.6px;
 }
 .ReactVirtualized__Table__rowColumn {
   text-overflow: ellipsis;
@@ -73,7 +88,7 @@
 
 .ReactVirtualized__Table__headerColumn:first-of-type,
 .ReactVirtualized__Table__rowColumn:first-of-type {
-  margin-left: 10px;
+  border-left: 1px solid rgb(224, 224, 224);
 }
 .ReactVirtualized__Table__sortableHeaderColumn {
   cursor: pointer;
