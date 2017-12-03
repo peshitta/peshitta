@@ -29,7 +29,7 @@ export default class Root extends React.PureComponent {
             <Table
               width={this.context.getViewWidth(width, minWidth)}
               height={height}
-              headerHeight={20}
+              headerHeight={22}
               rowHeight={24}
               rowCount={this.context.rootLen}
               rowGetter={({ index }) => list.get(index)}

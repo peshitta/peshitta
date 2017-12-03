@@ -30,7 +30,7 @@ export default class English extends React.PureComponent {
             <Table
               width={this.context.getViewWidth(width, minWidth)}
               height={height}
-              headerHeight={20}
+              headerHeight={22}
               rowHeight={24}
               rowCount={this.context.englishLen}
               rowGetter={({ index }) => list.get(index)}
@@ -61,8 +61,8 @@ export default class English extends React.PureComponent {
               <Column
                 label="String After Word"
                 dataKey="after"
-                minWidth={145}
-                width={145}
+                minWidth={147}
+                width={147}
                 cellRenderer={this.context.cellRenderer}
               />
 
