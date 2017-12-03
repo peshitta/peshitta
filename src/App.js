@@ -71,7 +71,8 @@ class App extends React.Component {
     etymology: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
     etymologyLen: PropTypes.number.isRequired,
 
-    flexify: PropTypes.instanceOf(Function).isRequired
+    flexify: PropTypes.instanceOf(Function).isRequired,
+    getViewWidth: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -85,6 +86,14 @@ class App extends React.Component {
       });
     }
   };
+
+  getViewWidth(width, minWidth) {
+    return width < minWidth
+      ? minWidth
+      : width > document.documentElement.clientWidth
+        ? document.documentElement.clientWidth
+        : width;
+  }
 
   getChildContext() {
     return {
@@ -113,7 +122,8 @@ class App extends React.Component {
         .slice(1),
       etymologyLen: etymology.length - 1,
 
-      flexify: this.flexify
+      flexify: this.flexify,
+      getViewWidth: this.getViewWidth
     };
   }
 

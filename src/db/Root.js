@@ -10,7 +10,8 @@ export default class Root extends React.PureComponent {
     roots: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
     rootLen: PropTypes.number.isRequired,
 
-    flexify: PropTypes.instanceOf(Function).isRequired
+    flexify: PropTypes.instanceOf(Function).isRequired,
+    getViewWidth: PropTypes.instanceOf(Function).isRequired
   };
 
   componentWillMount = () => {
@@ -19,13 +20,14 @@ export default class Root extends React.PureComponent {
 
   render() {
     const list = this.context.roots;
-    const minWidth = 376;
+    const minWidth = 385;
+
     return (
       <div className="flex-item">
         <AutoSizer>
           {({ width, height }) => (
             <Table
-              width={width < minWidth ? minWidth : width}
+              width={this.context.getViewWidth(width, minWidth)}
               height={height}
               headerHeight={20}
               rowHeight={22}
@@ -52,13 +54,13 @@ export default class Root extends React.PureComponent {
                 label="Sort"
                 dataKey="sort"
                 className="verba"
-                minWidth={112}
-                width={112}
+                minWidth={115}
+                width={115}
               />
               <Column
                 label="Seyame"
                 dataKey="seyame"
-                minWidth={30}
+                minWidth={34}
                 width={60}
               />
               <Column
