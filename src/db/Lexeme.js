@@ -21,7 +21,7 @@ export default class Lexeme extends React.PureComponent {
 
   render() {
     const list = this.context.lexemes;
-    const minWidth = 899;
+    const minWidth = 900;
 
     return (
       <div className="flex-item">

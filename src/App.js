@@ -60,7 +60,7 @@ const estrangelaCellRenderer = obj => (
     <div className="estrangela">{obj.cellData || '\u00A0'}</div>
   </div>
 );
-const cellRenderer = obj => obj.cellData || '\u00A0';
+const cellRenderer = obj => obj.cellData || (obj.cellData === 0 ? 0 : '\u00A0');
 
 class App extends React.Component {
   static childContextTypes = {

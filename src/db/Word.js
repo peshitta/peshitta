@@ -21,7 +21,7 @@ export default class Word extends React.PureComponent {
 
   render() {
     const list = this.context.words;
-    const minWidth = 1194;
+    const minWidth = 1196;
 
     return (
       <div className="flex-item">
@@ -128,8 +128,8 @@ export default class Word extends React.PureComponent {
               <Column
                 label="Tense"
                 dataKey="tense"
-                minWidth={93}
-                width={93}
+                minWidth={95}
+                width={95}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
@@ -159,10 +159,10 @@ export default class Word extends React.PureComponent {
                 width={50}
               />
               <Column
-                label="Is Lexeme"
+                label="IsLexeme"
                 dataKey="isLexeme"
                 minWidth={34}
-                width={65}
+                width={60}
               />
             </Table>
           )}
