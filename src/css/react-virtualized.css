@@ -79,7 +79,7 @@
   min-width: 0px;
   border-bottom: 1px solid rgb(224, 224, 224);
   border-right: 1px solid rgb(224, 224, 224);
-  line-height: 21.6px;
+  line-height: 23px;
 }
 .ReactVirtualized__Table__rowColumn {
   text-overflow: ellipsis;

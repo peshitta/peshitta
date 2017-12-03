@@ -30,7 +30,7 @@ export default class Root extends React.PureComponent {
               width={this.context.getViewWidth(width, minWidth)}
               height={height}
               headerHeight={20}
-              rowHeight={22}
+              rowHeight={24}
               rowCount={this.context.rootLen}
               rowGetter={({ index }) => list.get(index)}
             >

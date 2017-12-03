@@ -21,7 +21,7 @@ export default class Lexeme extends React.PureComponent {
 
   render() {
     const list = this.context.lexemes;
-    const minWidth = 890;
+    const minWidth = 899;
 
     return (
       <div className="flex-item">
@@ -31,7 +31,7 @@ export default class Lexeme extends React.PureComponent {
               width={this.context.getViewWidth(width, minWidth)}
               height={height}
               headerHeight={20}
-              rowHeight={22}
+              rowHeight={24}
               rowCount={this.context.lexemeLen}
               rowGetter={({ index }) => list.get(index)}
             >
@@ -111,7 +111,7 @@ export default class Lexeme extends React.PureComponent {
               <Column
                 label="Radical Type"
                 dataKey="radicalType"
-                minWidth={65}
+                minWidth={70}
                 width={78}
                 cellRenderer={this.context.cellRenderer}
               />
@@ -131,14 +131,14 @@ export default class Lexeme extends React.PureComponent {
               <Column
                 label="Word Type"
                 dataKey="wordType"
-                minWidth={80}
-                width={80}
+                minWidth={82}
+                width={82}
               />
               <Column
                 label="Category"
                 dataKey="grammaticalCategory"
-                minWidth={103}
-                width={103}
+                minWidth={105}
+                width={105}
               />
               <Column
                 label="Listing"
