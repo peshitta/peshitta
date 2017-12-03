@@ -25,6 +25,7 @@ import { getEnglish } from 'sedra-model';
 import english from 'sedrajs/build/sedra/english';
 import { getEtymology } from 'sedra-model';
 import etymology from 'sedrajs/build/sedra/etymology';
+import { toEstrangela } from 'cal-estrangela';
 
 const cached = Object.freeze(
   Object.create(null, {
@@ -53,6 +54,13 @@ const flattenLexeme = flatten('lexemes', getLexeme, roots);
 const flattenWord = flatten('words', getWord, lexemes);
 const flattenEnglish = flatten('english', getEnglish, lexemes);
 const flattenEtymology = flatten('etymology', getEtymology, lexemes);
+const estrangelaCellDataGetter = obj => toEstrangela(obj.rowData[obj.dataKey]);
+const estrangelaCellRenderer = obj => (
+  <div className="estrangela-cell" title={obj.rowData[obj.dataKey] || '\u00A0'}>
+    <div className="estrangela">{obj.cellData || '\u00A0'}</div>
+  </div>
+);
+const cellRenderer = obj => obj.cellData || '\u00A0';
 
 class App extends React.Component {
   static childContextTypes = {
@@ -72,7 +80,11 @@ class App extends React.Component {
     etymologyLen: PropTypes.number.isRequired,
 
     flexify: PropTypes.instanceOf(Function).isRequired,
-    getViewWidth: PropTypes.instanceOf(Function).isRequired
+    getViewWidth: PropTypes.instanceOf(Function).isRequired,
+
+    estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
+    estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
+    cellRenderer: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -123,7 +135,10 @@ class App extends React.Component {
       etymologyLen: etymology.length - 1,
 
       flexify: this.flexify,
-      getViewWidth: this.getViewWidth
+      getViewWidth: this.getViewWidth,
+      estrangelaCellDataGetter,
+      estrangelaCellRenderer,
+      cellRenderer
     };
   }
 

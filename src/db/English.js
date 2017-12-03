@@ -25,7 +25,7 @@ export default class English extends React.PureComponent {
               width={width}
               height={height}
               headerHeight={20}
-              rowHeight={19}
+              rowHeight={22}
               rowCount={this.context.englishLen}
               rowGetter={({ index }) => list.get(index)}
             >

@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { Table, Column, AutoSizer } from 'react-virtualized';
 
-import { toEstrangela } from 'cal-estrangela';
-
 export default class Root extends React.PureComponent {
   static contextTypes = {
     roots: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
     rootLen: PropTypes.number.isRequired,
 
     flexify: PropTypes.instanceOf(Function).isRequired,
-    getViewWidth: PropTypes.instanceOf(Function).isRequired
+    getViewWidth: PropTypes.instanceOf(Function).isRequired,
+    estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
+    estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired
   };
 
   componentWillMount = () => {
@@ -40,15 +40,8 @@ export default class Root extends React.PureComponent {
                 dataKey="root"
                 minWidth={99}
                 width={99}
-                cellDataGetter={obj => toEstrangela(obj.rowData[obj.dataKey])}
-                cellRenderer={obj => (
-                  <div
-                    className="estrangela-cell"
-                    title={obj.rowData[obj.dataKey]}
-                  >
-                    <div className="estrangela">{obj.cellData}</div>
-                  </div>
-                )}
+                cellDataGetter={this.context.estrangelaCellDataGetter}
+                cellRenderer={this.context.estrangelaCellRenderer}
               />
               <Column
                 label="Sort"
