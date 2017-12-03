@@ -61,8 +61,8 @@ export default class English extends React.PureComponent {
               <Column
                 label="String After Word"
                 dataKey="after"
-                minWidth={147}
-                width={147}
+                minWidth={152}
+                width={152}
                 cellRenderer={this.context.cellRenderer}
               />
 

@@ -21,7 +21,7 @@ export default class Etymology extends React.PureComponent {
 
   render() {
     const list = this.context.etymology;
-    const minWidth = 382;
+    const minWidth = 390;
 
     return (
       <div className="flex-item">
@@ -47,8 +47,8 @@ export default class Etymology extends React.PureComponent {
               <Column
                 label="Word"
                 dataKey="word"
-                minWidth={115}
-                width={115}
+                minWidth={118}
+                width={118}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
@@ -61,8 +61,8 @@ export default class Etymology extends React.PureComponent {
               <Column
                 label="Word Type"
                 dataKey="wordType"
-                minWidth={80}
-                width={80}
+                minWidth={85}
+                width={85}
                 cellRenderer={this.context.cellRenderer}
               />
             </Table>
