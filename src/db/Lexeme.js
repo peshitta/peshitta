@@ -30,7 +30,7 @@ export default class Lexeme extends React.PureComponent {
             <Table
               width={this.context.getViewWidth(width, minWidth)}
               height={height}
-              headerHeight={22}
+              headerHeight={21}
               rowHeight={24}
               rowCount={this.context.lexemeLen}
               rowGetter={({ index }) => list.get(index)}

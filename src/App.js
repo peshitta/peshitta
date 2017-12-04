@@ -44,9 +44,12 @@ const flatten = (modelName, getModel, parentData) => {
     if (model) {
       return model;
     }
-    model = getModel(index, raw, parentData);
-    cm[index] = model;
-    return model;
+    if (raw) {
+      model = getModel(index, raw, parentData);
+      cm[index] = model;
+      return model;
+    }
+    return null;
   };
 };
 const flattenRoot = flatten('roots', getRoot);
@@ -61,6 +64,7 @@ const estrangelaCellRenderer = obj => (
   </div>
 );
 const cellRenderer = obj => obj.cellData || (obj.cellData === 0 ? 0 : '\u00A0');
+const nullFilter = m => m !== null;
 
 class App extends React.Component {
   static childContextTypes = {
@@ -111,28 +115,28 @@ class App extends React.Component {
     return {
       roots: Immutable.Seq.Indexed(roots)
         .map(flattenRoot)
-        .slice(1),
-      rootLen: roots.length - 1,
+        .filter(nullFilter),
+      rootLen: 2050,
 
       lexemes: Immutable.Seq.Indexed(lexemes)
         .map(flattenLexeme)
-        .slice(1),
-      lexemeLen: lexemes.length - 1,
+        .filter(nullFilter),
+      lexemeLen: 3559,
 
       words: Immutable.Seq.Indexed(words)
         .map(flattenWord)
-        .slice(1),
-      wordLen: words.length - 1,
+        .filter(nullFilter),
+      wordLen: 29699,
 
       english: Immutable.Seq.Indexed(english)
         .map(flattenEnglish)
-        .slice(1),
-      englishLen: english.length - 1,
+        .filter(nullFilter),
+      englishLen: 6352,
 
       etymology: Immutable.Seq.Indexed(etymology)
         .map(flattenEtymology)
-        .slice(1),
-      etymologyLen: etymology.length - 1,
+        .filter(nullFilter),
+      etymologyLen: 171,
 
       flexify: this.flexify,
       getViewWidth: this.getViewWidth,

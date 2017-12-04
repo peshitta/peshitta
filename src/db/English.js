@@ -30,7 +30,7 @@ export default class English extends React.PureComponent {
             <Table
               width={this.context.getViewWidth(width, minWidth)}
               height={height}
-              headerHeight={22}
+              headerHeight={21}
               rowHeight={24}
               rowCount={this.context.englishLen}
               rowGetter={({ index }) => list.get(index)}
