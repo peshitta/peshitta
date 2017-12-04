@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import { Table, Column, AutoSizer } from 'react-virtualized';
+import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
 export default class Root extends React.PureComponent {
   static contextTypes = {
@@ -12,16 +12,34 @@ export default class Root extends React.PureComponent {
     getViewWidth: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired,
+    getSortList: PropTypes.instanceOf(Function).isRequired
+  };
+
+  state = {
+    sortBy: 'id',
+    sortDirection: SortDirection.ASC,
+    sortedList: this.context.roots
   };
 
   componentWillMount = () => {
     this.context.flexify(true);
   };
 
+  sortList = this.context.getSortList(this.context.roots);
+
+  sort = ({ sortBy, sortDirection }) => {
+    const sortedList = this.sortList({ sortBy, sortDirection });
+    this.setState({ sortBy, sortDirection, sortedList });
+  };
+
   render() {
-    const list = this.context.roots;
     const minWidth = 385;
+    const {
+      sortBy,
+      sortDirection,
+      sortedList
+    } = this.state;
 
     return (
       <div className="flex-item">
@@ -33,8 +51,11 @@ export default class Root extends React.PureComponent {
               headerHeight={21}
               rowHeight={24}
               rowCount={this.context.rootLen}
-              rowGetter={({ index }) => list.get(index)}
+              rowGetter={({ index }) => sortedList.get(index)}
               rowClassName={this.context.rowClassName}
+              sort={this.sort}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
             >
               <Column label="Id" dataKey="id" minWidth={33} width={33} />
               <Column

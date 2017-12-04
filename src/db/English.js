@@ -13,7 +13,8 @@ export default class English extends React.PureComponent {
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired,
+    getSortList: PropTypes.instanceOf(Function).isRequired
   };
 
   componentWillMount = () => {
