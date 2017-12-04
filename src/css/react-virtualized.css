@@ -85,6 +85,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.ReactVirtualized__Table__oddRow {
+  background-color: #fafafa;
+}
 
 .ReactVirtualized__Table__headerColumn:first-of-type,
 .ReactVirtualized__Table__rowColumn:first-of-type {

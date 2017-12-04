@@ -12,7 +12,8 @@ export default class Etymology extends React.PureComponent {
     getViewWidth: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    cellRenderer: PropTypes.instanceOf(Function).isRequired
+    cellRenderer: PropTypes.instanceOf(Function).isRequired,
+    rowClassName: PropTypes.instanceOf(Function).isRequired
   };
 
   componentWillMount = () => {
@@ -34,6 +35,7 @@ export default class Etymology extends React.PureComponent {
               rowHeight={24}
               rowCount={this.context.etymologyLen}
               rowGetter={({ index }) => list.get(index)}
+              rowClassName={this.context.rowClassName}
             >
               <Column label="Id" dataKey="id" minWidth={30} width={30} />
               <Column

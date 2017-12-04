@@ -65,6 +65,8 @@ const estrangelaCellRenderer = obj => (
 );
 const cellRenderer = obj => obj.cellData || (obj.cellData === 0 ? 0 : '\u00A0');
 const nullFilter = m => m !== null;
+const rowClassName = ({ index }) =>
+  index % 2 === 0 || index < 0 ? '' : 'ReactVirtualized__Table__oddRow';
 
 class App extends React.Component {
   static childContextTypes = {
@@ -88,7 +90,8 @@ class App extends React.Component {
 
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    cellRenderer: PropTypes.instanceOf(Function).isRequired
+    cellRenderer: PropTypes.instanceOf(Function).isRequired,
+    rowClassName: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -142,7 +145,8 @@ class App extends React.Component {
       getViewWidth: this.getViewWidth,
       estrangelaCellDataGetter,
       estrangelaCellRenderer,
-      cellRenderer
+      cellRenderer,
+      rowClassName
     };
   }
 
