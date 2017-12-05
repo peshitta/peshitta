@@ -12,6 +12,7 @@ export default class Root extends React.PureComponent {
     getViewWidth: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
+    boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
     rowClassName: PropTypes.instanceOf(Function).isRequired,
     getSortList: PropTypes.instanceOf(Function).isRequired
   };
@@ -34,12 +35,8 @@ export default class Root extends React.PureComponent {
   };
 
   render() {
-    const minWidth = 385;
-    const {
-      sortBy,
-      sortDirection,
-      sortedList
-    } = this.state;
+    const minWidth = 392;
+    const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <div className="flex-item">
@@ -61,8 +58,8 @@ export default class Root extends React.PureComponent {
               <Column
                 label="Root"
                 dataKey="root"
-                minWidth={99}
-                width={99}
+                minWidth={100}
+                width={100}
                 cellDataGetter={this.context.estrangelaCellDataGetter}
                 cellRenderer={this.context.estrangelaCellRenderer}
               />
@@ -70,14 +67,15 @@ export default class Root extends React.PureComponent {
                 label="Sort"
                 dataKey="sort"
                 className="verba"
-                minWidth={115}
-                width={115}
+                minWidth={117}
+                width={117}
               />
               <Column
                 label="Seyame"
                 dataKey="seyame"
                 minWidth={34}
-                width={60}
+                width={64}
+                cellRenderer={this.context.boolCellRenderer}
               />
               <Column
                 label="Root Type"

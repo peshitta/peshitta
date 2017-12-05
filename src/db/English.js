@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import { Table, Column, AutoSizer } from 'react-virtualized';
+import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
 export default class English extends React.PureComponent {
   static contextTypes = {
@@ -17,13 +17,26 @@ export default class English extends React.PureComponent {
     getSortList: PropTypes.instanceOf(Function).isRequired
   };
 
+  state = {
+    sortBy: 'id',
+    sortDirection: SortDirection.ASC,
+    sortedList: this.context.english
+  };
+
   componentWillMount = () => {
     this.context.flexify(true);
   };
 
+  sortList = this.context.getSortList(this.context.english);
+
+  sort = ({ sortBy, sortDirection }) => {
+    const sortedList = this.sortList({ sortBy, sortDirection });
+    this.setState({ sortBy, sortDirection, sortedList });
+  };
+
   render() {
-    const list = this.context.english;
     const minWidth = 1290;
+    const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <div className="flex-item">
@@ -35,8 +48,11 @@ export default class English extends React.PureComponent {
               headerHeight={21}
               rowHeight={24}
               rowCount={this.context.englishLen}
-              rowGetter={({ index }) => list.get(index)}
+              rowGetter={({ index }) => sortedList.get(index)}
               rowClassName={this.context.rowClassName}
+              sort={this.sort}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
             >
               <Column label="Id" dataKey="id" minWidth={33} width={33} />
               <Column
@@ -55,14 +71,14 @@ export default class English extends React.PureComponent {
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
-                label="String Before Word"
+                label="Text Before Word"
                 dataKey="before"
                 minWidth={110}
-                width={115}
+                width={117}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
-                label="String After Word"
+                label="Text After Word"
                 dataKey="after"
                 minWidth={152}
                 width={152}
@@ -80,28 +96,28 @@ export default class English extends React.PureComponent {
                 label="Comment Position"
                 dataKey="commentPosition"
                 minWidth={90}
-                width={115}
+                width={124}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
                 label="Comment Font"
                 dataKey="commentFont"
                 minWidth={40}
-                width={95}
+                width={105}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
                 label="Before Font"
                 dataKey="stringBeforeFont"
-                minWidth={90}
-                width={95}
+                minWidth={78}
+                width={86}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
                 label="After Font"
                 dataKey="stringAfterFont"
-                minWidth={90}
-                width={95}
+                minWidth={78}
+                width={78}
                 cellRenderer={this.context.cellRenderer}
               />
 
@@ -109,14 +125,14 @@ export default class English extends React.PureComponent {
                 label="Verb Type"
                 dataKey="verbType"
                 minWidth={37}
-                width={65}
+                width={75}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
                 label="Number"
                 dataKey="number"
                 minWidth={50}
-                width={55}
+                width={66}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
@@ -129,15 +145,15 @@ export default class English extends React.PureComponent {
               <Column
                 label="Form"
                 dataKey="form"
-                minWidth={57}
-                width={57}
+                minWidth={62}
+                width={62}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
                 label="Flag"
                 dataKey="flag"
                 minWidth={30}
-                width={40}
+                width={42}
                 cellRenderer={this.context.cellRenderer}
               />
             </Table>

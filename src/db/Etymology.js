@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import { Table, Column, AutoSizer } from 'react-virtualized';
+import {
+  Table,
+  Column,
+  AutoSizer,
+  SortDirection
+} from 'react-virtualized';
 
 export default class Etymology extends React.PureComponent {
   static contextTypes = {
@@ -17,14 +22,27 @@ export default class Etymology extends React.PureComponent {
     getSortList: PropTypes.instanceOf(Function).isRequired
   };
 
+  state = {
+    sortBy: 'id',
+    sortDirection: SortDirection.ASC,
+    sortedList: this.context.etymology
+  };
+
   componentWillMount = () => {
     this.context.flexify(true);
   };
 
-  render() {
-    const list = this.context.etymology;
-    const minWidth = 390;
+  sortList = this.context.getSortList(this.context.etymology);
 
+  sort = ({ sortBy, sortDirection }) => {
+    const sortedList = this.sortList({ sortBy, sortDirection });
+    this.setState({ sortBy, sortDirection, sortedList });
+  };
+
+  render() {
+    const minWidth = 390;
+    const { sortBy, sortDirection, sortedList } = this.state;
+    
     return (
       <div className="flex-item">
         <AutoSizer>
@@ -35,10 +53,13 @@ export default class Etymology extends React.PureComponent {
               headerHeight={21}
               rowHeight={24}
               rowCount={this.context.etymologyLen}
-              rowGetter={({ index }) => list.get(index)}
+              rowGetter={({ index }) => sortedList.get(index)}
               rowClassName={this.context.rowClassName}
+              sort={this.sort}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
             >
-              <Column label="Id" dataKey="id" minWidth={30} width={30} />
+              <Column label="Id" dataKey="id" minWidth={30} width={33} />
               <Column
                 label="Lexeme"
                 dataKey="lexeme"
@@ -58,7 +79,7 @@ export default class Etymology extends React.PureComponent {
                 label="Language"
                 dataKey="language"
                 minWidth={60}
-                width={65}
+                width={76}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column

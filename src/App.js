@@ -65,11 +65,15 @@ const estrangelaCellRenderer = obj => (
   </div>
 );
 const cellRenderer = obj => obj.cellData || (obj.cellData === 0 ? 0 : '\u00A0');
+const boolCellRenderer = obj =>
+  obj.cellData === true ? 'Yes' : obj.cellData === false ? 'No' : '\u00A0';
 const nullFilter = m => m !== null;
 const rowClassName = ({ index }) =>
   index % 2 === 0 || index < 0 ? '' : 'ReactVirtualized__Table__oddRow';
 const getSortList = list => ({ sortBy, sortDirection }) => {
-  var result = list.sortBy(item => item[sortBy]);
+  var result = list.sortBy(
+    item => (item[sortBy] ? (item[sortBy] + '').length : '0')
+  );
   return sortDirection === SortDirection.DESC ? result.reverse() : result;
 };
 
@@ -96,6 +100,7 @@ class App extends React.Component {
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
+    boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
     rowClassName: PropTypes.instanceOf(Function).isRequired,
     getSortList: PropTypes.instanceOf(Function).isRequired
   };
@@ -153,7 +158,8 @@ class App extends React.Component {
       estrangelaCellRenderer,
       cellRenderer,
       rowClassName,
-      getSortList
+      getSortList,
+      boolCellRenderer
     };
   }
 
