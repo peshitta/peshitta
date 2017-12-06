@@ -121,27 +121,32 @@ class App extends React.Component {
     return {
       roots: Immutable.Seq.Indexed(roots)
         .map(flattenRoot)
-        .filter(nullFilter),
+        .filter(nullFilter)
+        .cacheResult(),
       rootLen: 2050,
 
       lexemes: Immutable.Seq.Indexed(lexemes)
         .map(flattenLexeme)
-        .filter(nullFilter),
+        .filter(nullFilter)
+        .cacheResult(),
       lexemeLen: 3559,
 
       words: Immutable.Seq.Indexed(words)
         .map(flattenWord)
-        .filter(nullFilter),
+        .filter(nullFilter)
+        .cacheResult(),
       wordLen: 29699,
 
       english: Immutable.Seq.Indexed(english)
         .map(flattenEnglish)
-        .filter(nullFilter),
+        .filter(nullFilter)
+        .cacheResult(),
       englishLen: 6352,
 
       etymology: Immutable.Seq.Indexed(etymology)
         .map(flattenEtymology)
-        .filter(nullFilter),
+        .filter(nullFilter)
+        .cacheResult(),
       etymologyLen: 171,
 
       flexify: this.flexify,
