@@ -13,8 +13,7 @@ export default class Root extends React.PureComponent {
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired,
-    getSortList: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -27,7 +26,13 @@ export default class Root extends React.PureComponent {
     this.context.flexify(true);
   };
 
-  sortList = this.context.getSortList(this.context.roots);
+  sortList = ({ sortBy, sortDirection }) => {
+    var result =
+      sortBy === 'root'
+        ? this.context.roots.sortBy(item => item.sort)
+        : this.context.roots.sortBy(item => item[sortBy]);
+    return sortDirection === SortDirection.DESC ? result.reverse() : result;
+  };
 
   sort = ({ sortBy, sortDirection }) => {
     const sortedList = this.sortList({ sortBy, sortDirection });
@@ -67,8 +72,8 @@ export default class Root extends React.PureComponent {
                 label="Sort"
                 dataKey="sort"
                 className="verba"
-                minWidth={117}
-                width={117}
+                minWidth={122}
+                width={122}
               />
               <Column
                 label="Seyame"

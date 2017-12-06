@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
+import { sort as calSort } from 'cal-code-util';
+
 export default class Lexeme extends React.PureComponent {
   static contextTypes = {
     lexemes: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
@@ -14,8 +16,7 @@ export default class Lexeme extends React.PureComponent {
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
     boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired,
-    getSortList: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -28,7 +29,13 @@ export default class Lexeme extends React.PureComponent {
     this.context.flexify(true);
   };
 
-  sortList = this.context.getSortList(this.context.lexemes);
+  sortList = ({ sortBy, sortDirection }) => {
+    var result =
+      sortBy === 'root' || sortBy === 'lexeme'
+        ? this.context.lexemes.sortBy(item => item[sortBy], calSort)
+        : this.context.lexemes.sortBy(item => item[sortBy]);
+    return sortDirection === SortDirection.DESC ? result.reverse() : result;
+  };
 
   sort = ({ sortBy, sortDirection }) => {
     const sortedList = this.sortList({ sortBy, sortDirection });
@@ -138,8 +145,8 @@ export default class Lexeme extends React.PureComponent {
               <Column
                 label="Form"
                 dataKey="form"
-                minWidth={57}
-                width={57}
+                minWidth={60}
+                width={60}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column

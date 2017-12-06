@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Immutable from 'immutable';
-import { SortDirection } from 'react-virtualized';
 
 import Navigation from './Navigation';
 import Settings from './Settings';
@@ -70,12 +69,6 @@ const boolCellRenderer = obj =>
 const nullFilter = m => m !== null;
 const rowClassName = ({ index }) =>
   index % 2 === 0 || index < 0 ? '' : 'ReactVirtualized__Table__oddRow';
-const getSortList = list => ({ sortBy, sortDirection }) => {
-  var result = list.sortBy(
-    item => (item[sortBy] ? (item[sortBy] + '').length : '0')
-  );
-  return sortDirection === SortDirection.DESC ? result.reverse() : result;
-};
 
 class App extends React.Component {
   static childContextTypes = {
@@ -101,8 +94,7 @@ class App extends React.Component {
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
     boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired,
-    getSortList: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -158,7 +150,6 @@ class App extends React.Component {
       estrangelaCellRenderer,
       cellRenderer,
       rowClassName,
-      getSortList,
       boolCellRenderer
     };
   }

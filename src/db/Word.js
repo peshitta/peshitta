@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
+import { sort as calSort } from 'cal-code-util';
+
 export default class Word extends React.PureComponent {
   static contextTypes = {
     words: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
@@ -14,8 +16,7 @@ export default class Word extends React.PureComponent {
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
     boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired,
-    getSortList: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -28,7 +29,13 @@ export default class Word extends React.PureComponent {
     this.context.flexify(true);
   };
 
-  sortList = this.context.getSortList(this.context.words);
+  sortList = ({ sortBy, sortDirection }) => {
+    var result =
+      sortBy === 'lexeme' || sortBy === 'word' || sortBy === 'vocalised'
+        ? this.context.words.sortBy(item => item[sortBy], calSort)
+        : this.context.words.sortBy(item => item[sortBy]);
+    return sortDirection === SortDirection.DESC ? result.reverse() : result;
+  };
 
   sort = ({ sortBy, sortDirection }) => {
     const sortedList = this.sortList({ sortBy, sortDirection });
@@ -36,7 +43,7 @@ export default class Word extends React.PureComponent {
   };
 
   render() {
-    const minWidth = 1213;
+    const minWidth = 1220;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
@@ -148,8 +155,8 @@ export default class Word extends React.PureComponent {
               <Column
                 label="Tense"
                 dataKey="tense"
-                minWidth={95}
-                width={95}
+                minWidth={100}
+                width={100}
                 cellRenderer={this.context.cellRenderer}
               />
               <Column
