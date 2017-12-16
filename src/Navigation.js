@@ -55,11 +55,7 @@ export default class Navigation extends React.PureComponent {
         <Nav navbar>
           <NavItem>
             <NavLink tag={Link} className="App-logo" to="/">
-              <img
-                src={logo}
-                alt="Peshitta Logo"
-                title="Peshitta"
-              />
+              <img src={logo} alt="Peshitta Logo" title="Peshitta" />
             </NavLink>
           </NavItem>
           <div className="search">
@@ -82,7 +78,7 @@ export default class Navigation extends React.PureComponent {
           <NavbarToggler onClick={this.toggleNavbar} />
         </Nav>
         <Collapse isOpen={this.state.navbarCollapsed} navbar>
-          <Nav className="ml-auto" navbar>
+          <Nav navbar>
             <Dropdown
               isOpen={this.state.lexiconDropdownOpen}
               toggle={this.toggleLexicon}
@@ -182,7 +178,7 @@ export default class Navigation extends React.PureComponent {
                   aria-hidden="true"
                   title="Settings &amp; Help"
                 />{' '}
-                Settings
+                Help
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem>
