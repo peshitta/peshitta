@@ -20,7 +20,7 @@ import { toSedra } from 'cal-sedra';
 const nonNumberRegExp = /[^0-9]+/g;
 const estrangelaNonNumberRegExp = /[^0bgdhwzx=yklmns9pcqr4tfFBGX+YKLMNS(PQ$<J]+/g;
 const syriacNonNumberRegExp = /[^ܐܒܓܕܗܘܙܚܛܝܟܠܡܢܣܥܦܨܩܪܫܬ]+/;
-const hebrewNonNumberRegExp = /[^'"אבגדהוזחטיכלמנסעפצקרשת״׳]+/g;
+const hebrewNonNumberRegExp = /[^'"אבגדהוזחטיכלמנסעפצקרשתךםןףץ״׳]+/g;
 const arabicNonNumberRegExp = /[^ابجدهوزحطيكلمنسعفصقرشت]+/g;
 const calNonNumberRegExp = /[^)bgdhwzxTyklmns(pcqr$t]+/g;
 const sedraNonNumberRegExp = /[^ABGDHOZKY;CLMNSEI/XRWT]+/g;
@@ -122,6 +122,14 @@ export default class MapNumber extends React.PureComponent {
             break;
           case 'sedra':
             val = sedraToCal(val);
+            break;
+          case 'hebrew':
+            val = val
+              .replace('ך', 'כ')
+              .replace('ם', 'מ')
+              .replace('ן', 'נ')
+              .replace('ף', 'פ')
+              .replace('ץ', 'צ')
             break;
           default:
             break;
