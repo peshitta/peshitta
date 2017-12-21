@@ -110,11 +110,7 @@ class App extends React.Component {
   };
 
   getViewWidth(width, minWidth) {
-    return width < minWidth
-      ? minWidth
-      : width > document.documentElement.clientWidth
-        ? document.documentElement.clientWidth
-        : width;
+    return width < minWidth ? minWidth : width;
   }
 
   getChildContext() {

@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Column, AutoSizer } from 'react-virtualized';
+import {
+  Table,
+  Column,
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache
+} from 'react-virtualized';
 
 import { getBook } from 'sedra-model';
 import { toEstrangela } from 'cal-estrangela';
@@ -12,8 +18,6 @@ const mapper = new AramaicNumber('cal');
 
 export default class Peshitta extends React.PureComponent {
   static contextTypes = {
-    ubs: PropTypes.instanceOf(Object).isRequired,
-
     flexify: PropTypes.instanceOf(Function).isRequired,
     rowClassName: PropTypes.instanceOf(Function).isRequired,
     getViewWidth: PropTypes.instanceOf(Function).isRequired
@@ -25,55 +29,16 @@ export default class Peshitta extends React.PureComponent {
     startVerse: 0,
     endBook: 0,
     endChapter: 0,
-    endVerse: 0
+    endVerse: 0,
+    lastWidth: 0
   };
+
+  cache = new CellMeasurerCache({
+    fixedWidth: true,
+    minHeight: 24
+  });
 
   indexMap = [];
-
-  onRowsRendered = obj => {
-    const { startIndex, stopIndex } = obj;
-    const start = this.indexMap[startIndex];
-    const end = this.indexMap[stopIndex];
-
-    this.setState({
-      startBook: start.book,
-      startChapter: start.chapter,
-      startVerse: start.verse || 1,
-      endBook: end.book,
-      endChapter: end.chapter,
-      endVerse: end.verse || 1
-    });
-  };
-
-  verseReducer = (a, i) => [
-    ...a,
-    ' ',
-    <span title={words[i].word}>
-      <span className="estrangela">{toEstrangela(words[i].word)}</span>
-    </span>
-  ];
-
-  verseBuilder = ({ cellData }) => {
-    if (Array.isArray(cellData)) {
-      return cellData.reduce(this.verseReducer, '');
-    }
-    return [
-      <span title={cellData.book.name}>
-        <span className="estrangela">{toEstrangela(cellData.book.name)}</span>
-      </span>,
-      ' ',
-      <span title={cellData.chapter}>
-        <span className="estrangela">
-          {toEstrangela(mapper.getNumber(cellData.chapter))}
-        </span>
-      </span>
-    ];
-  };
-
-  componentWillMount = () => {
-    this.context.flexify(true);
-    this.populateIndexMap();
-  };
 
   getReference = (book, chapter, verse) =>
     Object.freeze(
@@ -99,24 +64,105 @@ export default class Peshitta extends React.PureComponent {
     }
   };
 
+  verseBuilder = data => {
+    if (Array.isArray(data.content)) {
+      return data.content.reduce(
+        (acc, value, index) => [
+          ...acc,
+          <span
+            key={`${data.book}-${data.chapter}-${data.verse}-${index}`}
+            title={words[value].word}
+          >
+            <span className="estrangela">
+              {toEstrangela(words[value].word)}{' '}
+            </span>
+          </span>
+        ],
+        ''
+      );
+    }
+    return [
+      <span key={`${data.book}-${data.chapter}`} title={data.content.name}>
+        <span className="estrangela">{toEstrangela(data.content.name)} </span>
+      </span>,
+      <span
+        key={`${data.book}-${data.chapter}-${data.verse}`}
+        title={data.chapter}
+      >
+        <span className="estrangela">
+          {toEstrangela(mapper.getNumber(data.chapter))}
+        </span>
+      </span>
+    ];
+  };
+
+  componentWillMount = () => {
+    this.context.flexify(true);
+    this.populateIndexMap();
+  };
+
+  onRowsRendered = obj => {
+    const { startIndex, stopIndex } = obj;
+    const start = this.indexMap[startIndex];
+    const end = this.indexMap[stopIndex];
+
+    this.setState({
+      startBook: start.book,
+      startChapter: start.chapter,
+      startVerse: start.verse || 1,
+      endBook: end.book,
+      endChapter: end.chapter,
+      endVerse: end.verse || 1
+    });
+  };
+
+  onResize = ({ height, width }) => {
+    if (width !== this.state.lastWidth) {
+      this.cache.clearAll();
+      this.setState({ lastWidth: width });
+    }
+  };
+
   rowGetter = ({ index }) => {
     const r = this.indexMap[index];
     if (r.verse) {
-      return Object.create(null, {
-        verse: { value: r.verse, enumerable: true },
-        content: { value: ubs[r.book][r.chapter][r.verse], enumerable: true }
-      });
+      return Object.freeze(
+        Object.create(null, {
+          book: { value: r.book, enumerable: true },
+          chapter: { value: r.chapter, enumerable: true },
+          verse: { value: r.verse, enumerable: true },
+          content: { value: ubs[r.book][r.chapter][r.verse], enumerable: true }
+        })
+      );
     }
-    return Object.create(null, {
-      content: {
-        value: Object.create(null, {
-          book: { value: getBook(r.book), enumerable: true },
-          chapter: { value: r.chapter, enumerable: true }
-        }),
-        enumerable: true
-      }
-    });
+    return Object.freeze(
+      Object.create(null, {
+        book: { value: r.book, enumerable: true },
+        chapter: { value: r.chapter, enumerable: true },
+        verse: { value: 0, enumerable: true },
+        content: { value: getBook(r.book), enumerable: true }
+      })
+    );
   };
+
+  columnCellRenderer = ({
+    cellData,
+    columnIndex,
+    dataKey,
+    rowData,
+    rowIndex,
+    parent
+  }) => (
+    <CellMeasurer
+      cache={this.cache}
+      columnIndex={columnIndex}
+      key={dataKey}
+      parent={parent}
+      rowIndex={rowIndex}
+    >
+      <div style={{ whiteSpace: 'normal' }}>{this.verseBuilder(rowData)}</div>
+    </CellMeasurer>
+  );
 
   render() {
     return (
@@ -126,16 +172,18 @@ export default class Peshitta extends React.PureComponent {
           {ubs.verses.toLocaleString()} verses and {ubs.words.toLocaleString()}{' '}
           words{' '}
         </span>
-        <AutoSizer>
+        <AutoSizer onResize={this.onResize}>
           {({ width, height }) => (
             <Table
-              width={this.context.getViewWidth(width, 1047)}
-              height={height - 27}
+              deferredMeasurementCache={this.cache}
               headerHeight={21}
-              rowHeight={24}
-              rowCount={ubs.verses + ubs.chapters}
-              rowGetter={obj => this.rowGetter(obj)}
+              height={height - 27}
+              overscanRowCount={2}
               rowClassName={this.context.rowClassName}
+              rowHeight={this.cache.rowHeight}
+              rowGetter={obj => this.rowGetter(obj)}
+              rowCount={ubs.verses + ubs.chapters}
+              width={width}
               onRowsRendered={this.onRowsRendered}
             >
               <Column
@@ -145,10 +193,9 @@ export default class Peshitta extends React.PureComponent {
                   getBook(this.state.endBook).englishName
                 } ${this.state.endChapter}:${this.state.endVerse}`}
                 dataKey="content"
-                minWidth={1000}
                 className="estrangela-cell"
-                width={this.context.getViewWidth(width, 1000) - 47}
-                cellRenderer={this.verseBuilder}
+                width={width - 47}
+                cellRenderer={this.columnCellRenderer}
               />
               <Column
                 label="#"
