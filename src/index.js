@@ -7,7 +7,7 @@ import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import "font-awesome/css/font-awesome.css";
-import './css/react-virtualized.css';
+import 'react-virtualized/styles.css'
 import './css/font.css';
 import './css/App.css';
 

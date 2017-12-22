@@ -18,9 +18,7 @@ const mapper = new AramaicNumber('cal');
 
 export default class Peshitta extends React.PureComponent {
   static contextTypes = {
-    flexify: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired,
-    getViewWidth: PropTypes.instanceOf(Function).isRequired
+    flexify: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -29,8 +27,7 @@ export default class Peshitta extends React.PureComponent {
     startVerse: 0,
     endBook: 0,
     endChapter: 0,
-    endVerse: 0,
-    lastWidth: 0
+    endVerse: 0
   };
 
   cache = new CellMeasurerCache({
@@ -64,36 +61,30 @@ export default class Peshitta extends React.PureComponent {
     }
   };
 
-  verseBuilder = data => {
+  verseBuilder = (data, index) => {
     if (Array.isArray(data.content)) {
       return data.content.reduce(
-        (acc, value, index) => [
+        (acc, id, i) => [
           ...acc,
-          <span
-            key={`${data.book}-${data.chapter}-${data.verse}-${index}`}
-            title={words[value].word}
-          >
-            <span className="estrangela">
-              {toEstrangela(words[value].word)}{' '}
-            </span>
+          <span key={`${index}-${i}`} title={words[id].word}>
+            <span className="estrangela">{toEstrangela(words[id].word)} </span>
           </span>
         ],
         ''
       );
     }
-    return [
-      <span key={`${data.book}-${data.chapter}`} title={data.content.name}>
-        <span className="estrangela">{toEstrangela(data.content.name)} </span>
-      </span>,
-      <span
-        key={`${data.book}-${data.chapter}-${data.verse}`}
-        title={data.chapter}
-      >
-        <span className="estrangela">
-          {toEstrangela(mapper.getNumber(data.chapter))}
+    return (
+      <div>
+        <span title={data.content.name}>
+          <span className="estrangela">{toEstrangela(data.content.name)} </span>
         </span>
-      </span>
-    ];
+        <span title={data.chapter}>
+          <span className="estrangela">
+            {toEstrangela(mapper.getNumber(data.chapter))}
+          </span>
+        </span>
+      </div>
+    );
   };
 
   componentWillMount = () => {
@@ -116,12 +107,11 @@ export default class Peshitta extends React.PureComponent {
     });
   };
 
-  onResize = ({ height, width }) => {
-    if (width !== this.state.lastWidth) {
-      this.cache.clearAll();
-      this.setState({ lastWidth: width });
-    }
+  onResize = ({ width, height }) => {
+    this.cache.clearAll();
   };
+
+  rowClassName = ({ index }) => (index % 2 === 0 ? 'evenRow' : 'oddRow');
 
   rowGetter = ({ index }) => {
     const r = this.indexMap[index];
@@ -145,75 +135,84 @@ export default class Peshitta extends React.PureComponent {
     );
   };
 
-  columnCellRenderer = ({
-    cellData,
+  contentColumnLabel = () => {
+    const startBook = getBook(this.state.startBook).englishName;
+    const startRef = `${this.state.startChapter}:${this.state.startVerse}`;
+    const endRef = `${this.state.endChapter}:${this.state.endVerse}`;
+    if (this.state.startBook === this.state.endBook) {
+      return `${startBook} ${startRef} - ${endRef}`;
+    }
+    return `${startBook} ${startRef} - ${
+      getBook(this.state.endBook).englishName
+    } ${endRef}`;
+  };
+
+  verseCellRenderer = ({ rowData, rowIndex }) => (
+    <div title={rowData.verse || '\u00A0'}>
+      <div className="estrangela">
+        {rowData.verse
+          ? toEstrangela(mapper.getNumber(rowData.verse))
+          : '\u00A0'}
+      </div>
+    </div>
+  );
+
+  contentCellRenderer = ({
     columnIndex,
     dataKey,
-    rowData,
+    parent,
     rowIndex,
-    parent
-  }) => (
-    <CellMeasurer
-      cache={this.cache}
-      columnIndex={columnIndex}
-      key={dataKey}
-      parent={parent}
-      rowIndex={rowIndex}
-    >
-      <div style={{ whiteSpace: 'normal' }}>{this.verseBuilder(rowData)}</div>
-    </CellMeasurer>
-  );
+    rowData
+  }) => {
+    return (
+      <CellMeasurer
+        cache={this.cache}
+        columnIndex={columnIndex}
+        key={dataKey}
+        parent={parent}
+        rowIndex={rowIndex}
+      >
+        <div style={{ whiteSpace: 'normal' }}>
+          {this.verseBuilder(rowData, rowIndex)}
+        </div>
+      </CellMeasurer>
+    );
+  };
 
   render() {
     return (
       <div className="flex-item text-right">
-        <span>
-          Peshitta UBS: {ubs.books} books, {ubs.chapters} chapters,{' '}
-          {ubs.verses.toLocaleString()} verses and {ubs.words.toLocaleString()}{' '}
-          words{' '}
-        </span>
         <AutoSizer onResize={this.onResize}>
           {({ width, height }) => (
             <Table
-              deferredMeasurementCache={this.cache}
-              headerHeight={21}
-              height={height - 27}
-              overscanRowCount={2}
-              rowClassName={this.context.rowClassName}
-              rowHeight={this.cache.rowHeight}
-              rowGetter={obj => this.rowGetter(obj)}
+              headerHeight={25}
+              height={height}
               rowCount={ubs.verses + ubs.chapters}
+              rowGetter={this.rowGetter}
+              rowHeight={this.cache.rowHeight}
               width={width}
+              rowClassName={this.rowClassName}
+              overscanRowCount={2}
               onRowsRendered={this.onRowsRendered}
+              deferredMeasurementCache={this.cache}
             >
               <Column
-                label={`${getBook(this.state.startBook).englishName} ${
-                  this.state.startChapter
-                }:${this.state.startVerse} - ${
-                  getBook(this.state.endBook).englishName
-                } ${this.state.endChapter}:${this.state.endVerse}`}
                 dataKey="content"
-                className="estrangela-cell"
-                width={width - 47}
-                cellRenderer={this.columnCellRenderer}
+                width={width - 40}
+                label={this.contentColumnLabel()}
+                cellRenderer={this.contentCellRenderer}
+                className="wall-cell"
+                headerStyle={{ textTransform: 'none' }}
+                style={{ margin: '0' }}
               />
               <Column
-                label="#"
                 dataKey="verse"
-                minWidth={30}
-                width={30}
-                cellRenderer={({ rowData, dataKey, cellData }) => (
-                  <div
-                    className="estrangela-cell"
-                    title={rowData[dataKey] || '\u00A0'}
-                  >
-                    <div className="estrangela">
-                      {cellData === undefined
-                        ? '\u00A0'
-                        : toEstrangela(mapper.getNumber(cellData))}
-                    </div>
-                  </div>
-                )}
+                width={35}
+                minWidth={35}
+                label={'\u00A0'}
+                cellRenderer={this.verseCellRenderer}
+                className="cell"
+                style={{ margin: '0' }}
               />
             </Table>
           )}
