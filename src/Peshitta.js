@@ -185,13 +185,14 @@ export default class Peshitta extends React.PureComponent {
         <AutoSizer onResize={this.onResize}>
           {({ width, height }) => (
             <Table
-              headerHeight={25}
+              headerHeight={24}
               height={height}
               rowCount={ubs.verses + ubs.chapters}
               rowGetter={this.rowGetter}
               rowHeight={this.cache.rowHeight}
               width={width}
               rowClassName={this.rowClassName}
+              gridClassName="peshitta-grid"
               overscanRowCount={2}
               onRowsRendered={this.onRowsRendered}
               deferredMeasurementCache={this.cache}

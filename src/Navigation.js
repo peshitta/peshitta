@@ -52,7 +52,7 @@ export default class Navigation extends React.PureComponent {
   render() {
     return (
       <Navbar color="faded" light expand="md">
-        <Nav className="ml-auto" navbar>
+        <Nav navbar>
           <NavItem>
             <NavLink tag={Link} className="App-logo" to="/">
               <img src={logo} alt="Peshitta Logo" title="Peshitta" />

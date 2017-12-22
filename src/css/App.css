@@ -51,6 +51,10 @@ div.search button {
   padding-right: 5px;
 }
 
+.peshitta-grid {
+  border-right: 1px solid #e0e0e0;
+}
+
 .evenRow,
 .oddRow {
   border-bottom: 1px solid #e0e0e0;
