@@ -164,18 +164,19 @@ export default class PeshittaTable extends React.PureComponent {
       >
         <Column
           dataKey="content"
-          width={width - 40}
+          width={width - 35}
           label={this.contentLabel()}
           cellRenderer={this.contentRenderer}
           className="cell"
         />
         <Column
           dataKey="verse"
-          width={35}
-          minWidth={35}
+          width={30}
+          minWidth={30}
           label="UBS"
           cellRenderer={this.verseRenderer}
           className="cell"
+          style={{ borderRight: 0 }}
         />
       </Table>
     );

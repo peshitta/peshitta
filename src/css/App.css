@@ -80,18 +80,24 @@ div.search button {
 .ReactVirtualized__Table__headerColumn {
   margin: 0;
 }
+
 .ReactVirtualized__Table__rowColumn {
-  line-height: 23px;
   margin: 0;
   border-right: 1px solid rgb(224, 224, 224);
 }
+
 .ReactVirtualized__Table__headerColumn:first-of-type {
   margin: 0;
 }
+
 .ReactVirtualized__Table__rowColumn:first-of-type {
   margin: 0;
   border-left: 1px solid rgb(224, 224, 224);
-} 
+}
+
+.db-table .ReactVirtualized__Table__rowColumn {
+  line-height: 23px;
+}
 
 .syriac {
   font-family: 'SertoJerusalem';
