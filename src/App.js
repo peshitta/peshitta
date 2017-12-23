@@ -67,8 +67,7 @@ const cellRenderer = obj => obj.cellData || (obj.cellData === 0 ? 0 : '\u00A0');
 const boolCellRenderer = obj =>
   obj.cellData === true ? 'Yes' : obj.cellData === false ? 'No' : '\u00A0';
 const nullFilter = m => m !== null;
-const rowClassName = ({ index }) =>
-  index % 2 === 0 || index < 0 ? '' : 'ReactVirtualized__Table__oddRow';
+const rowClassName = ({ index }) => (index % 2 === 0 ? 'evenRow' : 'oddRow');
 
 class App extends React.Component {
   static childContextTypes = {

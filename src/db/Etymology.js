@@ -60,6 +60,9 @@ export default class Etymology extends React.PureComponent {
               sort={this.sort}
               sortBy={sortBy}
               sortDirection={sortDirection}
+              className="db-table"
+              gridClassName="peshitta-grid"
+              headerClassName="header-style"
             >
               <Column label="Id" dataKey="id" minWidth={30} width={33} />
               <Column

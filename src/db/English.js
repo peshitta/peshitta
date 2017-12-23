@@ -60,6 +60,9 @@ export default class English extends React.PureComponent {
               sort={this.sort}
               sortBy={sortBy}
               sortDirection={sortDirection}
+              className="db-table"
+              gridClassName="peshitta-grid"
+              headerClassName="header-style"
             >
               <Column label="Id" dataKey="id" minWidth={33} width={33} />
               <Column
@@ -91,7 +94,6 @@ export default class English extends React.PureComponent {
                 width={152}
                 cellRenderer={this.context.cellRenderer}
               />
-
               <Column
                 label="Comment"
                 dataKey="comment"
@@ -127,7 +129,6 @@ export default class English extends React.PureComponent {
                 width={78}
                 cellRenderer={this.context.cellRenderer}
               />
-
               <Column
                 label="Verb Type"
                 dataKey="verbType"

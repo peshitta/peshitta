@@ -16,6 +16,9 @@ import ubs from 'sedrajs/build/sedra/ubs';
 const mapper = new AramaicNumber('cal');
 
 export default class PeshittaTable extends React.PureComponent {
+  static contextTypes = {
+    rowClassName: PropTypes.instanceOf(Function).isRequired
+  };
   static propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
@@ -63,8 +66,6 @@ export default class PeshittaTable extends React.PureComponent {
       })
     );
   };
-
-  rowClassName = ({ index }) => (index % 2 === 0 ? 'evenRow' : 'oddRow');
 
   onRowsRendered = ({ startIndex, stopIndex }) => {
     const start = this.props.indexReference[startIndex];
@@ -154,8 +155,9 @@ export default class PeshittaTable extends React.PureComponent {
         rowGetter={this.rowGetter}
         rowHeight={this.cache.rowHeight}
         width={width}
-        rowClassName={this.rowClassName}
+        rowClassName={this.context.rowClassName}
         gridClassName="peshitta-grid"
+        headerClassName="header-style"
         overscanRowCount={2}
         onRowsRendered={this.onRowsRendered}
         deferredMeasurementCache={this.cache}
@@ -165,9 +167,7 @@ export default class PeshittaTable extends React.PureComponent {
           width={width - 40}
           label={this.contentLabel()}
           cellRenderer={this.contentRenderer}
-          className="wall-cell"
-          headerStyle={{ textTransform: 'none' }}
-          style={{ margin: '0' }}
+          className="cell"
         />
         <Column
           dataKey="verse"
@@ -176,7 +176,6 @@ export default class PeshittaTable extends React.PureComponent {
           label="UBS"
           cellRenderer={this.verseRenderer}
           className="cell"
-          style={{ margin: '0' }}
         />
       </Table>
     );

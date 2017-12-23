@@ -61,6 +61,9 @@ export default class Word extends React.PureComponent {
               sort={this.sort}
               sortBy={sortBy}
               sortDirection={sortDirection}
+              className="db-table"
+              gridClassName="peshitta-grid"
+              headerClassName="header-style"
             >
               <Column label="Id" dataKey="id" minWidth={40} width={40} />
               <Column
@@ -94,7 +97,6 @@ export default class Word extends React.PureComponent {
                 width={100}
                 cellRenderer={this.context.cellRenderer}
               />
-
               <Column
                 label="Suffix Person"
                 dataKey="suffixPerson"
@@ -130,7 +132,6 @@ export default class Word extends React.PureComponent {
                 width={62}
                 cellRenderer={this.context.cellRenderer}
               />
-
               <Column
                 label="Person"
                 dataKey="person"
@@ -166,7 +167,6 @@ export default class Word extends React.PureComponent {
                 width={62}
                 cellRenderer={this.context.cellRenderer}
               />
-
               <Column
                 label="Seyame"
                 dataKey="seyame"
