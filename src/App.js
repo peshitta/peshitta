@@ -13,7 +13,7 @@ import Lexeme from './db/Lexeme';
 import Word from './db/Word';
 import English from './db/English';
 import Etymology from './db/Etymology';
-import Peshitta from './Peshitta';
+import Peshitta from './nt/Peshitta';
 
 import { getRoot } from 'sedra-model';
 import roots from 'sedrajs/build/sedra/roots';
