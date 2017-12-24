@@ -82,15 +82,16 @@ export default class PeshittaTable extends React.PureComponent {
   };
 
   contentLabel = () => {
+    const revision = 'UBS';
     const startBook = getBook(this.state.startBook).englishName;
     const startRef = `${this.state.startChapter}:${this.state.startVerse}`;
     const endRef = `${this.state.endChapter}:${this.state.endVerse}`;
     if (this.state.startBook === this.state.endBook) {
-      return `${startBook} ${startRef} - ${endRef}`;
+      return `${startBook} ${startRef} - ${endRef} ${revision}`;
     }
     return `${startBook} ${startRef} - ${
       getBook(this.state.endBook).englishName
-    } ${endRef}`;
+    } ${endRef} ${revision}`;
   };
 
   verseBuilder = (data, index) => {
@@ -161,6 +162,8 @@ export default class PeshittaTable extends React.PureComponent {
         overscanRowCount={2}
         onRowsRendered={this.onRowsRendered}
         deferredMeasurementCache={this.cache}
+        scrollToIndex={this.props.scrollToIndex}
+        scrollToAlignment="start"
       >
         <Column
           dataKey="content"
@@ -173,7 +176,7 @@ export default class PeshittaTable extends React.PureComponent {
           dataKey="verse"
           width={30}
           minWidth={30}
-          label="UBS"
+          label={'\u00A0'}
           cellRenderer={this.verseRenderer}
           className="cell"
           style={{ borderRight: 0 }}

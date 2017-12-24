@@ -64,7 +64,7 @@ export default class Navigation extends React.PureComponent {
             </Label>
             <Input
               type="search"
-              placeholder="Search"
+              placeholder="Go"
               aria-label="Search"
               name="search"
               id="search"

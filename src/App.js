@@ -172,6 +172,8 @@ class App extends React.Component {
         <Route path="/settings" component={Settings} />
         <Route path="/help" component={Help} />
 
+        <Route path="/:book/:chapter?/:verse?" component={Peshitta} />
+
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </div>
