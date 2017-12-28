@@ -10,6 +10,15 @@ import {
   Input,
   Container
 } from 'reactstrap';
+import { allConsonants as estrangelaConsonants } from 'estrangela-code-util';
+import { consonants as syriacConsonants } from 'syriac-code-util';
+import {
+  consonants as hConsonants,
+  finalConsonants as hFinalConsonants
+} from 'hebrew-code-util';
+import { consonants as arabicConsonants } from 'arabic-code-util';
+import { allConsonants as calConsonants } from 'cal-code-util';
+import { consonants as sedraConsonants } from 'sedra-code-util';
 import { toCal as estrangelaToCal } from 'estrangela-cal';
 import { toCal as arabicToCal } from 'arabic-cal';
 import { toCal as sedraToCal } from 'sedra-cal';
@@ -17,13 +26,9 @@ import { toEstrangela } from 'cal-estrangela';
 import { toArabic } from 'cal-arabic';
 import { toSedra } from 'cal-sedra';
 
-const nonNumberRegExp = /[^0-9]+/g;
-const estrangelaNonNumberRegExp = /[^0bgdhwzx=yklmns9pcqr4tfFBGX+YKLMNS(PQ$<J]+/g;
-const syriacNonNumberRegExp = /[^ܐܒܓܕܗܘܙܚܛܝܟܠܡܢܣܥܦܨܩܪܫܬ]+/;
-const hebrewNonNumberRegExp = /[^'"אבגדהוזחטיכלמנסעפצקרשתךםןףץ״׳]+/g;
-const arabicNonNumberRegExp = /[^ابجدهوزحطيكلمنسعفصقرشت]+/g;
-const calNonNumberRegExp = /[^)bgdhwzxTyklmns(pcqr$t]+/g;
-const sedraNonNumberRegExp = /[^ABGDHOZKY;CLMNSEI/XRWT]+/g;
+const hebrewConsonants = Object.freeze(
+  hConsonants.concat(hFinalConsonants).concat(["'", '"', '״', '׳'])
+);
 
 export default class MapNumber extends React.PureComponent {
   static contextTypes = {
@@ -34,7 +39,7 @@ export default class MapNumber extends React.PureComponent {
     input: '',
     output: '',
     numeric: true,
-    positional: true,
+    positional: false,
     code: 'estrangela'
   };
 
@@ -63,42 +68,51 @@ export default class MapNumber extends React.PureComponent {
     });
   };
 
+  isValidConsonant = (consonants, c) => consonants.indexOf(c) !== -1;
+
   handleInputChange = event => {
-    let val = event.target.value.trim();
+    const val = event.target.value.trim();
     this.setState(prevState => {
-      let input = val;
-      if (prevState.numeric) {
-        input = val.replace(nonNumberRegExp, '');
-        return { input };
-      }
-      switch (prevState.code) {
-        case 'estrangela':
-          input = val.replace(estrangelaNonNumberRegExp, '');
-          break;
-        case 'syriac':
-          input = val.replace(syriacNonNumberRegExp, '');
-          break;
-        case 'hebrew':
-          input = val.replace(hebrewNonNumberRegExp, '');
-          break;
-        case 'arabic':
-          input = val.replace(arabicNonNumberRegExp, '');
-          break;
-        case 'cal':
-          input = val.replace(calNonNumberRegExp, '');
-          break;
-        case 'sedra':
-          input = val.replace(sedraNonNumberRegExp, '');
-          break;
-        default:
-          break;
+      let input = '';
+      for (let i = 0, len = val.length; i < len; i++) {
+        const c = val.charAt(i);
+        let valid = false;
+        if (prevState.numeric) {
+          valid = c >= '0' && c <= '9';
+        } else {
+          switch (prevState.code) {
+            case 'estrangela':
+              valid = this.isValidConsonant(estrangelaConsonants, c);
+              break;
+            case 'syriac':
+              valid = this.isValidConsonant(syriacConsonants, c);
+              break;
+            case 'hebrew':
+              valid = this.isValidConsonant(hebrewConsonants, c);
+              break;
+            case 'arabic':
+              valid = this.isValidConsonant(arabicConsonants, c);
+              break;
+            case 'cal':
+              valid = this.isValidConsonant(calConsonants, c);
+              break;
+            case 'sedra':
+              valid = this.isValidConsonant(sedraConsonants, c);
+              break;
+            default:
+              break;
+          }
+        }
+        if (valid) {
+          input += c;
+        }
       }
       return { input };
     });
   };
 
-  handleInputKeyPress = event => {
-    if (event.charCode === 13) {
+  handleInputKeypress = event => {
+    if (event.which === 13) {
       this.handleConvert();
     }
   };
@@ -122,14 +136,6 @@ export default class MapNumber extends React.PureComponent {
             break;
           case 'sedra':
             val = sedraToCal(val);
-            break;
-          case 'hebrew':
-            val = val
-              .replace('ך', 'כ')
-              .replace('ם', 'מ')
-              .replace('ן', 'נ')
-              .replace('ף', 'פ')
-              .replace('ץ', 'צ')
             break;
           default:
             break;
@@ -304,8 +310,8 @@ export default class MapNumber extends React.PureComponent {
               this.state.numeric ? 'Number to convert' : 'Letters to convert'
             }
             className={this.getInputClass()}
+            onKeyPress={this.handleInputKeypress}
             onChange={this.handleInputChange}
-            onKeyPress={this.handleInputKeyPress}
             value={this.state.input}
             innerRef={input => (this.inputElement = input)}
           />
