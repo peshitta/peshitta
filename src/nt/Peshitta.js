@@ -11,37 +11,11 @@ export default class Peshitta extends React.PureComponent {
     flexify: PropTypes.instanceOf(Function).isRequired
   };
 
-  getReference = (book, chapter, verse) =>
-    Object.freeze(
-      Object.create(null, {
-        book: { value: book, enumerable: true },
-        chapter: { value: chapter, enumerable: true },
-        verse: { value: verse, enumerable: true }
-      })
-    );
-
-  getIndexReference = () => {
-    const firstBook = 52;
-    const lastBook = firstBook + (ubs.books - 1);
-    const indexReference = [];
-    for (let book = firstBook; book <= lastBook; book++) {
-      const b = ubs[book];
-      for (let chapter = 1; chapter <= b.chapters; chapter++) {
-        indexReference.push(this.getReference(book, chapter, 0));
-        const c = b[chapter];
-        for (let verse = 1; verse <= c.verses; verse++) {
-          indexReference.push(this.getReference(book, chapter, verse));
-        }
-      }
-    }
-    return indexReference;
-  };
-
   componentWillMount = () => {
     this.context.flexify(true);
   };
 
-  render() {
+  getIndex() {
     let index = 0;
     const book = this.props.match.params.book
       ? getBookByEnglish(this.props.match.params.book)
@@ -60,6 +34,10 @@ export default class Peshitta extends React.PureComponent {
           ? ubs.chapters + ubs.verses - 1
           : index;
     }
+    return index;
+  }
+
+  render() {
     return (
       <div className="flex-item text-right">
         <AutoSizer>
@@ -67,8 +45,7 @@ export default class Peshitta extends React.PureComponent {
             <PeshittaTable
               width={width}
               height={height}
-              indexReference={this.getIndexReference()}
-              scrollToIndex={index}
+              scrollToIndex={this.getIndex()}
             />
           )}
         </AutoSizer>

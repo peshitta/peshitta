@@ -14,8 +14,10 @@ export default class Etymology extends React.PureComponent {
     getViewWidth: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
+    estrangelaLinkCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired,
+    getDbIndex: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -63,6 +65,11 @@ export default class Etymology extends React.PureComponent {
               className="db-table"
               gridClassName="peshitta-grid"
               headerClassName="header-style"
+              scrollToAlignment="start"
+              scrollToIndex={this.context.getDbIndex(
+                sortedList,
+                this.props.match.params.id
+              )}
             >
               <Column label="Id" dataKey="id" minWidth={30} width={33} />
               <Column
@@ -71,7 +78,10 @@ export default class Etymology extends React.PureComponent {
                 minWidth={80}
                 width={80}
                 cellDataGetter={this.context.estrangelaCellDataGetter}
-                cellRenderer={this.context.estrangelaCellRenderer}
+                cellRenderer={this.context.estrangelaLinkCellRenderer(
+                  'lexeme',
+                  'lexemeId'
+                )}
               />
               <Column
                 label="Word"

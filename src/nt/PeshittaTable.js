@@ -12,6 +12,7 @@ import { toEstrangela } from 'cal-estrangela';
 import AramaicNumber from 'aramaic-number';
 import words from 'sedrajs/build/sedra/words';
 import ubs from 'sedrajs/build/sedra/ubs';
+import ubsReference from 'sedrajs/build/sedra/ubsReference';
 
 const mapper = new AramaicNumber('cal');
 
@@ -21,8 +22,7 @@ export default class PeshittaTable extends React.PureComponent {
   };
   static propTypes = {
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    indexReference: PropTypes.array.isRequired
+    height: PropTypes.number.isRequired
   };
 
   state = {
@@ -45,8 +45,19 @@ export default class PeshittaTable extends React.PureComponent {
     }
   }
 
+  getReference = index => {
+    const ref = ubsReference[index];
+    return Object.freeze(
+      Object.create(null, {
+        book: { value: ref[0], enumerable: true },
+        chapter: { value: ref[1], enumerable: true },
+        verse: { value: ref[2], enumerable: true }
+      })
+    );
+  };
+
   rowGetter = ({ index }) => {
-    const r = this.props.indexReference[index];
+    const r = this.getReference(index);
     if (r.verse) {
       return Object.freeze(
         Object.create(null, {
@@ -68,8 +79,8 @@ export default class PeshittaTable extends React.PureComponent {
   };
 
   onRowsRendered = ({ startIndex, stopIndex }) => {
-    const start = this.props.indexReference[startIndex];
-    const end = this.props.indexReference[stopIndex];
+    const start = this.getReference(startIndex);
+    const end = this.getReference(stopIndex);
 
     this.setState({
       startBook: start.book,

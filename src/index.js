@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 
 import App from './App';
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import "font-awesome/css/font-awesome.css";
@@ -17,4 +17,4 @@ ReactDOM.render(
   </HashRouter>,
   document.getElementById('root')
 );
-// registerServiceWorker();
+registerServiceWorker();

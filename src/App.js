@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Immutable from 'immutable';
 
 import Navigation from './Navigation';
@@ -63,11 +63,25 @@ const estrangelaCellRenderer = obj => (
     <div className="estrangela">{obj.cellData || '\u00A0'}</div>
   </div>
 );
+const estrangelaLinkCellRenderer = (db, col) => obj => (
+  <div className="estrangela-cell" title={obj.rowData[obj.dataKey] || '\u00A0'}>
+    <div className="estrangela">
+      <Link to={`/${db}/${obj.rowData[col]}`}>{obj.cellData || '\u00A0'}</Link>
+    </div>
+  </div>
+);
 const cellRenderer = obj => obj.cellData || (obj.cellData === 0 ? 0 : '\u00A0');
 const boolCellRenderer = obj =>
   obj.cellData === true ? 'Yes' : obj.cellData === false ? 'No' : '\u00A0';
 const nullFilter = m => m !== null;
 const rowClassName = ({ index }) => (index % 2 === 0 ? 'evenRow' : 'oddRow');
+const getDbIndex = (db, id) => {
+  let n = parseInt(id, 10);
+  if (isNaN(n) || n < 1) {
+    n = 1;
+  }
+  return db.findKey(v => v.id === n) || 0;
+};
 
 class App extends React.Component {
   static childContextTypes = {
@@ -91,9 +105,11 @@ class App extends React.Component {
 
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
+    estrangelaLinkCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
     boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
-    rowClassName: PropTypes.instanceOf(Function).isRequired
+    rowClassName: PropTypes.instanceOf(Function).isRequired,
+    getDbIndex: PropTypes.instanceOf(Function).isRequired
   };
 
   state = {
@@ -148,9 +164,11 @@ class App extends React.Component {
       getViewWidth: this.getViewWidth,
       estrangelaCellDataGetter,
       estrangelaCellRenderer,
+      estrangelaLinkCellRenderer,
       cellRenderer,
       rowClassName,
-      boolCellRenderer
+      boolCellRenderer,
+      getDbIndex
     };
   }
 
@@ -160,11 +178,11 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/" component={Peshitta} />
 
-        <Route path="/root" component={Root} />
-        <Route path="/lexeme" component={Lexeme} />
-        <Route path="/word" component={Word} />
-        <Route path="/english" component={English} />
-        <Route path="/etymology" component={Etymology} />
+        <Route path="/root/:id?" component={Root} />
+        <Route path="/lexeme/:id?" component={Lexeme} />
+        <Route path="/word/:id?" component={Word} />
+        <Route path="/english/:id?" component={English} />
+        <Route path="/etymology/:id?" component={Etymology} />
 
         <Route path="/text" component={TextMap} />
         <Route path="/number" component={NumberMap} />
