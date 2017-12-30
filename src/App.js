@@ -176,7 +176,7 @@ class App extends React.Component {
     <div className={this.state.flexified ? 'flex-container' : ''}>
       <Navigation />
       <Switch>
-        <Route exact path="/" component={Peshitta} />
+        <Route exact path="/:book?/:chapter?/:verse?" component={Peshitta} />
 
         <Route path="/root/:id?" component={Root} />
         <Route path="/lexeme/:id?" component={Lexeme} />
@@ -189,8 +189,6 @@ class App extends React.Component {
 
         <Route path="/settings" component={Settings} />
         <Route path="/help" component={Help} />
-
-        <Route path="/:book/:chapter?/:verse?" component={Peshitta} />
 
         <Route render={() => <Redirect to="/" />} />
       </Switch>
