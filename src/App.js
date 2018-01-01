@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import Immutable from 'immutable';
 
-import Navigation from './Navigation';
+import Navigation from './nav/Navigation';
 import Settings from './Settings';
 import Help from './Help';
 import TextMap from './map/TextMap';
@@ -100,7 +100,6 @@ class App extends React.Component {
     etymology: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
     etymologyLen: PropTypes.number.isRequired,
 
-    flexify: PropTypes.instanceOf(Function).isRequired,
     getViewWidth: PropTypes.instanceOf(Function).isRequired,
 
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
@@ -112,18 +111,6 @@ class App extends React.Component {
     getDbIndex: PropTypes.instanceOf(Function).isRequired
   };
 
-  state = {
-    flexified: false
-  };
-
-  flexify = state => {
-    if (this.state.flexified !== state) {
-      this.setState({
-        flexified: state
-      });
-    }
-  };
-
   getViewWidth(width, minWidth) {
     return width < minWidth ? minWidth : width;
   }
@@ -133,34 +120,33 @@ class App extends React.Component {
       roots: Immutable.Seq.Indexed(roots)
         .map(flattenRoot)
         .filter(nullFilter),
-        //.cacheResult(),
+      //.cacheResult(),
       rootLen: 2050,
 
       lexemes: Immutable.Seq.Indexed(lexemes)
         .map(flattenLexeme)
         .filter(nullFilter),
-        //.cacheResult(),
+      //.cacheResult(),
       lexemeLen: 3559,
 
       words: Immutable.Seq.Indexed(words)
         .map(flattenWord)
         .filter(nullFilter),
-        //.cacheResult(),
+      //.cacheResult(),
       wordLen: 29699,
 
       english: Immutable.Seq.Indexed(english)
         .map(flattenEnglish)
         .filter(nullFilter),
-        //.cacheResult(),
+      //.cacheResult(),
       englishLen: 6352,
 
       etymology: Immutable.Seq.Indexed(etymology)
         .map(flattenEtymology)
         .filter(nullFilter),
-        //.cacheResult(),
+      //.cacheResult(),
       etymologyLen: 171,
 
-      flexify: this.flexify,
       getViewWidth: this.getViewWidth,
       estrangelaCellDataGetter,
       estrangelaCellRenderer,
@@ -173,27 +159,29 @@ class App extends React.Component {
   }
 
   render = () => (
-    <div className={this.state.flexified ? 'flex-container' : ''}>
+    <div className={'flex-container'}>
       <Navigation />
-      <Switch>
-        <Route exact path="/" component={Peshitta} />
+      <div className="flex-item">
+        <Switch>
+          <Route exact path="/" component={Peshitta} />
 
-        <Route path="/root/:id?" component={Root} />
-        <Route path="/lexeme/:id?" component={Lexeme} />
-        <Route path="/word/:id?" component={Word} />
-        <Route path="/english/:id?" component={English} />
-        <Route path="/etymology/:id?" component={Etymology} />
+          <Route path="/root/:id?" component={Root} />
+          <Route path="/lexeme/:id?" component={Lexeme} />
+          <Route path="/word/:id?" component={Word} />
+          <Route path="/english/:id?" component={English} />
+          <Route path="/etymology/:id?" component={Etymology} />
 
-        <Route path="/text" component={TextMap} />
-        <Route path="/number" component={NumberMap} />
+          <Route path="/text" component={TextMap} />
+          <Route path="/number" component={NumberMap} />
 
-        <Route path="/settings" component={Settings} />
-        <Route path="/help" component={Help} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/help" component={Help} />
 
-        <Route path="/:book/:chapter?/:verse?" component={Peshitta} />
+          <Route path="/:book/:chapter?/:verse?" component={Peshitta} />
 
-        <Route render={() => <Redirect to="/" />} />
-      </Switch>
+          <Route render={() => <Redirect to="/" />} />
+        </Switch>
+      </div>
     </div>
   );
 }

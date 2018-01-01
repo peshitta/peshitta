@@ -10,7 +10,6 @@ export default class Etymology extends React.PureComponent {
     etymology: PropTypes.instanceOf(Immutable.Seq.Indexed).isRequired,
     etymologyLen: PropTypes.number.isRequired,
 
-    flexify: PropTypes.instanceOf(Function).isRequired,
     getViewWidth: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellDataGetter: PropTypes.instanceOf(Function).isRequired,
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
@@ -24,10 +23,6 @@ export default class Etymology extends React.PureComponent {
     sortBy: 'id',
     sortDirection: SortDirection.ASC,
     sortedList: this.context.etymology
-  };
-
-  componentWillMount = () => {
-    this.context.flexify(true);
   };
 
   sortList = ({ sortBy, sortDirection }) => {
@@ -48,66 +43,64 @@ export default class Etymology extends React.PureComponent {
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
-      <div className="flex-item">
-        <AutoSizer>
-          {({ width, height }) => (
-            <Table
-              width={this.context.getViewWidth(width, minWidth)}
-              height={height}
-              headerHeight={21}
-              rowHeight={24}
-              rowCount={this.context.etymologyLen}
-              rowGetter={({ index }) => sortedList.get(index)}
-              rowClassName={this.context.rowClassName}
-              sort={this.sort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              className="db-table"
-              gridClassName="peshitta-grid"
-              headerClassName="header-style"
-              scrollToAlignment="start"
-              scrollToIndex={this.context.getDbIndex(
-                sortedList,
-                this.props.match.params.id
+      <AutoSizer>
+        {({ width, height }) => (
+          <Table
+            width={this.context.getViewWidth(width, minWidth)}
+            height={height}
+            headerHeight={21}
+            rowHeight={24}
+            rowCount={this.context.etymologyLen}
+            rowGetter={({ index }) => sortedList.get(index)}
+            rowClassName={this.context.rowClassName}
+            sort={this.sort}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
+            className="db-table"
+            gridClassName="peshitta-grid"
+            headerClassName="header-style"
+            scrollToAlignment="start"
+            scrollToIndex={this.context.getDbIndex(
+              sortedList,
+              this.props.match.params.id
+            )}
+          >
+            <Column label="Id" dataKey="id" minWidth={30} width={33} />
+            <Column
+              label="Lexeme"
+              dataKey="lexeme"
+              minWidth={80}
+              width={80}
+              cellDataGetter={this.context.estrangelaCellDataGetter}
+              cellRenderer={this.context.estrangelaLinkCellRenderer(
+                'lexeme',
+                'lexemeId'
               )}
-            >
-              <Column label="Id" dataKey="id" minWidth={30} width={33} />
-              <Column
-                label="Lexeme"
-                dataKey="lexeme"
-                minWidth={80}
-                width={80}
-                cellDataGetter={this.context.estrangelaCellDataGetter}
-                cellRenderer={this.context.estrangelaLinkCellRenderer(
-                  'lexeme',
-                  'lexemeId'
-                )}
-              />
-              <Column
-                label="Word"
-                dataKey="word"
-                minWidth={118}
-                width={118}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Language"
-                dataKey="language"
-                minWidth={60}
-                width={76}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Word Type"
-                dataKey="wordType"
-                minWidth={85}
-                width={85}
-                cellRenderer={this.context.cellRenderer}
-              />
-            </Table>
-          )}
-        </AutoSizer>
-      </div>
+            />
+            <Column
+              label="Word"
+              dataKey="word"
+              minWidth={118}
+              width={118}
+              cellRenderer={this.context.cellRenderer}
+            />
+            <Column
+              label="Language"
+              dataKey="language"
+              minWidth={60}
+              width={76}
+              cellRenderer={this.context.cellRenderer}
+            />
+            <Column
+              label="Word Type"
+              dataKey="wordType"
+              minWidth={85}
+              width={85}
+              cellRenderer={this.context.cellRenderer}
+            />
+          </Table>
+        )}
+      </AutoSizer>
     );
   }
 }

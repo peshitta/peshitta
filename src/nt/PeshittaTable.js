@@ -167,6 +167,7 @@ export default class PeshittaTable extends React.PureComponent {
         rowGetter={this.rowGetter}
         rowHeight={this.cache.rowHeight}
         width={width}
+        className="text-right"
         rowClassName={this.context.rowClassName}
         gridClassName="peshitta-grid"
         headerClassName="header-style"
