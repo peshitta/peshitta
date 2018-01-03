@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -22,16 +23,8 @@ export default class PeshittaTable extends React.PureComponent {
   };
   static propTypes = {
     width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
-  };
-
-  state = {
-    startBook: 0,
-    startChapter: 0,
-    startVerse: 0,
-    endBook: 0,
-    endChapter: 0,
-    endVerse: 0
+    height: PropTypes.number.isRequired,
+    scrollToRow: PropTypes.number
   };
 
   cache = new CellMeasurerCache({
@@ -43,6 +36,13 @@ export default class PeshittaTable extends React.PureComponent {
     if (nextProps.width !== this.props.width) {
       this.cache.clearAll();
     }
+  }
+
+  componentDidUpdate() {
+    if (this.props.scrollToRow !== undefined) {
+      this.table.scrollToRow(this.props.scrollToRow);
+    }
+    findDOMNode(this.table.Grid).focus();
   }
 
   getReference = index => {
@@ -81,8 +81,7 @@ export default class PeshittaTable extends React.PureComponent {
   onRowsRendered = ({ startIndex, stopIndex }) => {
     const start = this.getReference(startIndex);
     const end = this.getReference(stopIndex);
-
-    this.setState({
+    const label = this.contentLabel({
       startBook: start.book,
       startChapter: start.chapter,
       startVerse: start.verse || 1,
@@ -90,19 +89,31 @@ export default class PeshittaTable extends React.PureComponent {
       endChapter: end.chapter,
       endVerse: end.verse || 1
     });
+    findDOMNode(
+      this.table
+    ).children[0].children[0].children[0].innerHTML = label;
   };
 
-  contentLabel = () => {
+  contentLabel = ({
+    startBook,
+    startChapter,
+    startVerse,
+    endBook,
+    endChapter,
+    endVerse
+  }) => {
+    let label = '';
     const revision = 'UBS';
-    const startBook = getBook(this.state.startBook).englishName;
-    const startRef = `${this.state.startChapter}:${this.state.startVerse}`;
-    const endRef = `${this.state.endChapter}:${this.state.endVerse}`;
-    if (this.state.startBook === this.state.endBook) {
-      return `${startBook} ${startRef} - ${endRef} ${revision}`;
+    const startEnglish = getBook(startBook).englishName;
+    const startRef = `${startChapter}:${startVerse}`;
+    const endRef = `${endChapter}:${endVerse}`;
+    if (startBook === endBook) {
+      label = `${startEnglish} ${startRef} - ${endRef} ${revision}`;
+    } else {
+      const endEnglish = getBook(endBook).englishName;
+      label = `${startEnglish} ${startRef} - ${endEnglish} ${endRef} ${revision}`;
     }
-    return `${startBook} ${startRef} - ${
-      getBook(this.state.endBook).englishName
-    } ${endRef} ${revision}`;
+    return label;
   };
 
   verseBuilder = (data, index) => {
@@ -157,6 +168,8 @@ export default class PeshittaTable extends React.PureComponent {
     </div>
   );
 
+  setTableRef = table => (this.table = table);
+
   render() {
     const { width, height } = this.props;
     return (
@@ -174,13 +187,13 @@ export default class PeshittaTable extends React.PureComponent {
         overscanRowCount={2}
         onRowsRendered={this.onRowsRendered}
         deferredMeasurementCache={this.cache}
-        scrollToIndex={this.props.scrollToIndex}
         scrollToAlignment="start"
+        ref={this.setTableRef}
       >
         <Column
           dataKey="content"
           width={width - 35}
-          label={this.contentLabel()}
+          label="Content"
           cellRenderer={this.contentRenderer}
           className="cell"
         />

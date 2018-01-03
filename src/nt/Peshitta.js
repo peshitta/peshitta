@@ -6,7 +6,12 @@ import { getBookByEnglish, getIndexByVerse } from 'sedra-model';
 import ubs from 'sedrajs/build/sedra/ubs';
 
 export default class Peshitta extends React.PureComponent {
-  getIndexByBook(bookId) {
+  componentWillReceiveProps(nextProps) {
+    this.resetScroll =
+      !nextProps.match.params.book && this.props.match.params.book;
+  }
+
+  getRowForBook(bookId, props) {
     const matthewId = 52;
     const revelationId = 78;
 
@@ -15,12 +20,12 @@ export default class Peshitta extends React.PureComponent {
         ? matthewId
         : bookId > revelationId ? revelationId : bookId;
 
-    let chapter = Number.parseInt(this.props.match.params.chapter, 10);
+    let chapter = Number.parseInt(props.match.params.chapter, 10);
     if (isNaN(chapter) || chapter < 1) {
       chapter = 1;
     }
 
-    let verse = Number.parseInt(this.props.match.params.verse, 10);
+    let verse = Number.parseInt(props.match.params.verse, 10);
     if (isNaN(verse) || verse < 0) {
       verse = 0;
     }
@@ -31,17 +36,18 @@ export default class Peshitta extends React.PureComponent {
       : index;
   }
 
-  getIndex() {
-    let index = 0;
-    if (this.props.match.params.book) {
-      const bookId = Number.parseInt(this.props.match.params.book, 10);
+  getScrollToRow() {
+    let index = this.resetScroll ? 0 : undefined;
+    const p = this.props;
+    if (p.match.params.book) {
+      const bookId = Number.parseInt(p.match.params.book, 10);
       if (isNaN(bookId)) {
-        const book = getBookByEnglish(this.props.match.params.book) || null;
+        const book = getBookByEnglish(p.match.params.book) || null;
         if (book) {
-          index = this.getIndexByBook(book.id);
+          index = this.getRowForBook(book.id, p);
         }
       } else {
-        index = this.getIndexByBook(bookId);
+        index = this.getRowForBook(bookId, p);
       }
     }
     return index;
@@ -54,7 +60,7 @@ export default class Peshitta extends React.PureComponent {
           <PeshittaTable
             width={width}
             height={height}
-            scrollToIndex={this.getIndex()}
+            scrollToRow={this.getScrollToRow()}
           />
         )}
       </AutoSizer>
