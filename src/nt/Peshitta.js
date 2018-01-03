@@ -5,6 +5,8 @@ import PeshittaTable from './PeshittaTable';
 import { getBookByEnglish, getIndexByVerse } from 'sedra-model';
 import ubs from 'sedrajs/build/sedra/ubs';
 
+const nonNumeric = /[^0-9]+/;
+
 export default class Peshitta extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     this.resetScroll =
@@ -41,7 +43,7 @@ export default class Peshitta extends React.PureComponent {
     const p = this.props;
     if (p.match.params.book) {
       const bookId = Number.parseInt(p.match.params.book, 10);
-      if (isNaN(bookId)) {
+      if (isNaN(bookId) || nonNumeric.test(p.match.params.book)) {
         const book = getBookByEnglish(p.match.params.book) || null;
         if (book) {
           index = this.getRowForBook(book.id, p);
