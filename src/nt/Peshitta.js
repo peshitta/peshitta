@@ -1,19 +1,16 @@
 import React from 'react';
 import { AutoSizer } from 'react-virtualized';
 
+import Expander from '../Expander';
 import PeshittaTable from './PeshittaTable';
 import { getBookByEnglish, getIndexByVerse } from 'sedra-model';
+import ContentLabel from './ContentLabel';
 import ubs from 'sedrajs/build/sedra/ubs';
 
 const nonNumeric = /[^0-9]+/;
 
 export default class Peshitta extends React.PureComponent {
-  componentWillReceiveProps(nextProps) {
-    this.resetScroll =
-      !nextProps.match.params.book && this.props.match.params.book;
-  }
-
-  getRowForBook(bookId, props) {
+  static getRowForBook(bookId, props) {
     const matthewId = 52;
     const revelationId = 78;
 
@@ -38,34 +35,82 @@ export default class Peshitta extends React.PureComponent {
       : index;
   }
 
-  getScrollToRow() {
-    let index = this.resetScroll ? 0 : undefined;
-    const p = this.props;
-    if (p.match.params.book) {
-      const bookId = Number.parseInt(p.match.params.book, 10);
-      if (isNaN(bookId) || nonNumeric.test(p.match.params.book)) {
-        const book = getBookByEnglish(p.match.params.book) || null;
+  constructor(props, context) {
+    super(props, context);
+
+    const scrollToRow = this.getScrollToRow(props, false);
+    this.state = {
+      startBook: 52,
+      startChapter: 1,
+      startVerse: 1,
+      endBook: 52,
+      endChapter: 2,
+      endVerse: 1,
+      scrollToRow
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const resetScroll =
+      !nextProps.match.params.book && this.props.match.params.book;
+    const scrollToRow = this.getScrollToRow(nextProps, resetScroll);
+    if (scrollToRow !== this.state.scrollToRow) {
+      this.setState({ scrollToRow });
+    }
+  }
+
+  getScrollToRow = (props, resetScroll) => {
+    let index = resetScroll ? 0 : undefined;
+    if (props.match.params.book) {
+      const bookId = Number.parseInt(props.match.params.book, 10);
+      if (isNaN(bookId) || nonNumeric.test(props.match.params.book)) {
+        const book = getBookByEnglish(props.match.params.book) || null;
         if (book) {
-          index = this.getRowForBook(book.id, p);
+          index = Peshitta.getRowForBook(book.id, props);
         }
       } else {
-        index = this.getRowForBook(bookId, p);
+        index = Peshitta.getRowForBook(bookId, props);
       }
     }
     return index;
-  }
+  };
+
+  setLabel = (start, end) => {
+    this.setState({
+      startBook: start.book,
+      startChapter: start.chapter,
+      startVerse: start.verse || 1,
+      endBook: end.book,
+      endChapter: end.chapter,
+      endVerse: end.version || 1
+    });
+  };
 
   render() {
-    return (
-      <AutoSizer>
-        {({ width, height }) => (
-          <PeshittaTable
-            width={width}
-            height={height}
-            scrollToRow={this.getScrollToRow()}
-          />
-        )}
-      </AutoSizer>
-    );
+    return [
+      <div className="flex-line" key="1">
+        <input className="flex-input" />
+        <ContentLabel
+          startBook={this.state.startBook}
+          startChapter={this.state.startChapter}
+          startVerse={this.state.startVerse}
+          endBook={this.state.endBook}
+          endChapter={this.state.endChapter}
+          endVerse={this.state.endVerse}
+        />
+      </div>,
+      <Expander key="2">
+        <AutoSizer>
+          {({ width, height }) => (
+            <PeshittaTable
+              width={width}
+              height={height}
+              scrollToRow={this.state.scrollToRow}
+              setLabel={this.setLabel}
+            />
+          )}
+        </AutoSizer>
+      </Expander>
+    ];
   }
 }

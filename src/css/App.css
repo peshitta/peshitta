@@ -141,7 +141,24 @@ div.search button {
   height: 100vh;
 }
 
-.flex-item {
+.flex-table {
   flex: 1 1 auto;
   margin: 0 0.5em 0.5em 0.5em;
+}
+
+.flex-line {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0.5em 0 0.5em;
+}
+
+.flex-input {
+  flex: 1 1 auto;
+}
+
+.content-label {
+  text-align: right;
+  display: inline-block;
+  width: 340px;
 }

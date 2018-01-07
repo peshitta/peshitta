@@ -120,31 +120,26 @@ class App extends React.Component {
       roots: Immutable.Seq.Indexed(roots)
         .map(flattenRoot)
         .filter(nullFilter),
-      //.cacheResult(),
       rootLen: 2050,
 
       lexemes: Immutable.Seq.Indexed(lexemes)
         .map(flattenLexeme)
         .filter(nullFilter),
-      //.cacheResult(),
       lexemeLen: 3559,
 
       words: Immutable.Seq.Indexed(words)
         .map(flattenWord)
         .filter(nullFilter),
-      //.cacheResult(),
       wordLen: 29699,
 
       english: Immutable.Seq.Indexed(english)
         .map(flattenEnglish)
         .filter(nullFilter),
-      //.cacheResult(),
       englishLen: 6352,
 
       etymology: Immutable.Seq.Indexed(etymology)
         .map(flattenEtymology)
         .filter(nullFilter),
-      //.cacheResult(),
       etymologyLen: 171,
 
       getViewWidth: this.getViewWidth,
@@ -161,27 +156,25 @@ class App extends React.Component {
   render = () => (
     <div className={'flex-container'}>
       <Navigation />
-      <div className="flex-item">
-        <Switch>
-          <Route exact path="/" component={Peshitta} />
+      <Switch>
+        <Route exact path="/" component={Peshitta} />
 
-          <Route path="/root/:id?" component={Root} />
-          <Route path="/lexeme/:id?" component={Lexeme} />
-          <Route path="/word/:id?" component={Word} />
-          <Route path="/english/:id?" component={English} />
-          <Route path="/etymology/:id?" component={Etymology} />
+        <Route path="/root/:id?" component={Root} />
+        <Route path="/lexeme/:id?" component={Lexeme} />
+        <Route path="/word/:id?" component={Word} />
+        <Route path="/english/:id?" component={English} />
+        <Route path="/etymology/:id?" component={Etymology} />
 
-          <Route path="/text" component={TextMap} />
-          <Route path="/number" component={NumberMap} />
+        <Route path="/text" component={TextMap} />
+        <Route path="/number" component={NumberMap} />
 
-          <Route path="/settings" component={Settings} />
-          <Route path="/help" component={Help} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/help" component={Help} />
 
-          <Route path="/:book/:chapter?/:verse?" component={Peshitta} />
+        <Route path="/:book/:chapter?/:verse?" component={Peshitta} />
 
-          <Route render={() => <Redirect to="/" />} />
-        </Switch>
-      </div>
+        <Route render={() => <Redirect to="/" />} />
+      </Switch>
     </div>
   );
 }
