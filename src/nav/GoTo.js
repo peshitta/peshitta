@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { getBook, getBooksByEnglish, getBookByEnglish } from 'sedra-model';
 
 class GoTo extends React.PureComponent {
+  static nonNumeric = /[^0-9]+/;
   static splitRegex = / +|:|\/|-|_|\|/g;
   static englishNames = [];
   static allBookNames = Object.keys(getBooksByEnglish());
@@ -38,10 +39,20 @@ class GoTo extends React.PureComponent {
       const split = txt.split(GoTo.splitRegex);
       const book = getBookByEnglish(split[0]);
       if (book) {
-        const chapter = split[1];
+        let chapter = split[1];
         if (chapter) {
-          const verse = split[2];
+          if (GoTo.nonNumeric.test(chapter) || chapter < 1) {
+            chapter = 1;
+          } else if (chapter > book.stats.chapters) {
+            chapter = book.stats.chapters;
+          }
+          let verse = split[2];
           if (verse) {
+            if (GoTo.nonNumeric.test(verse) || verse < 1) {
+              verse = 1;
+            } else if (verse > book.stats.chapter[chapter].verses) {
+              verse = book.stats.chapter[chapter].verses;
+            }
             result.push({
               v: `${book.englishShortName}/${chapter}/${verse}`,
               l: `${book.englishName} ${chapter}:${verse}`
