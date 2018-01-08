@@ -131,6 +131,7 @@ div.search button {
 }
 
 .footer {
+  text-align: center;
   padding: 10px 15px 0 15px;
   font-size: smaller;
 }

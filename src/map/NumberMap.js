@@ -8,6 +8,7 @@ import {
   Container
 } from 'reactstrap';
 import { AutoSizer } from 'react-virtualized';
+import Expander from '../Expander';
 
 import AramaicNumber from 'aramaic-number';
 import { allConsonants as estrangelaConsonants } from 'estrangela-code-util';
@@ -195,142 +196,148 @@ export default class MapNumber extends React.PureComponent {
 
   render() {
     return (
-      <AutoSizer disableWidth>
-        {({ height }) => (
-          <Container style={{ height, overflow: 'auto' }}>
-            <FormGroup>
-              <Label>
-                <span className="text-capitalize">
-                  {this.state.numeric ? 'Number' : this.state.code + ' Letters'}
-                </span>{' '}
-                to{' '}
-                <span className="text-capitalize">
-                  {this.state.numeric ? this.state.code + ' Letters' : 'Number'}
-                </span>
-              </Label>
-            </FormGroup>
-            <FormGroup>
-              <ButtonGroup>
-                <Button
-                  id="estrangela"
-                  color="light"
-                  onClick={this.handleCodeClick}
-                  active={this.state.code === 'estrangela'}
-                  title="Estrangela ASCII code"
-                  innerRef={button => (this.estrangelaButton = button)}
-                >
-                  Estrangela
+      <Expander>
+        <AutoSizer disableWidth>
+          {({ height }) => (
+            <Container style={{ height, overflow: 'auto' }}>
+              <FormGroup>
+                <Label>
+                  <span className="text-capitalize">
+                    {this.state.numeric
+                      ? 'Number'
+                      : this.state.code + ' Letters'}
+                  </span>{' '}
+                  to{' '}
+                  <span className="text-capitalize">
+                    {this.state.numeric
+                      ? this.state.code + ' Letters'
+                      : 'Number'}
+                  </span>
+                </Label>
+              </FormGroup>
+              <FormGroup>
+                <ButtonGroup>
+                  <Button
+                    id="estrangela"
+                    color="light"
+                    onClick={this.handleCodeClick}
+                    active={this.state.code === 'estrangela'}
+                    title="Estrangela ASCII code"
+                    innerRef={button => (this.estrangelaButton = button)}
+                  >
+                    Estrangela
+                  </Button>
+                  <Button
+                    id="syriac"
+                    color="light"
+                    onClick={this.handleCodeClick}
+                    active={this.state.code === 'syriac'}
+                    title="Syriac Unicode"
+                    innerRef={button => (this.syriacButton = button)}
+                  >
+                    Syriac
+                  </Button>
+                  <Button
+                    id="hebrew"
+                    color="light"
+                    onClick={this.handleCodeClick}
+                    active={this.state.code === 'hebrew'}
+                    title="Hebrew Unicode"
+                    innerRef={button => (this.hebrewButton = button)}
+                  >
+                    Hebrew
+                  </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button
+                    id="arabic"
+                    color="light"
+                    onClick={this.handleCodeClick}
+                    active={this.state.code === 'arabic'}
+                    title="Arabic Unicode"
+                    innerRef={button => (this.arabicButton = button)}
+                  >
+                    Arabic
+                  </Button>
+                  <Button
+                    id="cal"
+                    color="light"
+                    onClick={this.handleCodeClick}
+                    active={this.state.code === 'cal'}
+                    title="CAL ASCII Code"
+                    innerRef={button => (this.calButton = button)}
+                  >
+                    CAL Code
+                  </Button>
+                  <Button
+                    id="sedra"
+                    color="light"
+                    onClick={this.handleCodeClick}
+                    active={this.state.code === 'sedra'}
+                    title="Sedra ASCII Code"
+                    innerRef={button => (this.sedraButton = button)}
+                  >
+                    Sedra
+                  </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button
+                    color="light"
+                    onClick={this.handleNumericClick}
+                    active={this.state.numeric}
+                    title="Input is a number"
+                    innerRef={button => (this.numberButton = button)}
+                  >
+                    Number
+                  </Button>
+                  <Button
+                    color="light"
+                    onClick={this.handlePositionalClick}
+                    active={this.state.positional}
+                    disabled={this.state.numeric}
+                    title="Use letter position when computing number"
+                    innerRef={button => (this.positionalButton = button)}
+                  >
+                    Positional
+                  </Button>
+                </ButtonGroup>
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="input"
+                  style={{ textAlign: 'center' }}
+                  title={
+                    this.state.numeric
+                      ? 'Number to convert'
+                      : 'Letters to convert'
+                  }
+                  className={this.getInputClass()}
+                  onKeyPress={this.handleInputKeypress}
+                  onChange={this.handleInputChange}
+                  value={this.state.input}
+                  innerRef={input => (this.inputElement = input)}
+                />
+              </FormGroup>
+              <FormGroup style={{ textAlign: 'center' }}>
+                <Button color="primary" onClick={this.handleConvert}>
+                  {this.state.numeric ? 'To Letters' : 'To Number'}
                 </Button>
-                <Button
-                  id="syriac"
-                  color="light"
-                  onClick={this.handleCodeClick}
-                  active={this.state.code === 'syriac'}
-                  title="Syriac Unicode"
-                  innerRef={button => (this.syriacButton = button)}
-                >
-                  Syriac
-                </Button>
-                <Button
-                  id="hebrew"
-                  color="light"
-                  onClick={this.handleCodeClick}
-                  active={this.state.code === 'hebrew'}
-                  title="Hebrew Unicode"
-                  innerRef={button => (this.hebrewButton = button)}
-                >
-                  Hebrew
-                </Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button
-                  id="arabic"
-                  color="light"
-                  onClick={this.handleCodeClick}
-                  active={this.state.code === 'arabic'}
-                  title="Arabic Unicode"
-                  innerRef={button => (this.arabicButton = button)}
-                >
-                  Arabic
-                </Button>
-                <Button
-                  id="cal"
-                  color="light"
-                  onClick={this.handleCodeClick}
-                  active={this.state.code === 'cal'}
-                  title="CAL ASCII Code"
-                  innerRef={button => (this.calButton = button)}
-                >
-                  CAL Code
-                </Button>
-                <Button
-                  id="sedra"
-                  color="light"
-                  onClick={this.handleCodeClick}
-                  active={this.state.code === 'sedra'}
-                  title="Sedra ASCII Code"
-                  innerRef={button => (this.sedraButton = button)}
-                >
-                  Sedra
-                </Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button
-                  color="light"
-                  onClick={this.handleNumericClick}
-                  active={this.state.numeric}
-                  title="Input is a number"
-                  innerRef={button => (this.numberButton = button)}
-                >
-                  Number
-                </Button>
-                <Button
-                  color="light"
-                  onClick={this.handlePositionalClick}
-                  active={this.state.positional}
-                  disabled={this.state.numeric}
-                  title="Use letter position when computing number"
-                  innerRef={button => (this.positionalButton = button)}
-                >
-                  Positional
-                </Button>
-              </ButtonGroup>
-            </FormGroup>
-            <FormGroup>
-              <Input
-                type="input"
-                style={{ textAlign: 'center' }}
-                title={
-                  this.state.numeric
-                    ? 'Number to convert'
-                    : 'Letters to convert'
-                }
-                className={this.getInputClass()}
-                onKeyPress={this.handleInputKeypress}
-                onChange={this.handleInputChange}
-                value={this.state.input}
-                innerRef={input => (this.inputElement = input)}
-              />
-            </FormGroup>
-            <FormGroup style={{ textAlign: 'center' }}>
-              <Button color="primary" onClick={this.handleConvert}>
-                {this.state.numeric ? 'To Letters' : 'To Number'}
-              </Button>
-            </FormGroup>
-            <FormGroup>
-              <Input
-                type="input"
-                style={{ textAlign: 'center' }}
-                readOnly
-                title="Converted number"
-                className={this.getOutputClass()}
-                value={this.state.output}
-                innerRef={input => (this.outputElement = input)}
-              />
-            </FormGroup>
-          </Container>
-        )}
-      </AutoSizer>
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="input"
+                  style={{ textAlign: 'center' }}
+                  readOnly
+                  title="Converted number"
+                  className={this.getOutputClass()}
+                  value={this.state.output}
+                  innerRef={input => (this.outputElement = input)}
+                />
+              </FormGroup>
+            </Container>
+          )}
+        </AutoSizer>
+      </Expander>
     );
   }
 }

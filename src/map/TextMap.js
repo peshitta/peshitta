@@ -8,6 +8,7 @@ import {
   Container
 } from 'reactstrap';
 import { AutoSizer } from 'react-virtualized';
+import Expander from '../Expander';
 
 import { removeDotting as calRemoveDotting } from 'cal-code-util';
 import { removeDotting as sedraRemoveDotting } from 'sedra-code-util';
@@ -288,231 +289,239 @@ export default class MapText extends React.PureComponent {
 
   render() {
     return (
-      <AutoSizer disableWidth>
-        {({ height }) => (
-          <Container style={{ height, overflow: 'auto' }}>
-            <FormGroup>
-              <Label>
-                <span className="text-capitalize">{this.state.inputCode}</span>{' '}
-                to{' '}
-                <span className="text-capitalize">{this.state.outputCode}</span>{' '}
-                {this.state.niqqud ||
-                this.state.outputCode === 'ipa' ||
-                this.state.outputCode === 'latin'
-                  ? ''
-                  : 'consonant'}{' '}
-                text
-              </Label>
-            </FormGroup>
-            <FormGroup>
-              <ButtonGroup>
-                <Button
-                  color="light"
-                  data-code="estrangela"
-                  onClick={this.handleInputCodeClick}
-                  active={this.state.inputCode === 'estrangela'}
-                  title="Estrangela ASCII code"
-                  innerRef={button => (this.estrangelaInputButton = button)}
-                >
-                  Estrangela
+      <Expander>
+        <AutoSizer disableWidth>
+          {({ height }) => (
+            <Container style={{ height, overflow: 'auto' }}>
+              <FormGroup>
+                <Label>
+                  <span className="text-capitalize">
+                    {this.state.inputCode}
+                  </span>{' '}
+                  to{' '}
+                  <span className="text-capitalize">
+                    {this.state.outputCode}
+                  </span>{' '}
+                  {this.state.niqqud ||
+                  this.state.outputCode === 'ipa' ||
+                  this.state.outputCode === 'latin'
+                    ? ''
+                    : 'consonant'}{' '}
+                  text
+                </Label>
+              </FormGroup>
+              <FormGroup>
+                <ButtonGroup>
+                  <Button
+                    color="light"
+                    data-code="estrangela"
+                    onClick={this.handleInputCodeClick}
+                    active={this.state.inputCode === 'estrangela'}
+                    title="Estrangela ASCII code"
+                    innerRef={button => (this.estrangelaInputButton = button)}
+                  >
+                    Estrangela
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="syriac"
+                    onClick={this.handleInputCodeClick}
+                    active={this.state.inputCode === 'syriac'}
+                    title="Syriac Unicode"
+                    innerRef={button => (this.syriacInputButton = button)}
+                  >
+                    Syriac
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="hebrew"
+                    onClick={this.handleInputCodeClick}
+                    active={this.state.inputCode === 'hebrew'}
+                    title="Hebrew Unicode"
+                    innerRef={button => (this.hebrewInputButton = button)}
+                  >
+                    Hebrew
+                  </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button
+                    color="light"
+                    data-code="arabic"
+                    onClick={this.handleInputCodeClick}
+                    active={this.state.inputCode === 'arabic'}
+                    title="Arabic Unicode"
+                    innerRef={button => (this.arabicInputButton = button)}
+                  >
+                    Arabic
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="cal"
+                    onClick={this.handleInputCodeClick}
+                    active={this.state.inputCode === 'cal'}
+                    title="CAL ASCII Code"
+                    innerRef={button => (this.calInputButton = button)}
+                  >
+                    CAL Code
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="sedra"
+                    onClick={this.handleInputCodeClick}
+                    active={this.state.inputCode === 'sedra'}
+                    title="Sedra ASCII Code"
+                    innerRef={button => (this.sedraInputButton = button)}
+                  >
+                    Sedra
+                  </Button>
+                </ButtonGroup>
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="textarea"
+                  innerRef={input => (this.inputElement = input)}
+                  rows="3"
+                  title="Source text"
+                  className={this.getClassByCode(this.state.inputCode)}
+                  onChange={this.handleSourceChange}
+                  value={this.state.input}
+                />
+              </FormGroup>
+              <FormGroup>
+                <ButtonGroup>
+                  <Button
+                    color="light"
+                    data-code="ipa"
+                    onClick={this.handleOutputCodeClick}
+                    active={this.state.outputCode === 'ipa'}
+                    title="IPA Unicode"
+                    innerRef={button => (this.ipaButton = button)}
+                  >
+                    IPA code
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="latin"
+                    onClick={this.handleOutputCodeClick}
+                    active={this.state.outputCode === 'latin'}
+                    title="Latin Unicode"
+                    innerRef={button => (this.latinButton = button)}
+                  >
+                    Latin
+                  </Button>
+                  <Button
+                    color="light"
+                    onClick={this.handleNiqqudClick}
+                    active={this.state.niqqud}
+                    title="Include vowels and diacritics"
+                    innerRef={button => (this.niqqudButton = button)}
+                  >
+                    Niqqud
+                  </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button
+                    color="light"
+                    data-code="estrangela"
+                    onClick={this.handleOutputCodeClick}
+                    disabled={
+                      this.state.niqqud && this.state.inputCode === 'estrangela'
+                    }
+                    active={this.state.outputCode === 'estrangela'}
+                    title="Estrangela ASCII code"
+                    innerRef={button => (this.estrangelaOutputButton = button)}
+                  >
+                    Estrangela
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="syriac"
+                    onClick={this.handleOutputCodeClick}
+                    disabled={
+                      this.state.niqqud && this.state.inputCode === 'syriac'
+                    }
+                    active={this.state.outputCode === 'syriac'}
+                    title="Syriac Unicode"
+                    innerRef={button => (this.syriacOutputButton = button)}
+                  >
+                    Syriac
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="hebrew"
+                    onClick={this.handleOutputCodeClick}
+                    disabled={
+                      this.state.niqqud && this.state.inputCode === 'hebrew'
+                    }
+                    active={this.state.outputCode === 'hebrew'}
+                    title="Hebrew Unicode"
+                    innerRef={button => (this.hebrewOutputButton = button)}
+                  >
+                    Hebrew
+                  </Button>
+                </ButtonGroup>
+                <ButtonGroup>
+                  <Button
+                    color="light"
+                    data-code="arabic"
+                    onClick={this.handleOutputCodeClick}
+                    disabled={
+                      this.state.niqqud && this.state.inputCode === 'arabic'
+                    }
+                    active={this.state.outputCode === 'arabic'}
+                    title="Arabic Unicode"
+                    innerRef={button => (this.arabicOutputButton = button)}
+                  >
+                    Arabic
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="cal"
+                    onClick={this.handleOutputCodeClick}
+                    disabled={
+                      this.state.niqqud && this.state.inputCode === 'cal'
+                    }
+                    active={this.state.outputCode === 'cal'}
+                    title="CAL ASCII Code"
+                    innerRef={button => (this.calOutputButton = button)}
+                  >
+                    CAL Code
+                  </Button>
+                  <Button
+                    color="light"
+                    data-code="sedra"
+                    onClick={this.handleOutputCodeClick}
+                    disabled={
+                      this.state.niqqud && this.state.inputCode === 'sedra'
+                    }
+                    active={this.state.outputCode === 'sedra'}
+                    title="Sedra ASCII Code"
+                    innerRef={button => (this.sedraOutputButton = button)}
+                  >
+                    Sedra
+                  </Button>
+                </ButtonGroup>
+              </FormGroup>
+              <FormGroup style={{ textAlign: 'center' }}>
+                <Button color="primary" onClick={this.handleConvert}>
+                  Convert
                 </Button>
-                <Button
-                  color="light"
-                  data-code="syriac"
-                  onClick={this.handleInputCodeClick}
-                  active={this.state.inputCode === 'syriac'}
-                  title="Syriac Unicode"
-                  innerRef={button => (this.syriacInputButton = button)}
-                >
-                  Syriac
-                </Button>
-                <Button
-                  color="light"
-                  data-code="hebrew"
-                  onClick={this.handleInputCodeClick}
-                  active={this.state.inputCode === 'hebrew'}
-                  title="Hebrew Unicode"
-                  innerRef={button => (this.hebrewInputButton = button)}
-                >
-                  Hebrew
-                </Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button
-                  color="light"
-                  data-code="arabic"
-                  onClick={this.handleInputCodeClick}
-                  active={this.state.inputCode === 'arabic'}
-                  title="Arabic Unicode"
-                  innerRef={button => (this.arabicInputButton = button)}
-                >
-                  Arabic
-                </Button>
-                <Button
-                  color="light"
-                  data-code="cal"
-                  onClick={this.handleInputCodeClick}
-                  active={this.state.inputCode === 'cal'}
-                  title="CAL ASCII Code"
-                  innerRef={button => (this.calInputButton = button)}
-                >
-                  CAL Code
-                </Button>
-                <Button
-                  color="light"
-                  data-code="sedra"
-                  onClick={this.handleInputCodeClick}
-                  active={this.state.inputCode === 'sedra'}
-                  title="Sedra ASCII Code"
-                  innerRef={button => (this.sedraInputButton = button)}
-                >
-                  Sedra
-                </Button>
-              </ButtonGroup>
-            </FormGroup>
-            <FormGroup>
-              <Input
-                type="textarea"
-                innerRef={input => (this.inputElement = input)}
-                rows="3"
-                title="Source text"
-                className={this.getClassByCode(this.state.inputCode)}
-                onChange={this.handleSourceChange}
-                value={this.state.input}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ButtonGroup>
-                <Button
-                  color="light"
-                  data-code="ipa"
-                  onClick={this.handleOutputCodeClick}
-                  active={this.state.outputCode === 'ipa'}
-                  title="IPA Unicode"
-                  innerRef={button => (this.ipaButton = button)}
-                >
-                  IPA code
-                </Button>
-                <Button
-                  color="light"
-                  data-code="latin"
-                  onClick={this.handleOutputCodeClick}
-                  active={this.state.outputCode === 'latin'}
-                  title="Latin Unicode"
-                  innerRef={button => (this.latinButton = button)}
-                >
-                  Latin
-                </Button>
-                <Button
-                  color="light"
-                  onClick={this.handleNiqqudClick}
-                  active={this.state.niqqud}
-                  title="Include vowels and diacritics"
-                  innerRef={button => (this.niqqudButton = button)}
-                >
-                  Niqqud
-                </Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button
-                  color="light"
-                  data-code="estrangela"
-                  onClick={this.handleOutputCodeClick}
-                  disabled={
-                    this.state.niqqud && this.state.inputCode === 'estrangela'
-                  }
-                  active={this.state.outputCode === 'estrangela'}
-                  title="Estrangela ASCII code"
-                  innerRef={button => (this.estrangelaOutputButton = button)}
-                >
-                  Estrangela
-                </Button>
-                <Button
-                  color="light"
-                  data-code="syriac"
-                  onClick={this.handleOutputCodeClick}
-                  disabled={
-                    this.state.niqqud && this.state.inputCode === 'syriac'
-                  }
-                  active={this.state.outputCode === 'syriac'}
-                  title="Syriac Unicode"
-                  innerRef={button => (this.syriacOutputButton = button)}
-                >
-                  Syriac
-                </Button>
-                <Button
-                  color="light"
-                  data-code="hebrew"
-                  onClick={this.handleOutputCodeClick}
-                  disabled={
-                    this.state.niqqud && this.state.inputCode === 'hebrew'
-                  }
-                  active={this.state.outputCode === 'hebrew'}
-                  title="Hebrew Unicode"
-                  innerRef={button => (this.hebrewOutputButton = button)}
-                >
-                  Hebrew
-                </Button>
-              </ButtonGroup>
-              <ButtonGroup>
-                <Button
-                  color="light"
-                  data-code="arabic"
-                  onClick={this.handleOutputCodeClick}
-                  disabled={
-                    this.state.niqqud && this.state.inputCode === 'arabic'
-                  }
-                  active={this.state.outputCode === 'arabic'}
-                  title="Arabic Unicode"
-                  innerRef={button => (this.arabicOutputButton = button)}
-                >
-                  Arabic
-                </Button>
-                <Button
-                  color="light"
-                  data-code="cal"
-                  onClick={this.handleOutputCodeClick}
-                  disabled={this.state.niqqud && this.state.inputCode === 'cal'}
-                  active={this.state.outputCode === 'cal'}
-                  title="CAL ASCII Code"
-                  innerRef={button => (this.calOutputButton = button)}
-                >
-                  CAL Code
-                </Button>
-                <Button
-                  color="light"
-                  data-code="sedra"
-                  onClick={this.handleOutputCodeClick}
-                  disabled={
-                    this.state.niqqud && this.state.inputCode === 'sedra'
-                  }
-                  active={this.state.outputCode === 'sedra'}
-                  title="Sedra ASCII Code"
-                  innerRef={button => (this.sedraOutputButton = button)}
-                >
-                  Sedra
-                </Button>
-              </ButtonGroup>
-            </FormGroup>
-            <FormGroup style={{ textAlign: 'center' }}>
-              <Button color="primary" onClick={this.handleConvert}>
-                Convert
-              </Button>
-            </FormGroup>
-            <FormGroup>
-              <Input
-                type="textarea"
-                innerRef={input => (this.outputElement = input)}
-                rows="3"
-                readOnly
-                title="Converted text"
-                className={this.getClassByCode(this.state.outputCode)}
-                value={this.state.output}
-              />
-            </FormGroup>
-          </Container>
-        )}
-      </AutoSizer>
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  type="textarea"
+                  innerRef={input => (this.outputElement = input)}
+                  rows="3"
+                  readOnly
+                  title="Converted text"
+                  className={this.getClassByCode(this.state.outputCode)}
+                  value={this.state.output}
+                />
+              </FormGroup>
+            </Container>
+          )}
+        </AutoSizer>
+      </Expander>
     );
   }
 }
