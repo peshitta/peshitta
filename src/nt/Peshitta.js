@@ -82,7 +82,7 @@ export default class Peshitta extends React.PureComponent {
       startVerse: start.verse || 1,
       endBook: end.book,
       endChapter: end.chapter,
-      endVerse: end.version || 1
+      endVerse: end.verse || 1
     });
   };
 

@@ -10,11 +10,9 @@ import {
   Dropdown,
   DropdownItem,
   DropdownToggle,
-  DropdownMenu,
-  Label,
-  Input,
-  Button
+  DropdownMenu
 } from 'reactstrap';
+import GoTo from './GoTo';
 import logo from './logo.jpg';
 
 export default class Navigation extends React.PureComponent {
@@ -58,23 +56,7 @@ export default class Navigation extends React.PureComponent {
               <img src={logo} alt="Peshitta Logo" title="Peshitta" />
             </NavLink>
           </NavItem>
-          <div className="search">
-            <Label for="search" hidden>
-              Search
-            </Label>
-            <Input
-              type="search"
-              placeholder="Go"
-              aria-label="Search"
-              name="search"
-              id="search"
-              spellCheck="false"
-              autoCorrect="off"
-            />
-            <Button outline>
-              <i className="fa fa-search" aria-hidden="true" title="Search" />
-            </Button>
-          </div>
+          <GoTo />
           <NavbarToggler onClick={this.toggleNavbar} />
         </Nav>
         <Collapse isOpen={this.state.navbarCollapsed} navbar>
