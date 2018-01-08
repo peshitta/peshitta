@@ -104,6 +104,7 @@ class GoTo extends React.PureComponent {
     return (
       <VirtualizedSelect
         className="goTo"
+        placeholder="Go To"
         valueKey="v"
         labelKey="l"
         options={this.getOptions()}
