@@ -62,7 +62,7 @@ export default class Navigation extends React.PureComponent {
         <Collapse
           isOpen={this.state.navbarCollapsed}
           navbar
-          style={{ minWidth: '340px' }}
+          style={{ minWidth: '270px' }}
         >
           <Nav navbar>
             <Dropdown
