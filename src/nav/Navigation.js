@@ -59,7 +59,11 @@ export default class Navigation extends React.PureComponent {
           <GoTo />
           <NavbarToggler onClick={this.toggleNavbar} />
         </Nav>
-        <Collapse isOpen={this.state.navbarCollapsed} navbar>
+        <Collapse
+          isOpen={this.state.navbarCollapsed}
+          navbar
+          style={{ minWidth: '340px' }}
+        >
           <Nav navbar>
             <Dropdown
               isOpen={this.state.lexiconDropdownOpen}

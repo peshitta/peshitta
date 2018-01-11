@@ -86,9 +86,9 @@ export default class Peshitta extends React.PureComponent {
     });
   };
 
-  render() {
-    return [
-      <div className="flex-line" key="1">
+  render = () => (
+    <React.Fragment>
+      <div className="flex-line">
         <input className="flex-input" />
         <ContentLabel
           startBook={this.state.startBook}
@@ -98,8 +98,8 @@ export default class Peshitta extends React.PureComponent {
           endChapter={this.state.endChapter}
           endVerse={this.state.endVerse}
         />
-      </div>,
-      <Expander key="2">
+      </div>
+      <Expander>
         <AutoSizer>
           {({ width, height }) => (
             <PeshittaTable
@@ -111,6 +111,6 @@ export default class Peshitta extends React.PureComponent {
           )}
         </AutoSizer>
       </Expander>
-    ];
-  }
+    </React.Fragment>
+  );
 }

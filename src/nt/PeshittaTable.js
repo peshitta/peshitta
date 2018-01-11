@@ -1,5 +1,4 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -44,7 +43,6 @@ export default class PeshittaTable extends React.PureComponent {
     if (scrollToRow !== undefined) {
       this.table.scrollToRow(scrollToRow);
     }
-    findDOMNode(this.table.Grid).focus();
   }
 
   onRowsRendered = ({ startIndex, stopIndex }) => {
