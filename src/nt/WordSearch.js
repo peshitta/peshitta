@@ -24,14 +24,14 @@ export default class WordSearch extends React.PureComponent {
         style={{
           position: 'absolute',
           left: 0,
-          top: this.state.displayed ? 3 : 0,
+          top: this.state.displayed ? 2 : 0,
           zIndex: 100
         }}
         title="Click to toggle Word Search"
         onClick={this.onClick}
       />
       <VirtualizedSelect
-        placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search - TODO"
+        placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search - TODO"
         style={{
           width: '100%',
           paddingLeft: '27px',
