@@ -4,6 +4,7 @@ import { AutoSizer } from 'react-virtualized';
 import Expander from '../Expander';
 import PeshittaTable from './PeshittaTable';
 import { getBookByEnglish, getIndexByVerse } from 'sedra-model';
+import WordSearch from './WordSearch';
 import ContentLabel from './ContentLabel';
 import ubs from 'sedrajs/build/sedra/ubs';
 
@@ -89,7 +90,7 @@ export default class Peshitta extends React.PureComponent {
   render = () => (
     <React.Fragment>
       <div className="flex-line">
-        <input className="flex-input" />
+        <WordSearch />
         <ContentLabel
           startBook={this.state.startBook}
           startChapter={this.state.startChapter}
