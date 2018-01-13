@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
 import Expander from '../Expander';
+import TableSearch from './TableSearch';
 
 export default class Root extends React.PureComponent {
   static contextTypes = {
@@ -37,67 +38,84 @@ export default class Root extends React.PureComponent {
     this.setState({ sortBy, sortDirection, sortedList });
   };
 
+  columns = [
+    { value: 'id', label: 'Id', unique: true },
+    { value: 'root', label: 'Root', unique: true },
+    { value: 'sort', label: 'Sort', unique: true },
+    { value: 'seyame', label: 'Seyame', unique: false },
+    { value: 'rootType', label: 'Root Type', unique: false }
+  ];
+
   render() {
-    const minWidth = 392;
+    const minWidth = 412;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
-      <Expander>
-        <AutoSizer>
-          {({ width, height }) => (
-            <Table
-              width={this.context.getViewWidth(width, minWidth)}
-              height={height}
-              headerHeight={21}
-              rowHeight={24}
-              rowCount={this.context.rootLen}
-              rowGetter={({ index }) => sortedList.get(index)}
-              rowClassName={this.context.rowClassName}
-              sort={this.sort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              className="db-table"
-              gridClassName="peshitta-grid"
-              headerClassName="header-style"
-              scrollToAlignment="start"
-              scrollToIndex={this.context.getDbIndex(
-                sortedList,
-                this.props.match.params.id
-              )}
-            >
-              <Column label="Id" dataKey="id" minWidth={33} width={33} />
-              <Column
-                label="Root"
-                dataKey="root"
-                minWidth={100}
-                width={100}
-                cellDataGetter={this.context.estrangelaCellDataGetter}
-                cellRenderer={this.context.estrangelaCellRenderer}
-              />
-              <Column
-                label="Sort"
-                dataKey="sort"
-                className="verba"
-                minWidth={122}
-                width={122}
-              />
-              <Column
-                label="Seyame"
-                dataKey="seyame"
-                minWidth={34}
-                width={64}
-                cellRenderer={this.context.boolCellRenderer}
-              />
-              <Column
-                label="Root Type"
-                dataKey="rootType"
-                minWidth={87}
-                width={87}
-              />
-            </Table>
-          )}
-        </AutoSizer>
-      </Expander>
+      <React.Fragment>
+        <TableSearch
+          history={this.props.history}
+          columns={this.columns}
+          data={this.context.roots}
+          dataLen={this.context.rootLen}
+          table="root"
+        />
+        <Expander>
+          <AutoSizer>
+            {({ width, height }) => (
+              <Table
+                width={this.context.getViewWidth(width, minWidth)}
+                height={height}
+                headerHeight={21}
+                rowHeight={24}
+                rowCount={this.context.rootLen}
+                rowGetter={({ index }) => sortedList.get(index)}
+                rowClassName={this.context.rowClassName}
+                sort={this.sort}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                className="db-table"
+                gridClassName="peshitta-grid"
+                headerClassName="header-style"
+                scrollToAlignment="start"
+                scrollToIndex={this.context.getDbIndex(
+                  sortedList,
+                  this.props.match.params.id
+                )}
+              >
+                <Column label="Id" dataKey="id" minWidth={33} width={33} />
+                <Column
+                  label="Root"
+                  dataKey="root"
+                  minWidth={100}
+                  width={100}
+                  cellDataGetter={this.context.estrangelaCellDataGetter}
+                  cellRenderer={this.context.estrangelaCellRenderer}
+                />
+                <Column
+                  label="Sort"
+                  dataKey="sort"
+                  className="verba"
+                  minWidth={122}
+                  width={122}
+                />
+                <Column
+                  label="Seyame"
+                  dataKey="seyame"
+                  minWidth={64}
+                  width={64}
+                  cellRenderer={this.context.boolCellRenderer}
+                />
+                <Column
+                  label="Root Type"
+                  dataKey="rootType"
+                  minWidth={87}
+                  width={87}
+                />
+              </Table>
+            )}
+          </AutoSizer>
+        </Expander>
+      </React.Fragment>
     );
   }
 }

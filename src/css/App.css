@@ -165,8 +165,9 @@ div.search button {
 }
 
 .content-label {
+  padding-top: 6px;
   text-align: right;
-  display: inline-block;
   min-width: 340px;
   white-space: nowrap;
+  height: 36px;
 }

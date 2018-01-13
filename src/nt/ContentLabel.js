@@ -26,9 +26,9 @@ export default class ContentLabel extends React.PureComponent {
     const label =
       p.startBook && p.endBook ? ContentLabel.contentLabel(p) : '\u00A0';
     return (
-      <span className="content-label" title="Content">
-        {label}
-      </span>
+      <div className="content-label">
+        <span title="Content">{label}</span>
+      </div>
     );
   };
 }

@@ -24,7 +24,7 @@ export default class WordSearch extends React.PureComponent {
         style={{
           position: 'absolute',
           left: 0,
-          top: this.state.displayed ? 2 : 0,
+          top: 2,
           zIndex: 100
         }}
         title="Click to toggle Word Search"
@@ -34,7 +34,7 @@ export default class WordSearch extends React.PureComponent {
         placeholder="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search - TODO"
         style={{
           width: '100%',
-          paddingLeft: '27px',
+          paddingLeft: '30px',
           display: this.state.displayed ? 'block' : 'none'
         }}
       />
