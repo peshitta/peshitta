@@ -64,13 +64,14 @@ export default class Word extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 1452;
+    const minWidth = 1445;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <React.Fragment>
         <TableSearch
           columns={this.columns}
+          columnWidth={160}
           dataLen={this.context.wordLen}
           history={this.props.history}
           sort={this.sort}

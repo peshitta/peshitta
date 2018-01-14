@@ -47,13 +47,14 @@ export default class Root extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 412;
+    const minWidth = 410;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <React.Fragment>
         <TableSearch
           columns={this.columns}
+          columnWidth={127}
           dataLen={this.context.rootLen}
           history={this.props.history}
           sort={this.sort}

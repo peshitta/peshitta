@@ -52,7 +52,7 @@ export default class TableSearch extends React.PureComponent {
 
   render = () => (
     <div className="flex-line">
-      <div style={{ minWidth: '190px' }}>
+      <div style={{ minWidth: `${this.props.columnWidth}px` }}>
         <VirtualizedSelect
           placeholder="Column"
           options={this.props.columns}

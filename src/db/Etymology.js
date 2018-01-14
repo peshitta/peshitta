@@ -49,13 +49,14 @@ export default class Etymology extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 398;
+    const minWidth = 395;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <React.Fragment>
         <TableSearch
           columns={this.columns}
+          columnWidth={133}
           dataLen={this.context.etymologyLen}
           history={this.props.history}
           sort={this.sort}

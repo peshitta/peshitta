@@ -17,6 +17,7 @@ export default class English extends React.PureComponent {
     estrangelaCellRenderer: PropTypes.instanceOf(Function).isRequired,
     estrangelaLinkCellRenderer: PropTypes.instanceOf(Function).isRequired,
     cellRenderer: PropTypes.instanceOf(Function).isRequired,
+    boolCellRenderer: PropTypes.instanceOf(Function).isRequired,
     rowClassName: PropTypes.instanceOf(Function).isRequired,
     getDbIndex: PropTypes.instanceOf(Function).isRequired
   };
@@ -59,13 +60,14 @@ export default class English extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 1442;
+    const minWidth = 1435;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <React.Fragment>
         <TableSearch
           columns={this.columns}
+          columnWidth={187}
           dataLen={this.context.englishLen}
           history={this.props.history}
           sort={this.sort}
@@ -196,7 +198,7 @@ export default class English extends React.PureComponent {
                   dataKey="flag"
                   minWidth={42}
                   width={42}
-                  cellRenderer={this.context.cellRenderer}
+                  cellRenderer={this.context.boolCellRenderer}
                 />
               </Table>
             )}

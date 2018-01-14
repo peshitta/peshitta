@@ -62,13 +62,14 @@ export default class Lexeme extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 1195;
+    const minWidth = 1190;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
       <React.Fragment>
         <TableSearch
           columns={this.columns}
+          columnWidth={145}
           dataLen={this.context.lexemeLen}
           history={this.props.history}
           sort={this.sort}
@@ -204,8 +205,8 @@ export default class Lexeme extends React.PureComponent {
                 <Column
                   label="Category"
                   dataKey="grammaticalCategory"
-                  minWidth={107}
-                  width={107}
+                  minWidth={108}
+                  width={108}
                 />
                 <Column
                   label="Listing"
