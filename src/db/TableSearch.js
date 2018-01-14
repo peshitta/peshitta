@@ -47,7 +47,7 @@ export default class TableSearch extends React.PureComponent {
       sortDirection: SortDirection.ASC
     });
     this.setState({ find });
-    this.props.history.push(`/${this.props.table}/${find.v}`);
+    find && this.props.history.push(`/${this.props.table}/${find.v}`);
   };
 
   render = () => (
@@ -70,6 +70,8 @@ export default class TableSearch extends React.PureComponent {
           options={this.state.finds}
           onChange={this.onFindChange}
           value={this.state.find}
+          matchPos="start"
+          matchProp="label"
         />
       </div>
     </div>
