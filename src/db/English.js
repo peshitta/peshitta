@@ -189,8 +189,8 @@ export default class English extends React.PureComponent {
                 <Column
                   label="Form"
                   dataKey="form"
-                  minWidth={62}
-                  width={62}
+                  minWidth={66}
+                  width={66}
                   cellRenderer={this.context.cellRenderer}
                 />
                 <Column
