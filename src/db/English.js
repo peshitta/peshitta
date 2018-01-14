@@ -60,7 +60,7 @@ export default class English extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 1435;
+    const minWidth = 1432;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (

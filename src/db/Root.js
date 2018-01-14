@@ -47,7 +47,7 @@ export default class Root extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 410;
+    const minWidth = 412;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
@@ -110,8 +110,8 @@ export default class Root extends React.PureComponent {
                 <Column
                   label="Root Type"
                   dataKey="rootType"
-                  minWidth={87}
-                  width={87}
+                  minWidth={90}
+                  width={90}
                 />
               </Table>
             )}

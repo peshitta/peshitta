@@ -62,7 +62,7 @@ export default class Lexeme extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 1190;
+    const minWidth = 1183;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
@@ -205,8 +205,8 @@ export default class Lexeme extends React.PureComponent {
                 <Column
                   label="Category"
                   dataKey="grammaticalCategory"
-                  minWidth={108}
-                  width={108}
+                  minWidth={111}
+                  width={111}
                 />
                 <Column
                   label="Listing"

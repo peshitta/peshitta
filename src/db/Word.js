@@ -64,7 +64,7 @@ export default class Word extends React.PureComponent {
   ];
 
   render() {
-    const minWidth = 1445;
+    const minWidth = 1438;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
