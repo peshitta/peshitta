@@ -39,11 +39,11 @@ export default class Root extends React.PureComponent {
   };
 
   columns = [
-    { value: 'id', label: 'Id', unique: true },
-    { value: 'root', label: 'Root', unique: true },
-    { value: 'sort', label: 'Sort', unique: true },
-    { value: 'seyame', label: 'Seyame', unique: false },
-    { value: 'rootType', label: 'Root Type', unique: false }
+    { value: 'id', label: 'Id' },
+    { value: 'root', label: 'Root' },
+    { value: 'sort', label: 'Sort' },
+    { value: 'seyame', label: 'Seyame', flag: true },
+    { value: 'rootType', label: 'Root Type' }
   ];
 
   render() {
@@ -53,10 +53,11 @@ export default class Root extends React.PureComponent {
     return (
       <React.Fragment>
         <TableSearch
-          history={this.props.history}
           columns={this.columns}
-          data={this.context.roots}
           dataLen={this.context.rootLen}
+          history={this.props.history}
+          sort={this.sort}
+          sortList={this.sortList}
           table="root"
         />
         <Expander>
