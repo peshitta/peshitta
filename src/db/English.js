@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
 import Expander from '../Expander';
+import TableSearch from './TableSearch';
 import { sort as calSort } from 'cal-code-util';
 
 export default class English extends React.PureComponent {
@@ -39,141 +40,169 @@ export default class English extends React.PureComponent {
     this.setState({ sortBy, sortDirection, sortedList });
   };
 
+  columns = [
+    { value: 'id', label: 'Id' },
+    { value: 'lexeme', label: 'Lexeme' },
+    { value: 'word', label: 'Word' },
+    { value: 'before', label: 'Text Before Word' },
+    { value: 'after', label: 'Text After Word' },
+    { value: 'comment', label: 'Comment' },
+    { value: 'commentPosition', label: 'Comment Position' },
+    { value: 'commentFont', label: 'Comment Font' },
+    { value: 'stringBeforeFont', label: 'Before Font' },
+    { value: 'stringAfterFont', label: 'After Font' },
+    { value: 'verbType', label: 'Verb Type' },
+    { value: 'number', label: 'Number' },
+    { value: 'gender', label: 'Gender' },
+    { value: 'form', label: 'Form' },
+    { value: 'flag', label: 'Flag', flag: true }
+  ];
+
   render() {
-    const minWidth = 1290;
+    const minWidth = 1442;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
-      <Expander>
-        <AutoSizer>
-          {({ width, height }) => (
-            <Table
-              width={this.context.getViewWidth(width, minWidth)}
-              height={height}
-              headerHeight={21}
-              rowHeight={24}
-              rowCount={this.context.englishLen}
-              rowGetter={({ index }) => sortedList.get(index)}
-              rowClassName={this.context.rowClassName}
-              sort={this.sort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              className="db-table"
-              gridClassName="peshitta-grid"
-              headerClassName="header-style"
-              scrollToAlignment="start"
-              scrollToIndex={this.context.getDbIndex(
-                sortedList,
-                this.props.match.params.id
-              )}
-            >
-              <Column label="Id" dataKey="id" minWidth={33} width={33} />
-              <Column
-                label="Lexeme"
-                dataKey="lexeme"
-                minWidth={99}
-                width={99}
-                cellDataGetter={this.context.estrangelaCellDataGetter}
-                cellRenderer={this.context.estrangelaLinkCellRenderer(
-                  'lexeme',
-                  'lexemeId'
+      <React.Fragment>
+        <TableSearch
+          columns={this.columns}
+          dataLen={this.context.englishLen}
+          history={this.props.history}
+          sort={this.sort}
+          sortList={this.sortList}
+          table="english"
+        />
+        <Expander>
+          <AutoSizer>
+            {({ width, height }) => (
+              <Table
+                width={this.context.getViewWidth(width, minWidth)}
+                height={height}
+                headerHeight={21}
+                rowHeight={24}
+                rowCount={this.context.englishLen}
+                rowGetter={({ index }) => sortedList.get(index)}
+                rowClassName={this.context.rowClassName}
+                sort={this.sort}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                className="db-table"
+                gridClassName="peshitta-grid"
+                headerClassName="header-style"
+                scrollToAlignment="start"
+                scrollToIndex={this.context.getDbIndex(
+                  sortedList,
+                  this.props.match.params.id
                 )}
-              />
-              <Column
-                label="Word"
-                dataKey="word"
-                minWidth={125}
-                width={125}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Text Before Word"
-                dataKey="before"
-                minWidth={110}
-                width={117}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Text After Word"
-                dataKey="after"
-                minWidth={152}
-                width={152}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Comment"
-                dataKey="comment"
-                minWidth={200}
-                width={200}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Comment Position"
-                dataKey="commentPosition"
-                minWidth={90}
-                width={124}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Comment Font"
-                dataKey="commentFont"
-                minWidth={55}
-                width={105}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Before Font"
-                dataKey="stringBeforeFont"
-                minWidth={55}
-                width={86}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="After Font"
-                dataKey="stringAfterFont"
-                minWidth={55}
-                width={78}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Verb Type"
-                dataKey="verbType"
-                minWidth={65}
-                width={75}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Number"
-                dataKey="number"
-                minWidth={50}
-                width={66}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Gender"
-                dataKey="gender"
-                minWidth={62}
-                width={62}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Form"
-                dataKey="form"
-                minWidth={62}
-                width={62}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Flag"
-                dataKey="flag"
-                minWidth={30}
-                width={42}
-                cellRenderer={this.context.cellRenderer}
-              />
-            </Table>
-          )}
-        </AutoSizer>
-      </Expander>
+              >
+                <Column label="Id" dataKey="id" minWidth={33} width={33} />
+                <Column
+                  label="Lexeme"
+                  dataKey="lexeme"
+                  minWidth={99}
+                  width={99}
+                  cellDataGetter={this.context.estrangelaCellDataGetter}
+                  cellRenderer={this.context.estrangelaLinkCellRenderer(
+                    'lexeme',
+                    'lexemeId'
+                  )}
+                />
+                <Column
+                  label="Word"
+                  dataKey="word"
+                  minWidth={125}
+                  width={125}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Text Before Word"
+                  dataKey="before"
+                  minWidth={117}
+                  width={117}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Text After Word"
+                  dataKey="after"
+                  minWidth={152}
+                  width={152}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Comment"
+                  dataKey="comment"
+                  minWidth={200}
+                  width={200}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Comment Position"
+                  dataKey="commentPosition"
+                  minWidth={124}
+                  width={124}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Comment Font"
+                  dataKey="commentFont"
+                  minWidth={105}
+                  width={105}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Before Font"
+                  dataKey="stringBeforeFont"
+                  minWidth={86}
+                  width={86}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="After Font"
+                  dataKey="stringAfterFont"
+                  minWidth={78}
+                  width={78}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Verb Type"
+                  dataKey="verbType"
+                  minWidth={75}
+                  width={75}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Number"
+                  dataKey="number"
+                  minWidth={66}
+                  width={66}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Gender"
+                  dataKey="gender"
+                  minWidth={62}
+                  width={62}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Form"
+                  dataKey="form"
+                  minWidth={62}
+                  width={62}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Flag"
+                  dataKey="flag"
+                  minWidth={42}
+                  width={42}
+                  cellRenderer={this.context.cellRenderer}
+                />
+              </Table>
+            )}
+          </AutoSizer>
+        </Expander>
+      </React.Fragment>
     );
   }
 }

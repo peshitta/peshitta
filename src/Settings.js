@@ -14,7 +14,7 @@ import Expander from './Expander';
 
 export default class Settings extends React.PureComponent {
   state = {
-    version: 'eastern',
+    version: 'ubs',
     filter: 'none',
     searchCode: 'cal',
     niqqud: true,
@@ -93,8 +93,10 @@ export default class Settings extends React.PureComponent {
                   value={this.state.version}
                   onChange={this.handleVersionChange}
                 >
-                  <option value="eastern">Eastern Peshitta</option>
                   <option value="ubs">UBS Peshitta</option>
+                  <option value="eastern" disabled>
+                    Eastern Peshitta
+                  </option>
                   <option value="western" disabled>
                     Western Peshitta
                   </option>

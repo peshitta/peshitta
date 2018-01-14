@@ -75,23 +75,6 @@ export default class Help extends React.PureComponent {
               </a>
             </p>
             <p>
-              This is currently work in progress. Following pages are ready to
-              use:
-            </p>
-            <ul>
-              <li>
-                <a href="#text">Convert Text</a> - convert text to different
-                representations
-              </li>
-              <li>
-                <a href="#number">Convert Number</a> - convert number to/from
-                Aramaic letters
-              </li>
-              <li>
-                <a href="#help">Help</a> - pronunciation and character mapping
-              </li>
-            </ul>
-            <p>
               Follow IPA or Latin links for each letter to learn its
               pronunciation. All Aramaic consonants are common to Standard
               Arabic as well, except for{' '}

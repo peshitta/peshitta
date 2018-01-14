@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import { Table, Column, AutoSizer, SortDirection } from 'react-virtualized';
 
 import Expander from '../Expander';
+import TableSearch from './TableSearch';
 import { sort as calSort } from 'cal-code-util';
 
 export default class Etymology extends React.PureComponent {
@@ -39,71 +40,89 @@ export default class Etymology extends React.PureComponent {
     this.setState({ sortBy, sortDirection, sortedList });
   };
 
+  columns = [
+    { value: 'id', label: 'Id' },
+    { value: 'lexeme', label: 'Lexeme' },
+    { value: 'word', label: 'Word' },
+    { value: 'language', label: 'Language' },
+    { value: 'wordType', label: 'Word Type' }
+  ];
+
   render() {
-    const minWidth = 390;
+    const minWidth = 398;
     const { sortBy, sortDirection, sortedList } = this.state;
 
     return (
-      <Expander>
-        <AutoSizer>
-          {({ width, height }) => (
-            <Table
-              width={this.context.getViewWidth(width, minWidth)}
-              height={height}
-              headerHeight={21}
-              rowHeight={24}
-              rowCount={this.context.etymologyLen}
-              rowGetter={({ index }) => sortedList.get(index)}
-              rowClassName={this.context.rowClassName}
-              sort={this.sort}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-              className="db-table"
-              gridClassName="peshitta-grid"
-              headerClassName="header-style"
-              scrollToAlignment="start"
-              scrollToIndex={this.context.getDbIndex(
-                sortedList,
-                this.props.match.params.id
-              )}
-            >
-              <Column label="Id" dataKey="id" minWidth={30} width={33} />
-              <Column
-                label="Lexeme"
-                dataKey="lexeme"
-                minWidth={80}
-                width={80}
-                cellDataGetter={this.context.estrangelaCellDataGetter}
-                cellRenderer={this.context.estrangelaLinkCellRenderer(
-                  'lexeme',
-                  'lexemeId'
+      <React.Fragment>
+        <TableSearch
+          columns={this.columns}
+          dataLen={this.context.etymologyLen}
+          history={this.props.history}
+          sort={this.sort}
+          sortList={this.sortList}
+          table="etymology"
+        />
+        <Expander>
+          <AutoSizer>
+            {({ width, height }) => (
+              <Table
+                width={this.context.getViewWidth(width, minWidth)}
+                height={height}
+                headerHeight={21}
+                rowHeight={24}
+                rowCount={this.context.etymologyLen}
+                rowGetter={({ index }) => sortedList.get(index)}
+                rowClassName={this.context.rowClassName}
+                sort={this.sort}
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                className="db-table"
+                gridClassName="peshitta-grid"
+                headerClassName="header-style"
+                scrollToAlignment="start"
+                scrollToIndex={this.context.getDbIndex(
+                  sortedList,
+                  this.props.match.params.id
                 )}
-              />
-              <Column
-                label="Word"
-                dataKey="word"
-                minWidth={118}
-                width={118}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Language"
-                dataKey="language"
-                minWidth={60}
-                width={76}
-                cellRenderer={this.context.cellRenderer}
-              />
-              <Column
-                label="Word Type"
-                dataKey="wordType"
-                minWidth={85}
-                width={85}
-                cellRenderer={this.context.cellRenderer}
-              />
-            </Table>
-          )}
-        </AutoSizer>
-      </Expander>
+              >
+                <Column label="Id" dataKey="id" minWidth={33} width={33} />
+                <Column
+                  label="Lexeme"
+                  dataKey="lexeme"
+                  minWidth={80}
+                  width={80}
+                  cellDataGetter={this.context.estrangelaCellDataGetter}
+                  cellRenderer={this.context.estrangelaLinkCellRenderer(
+                    'lexeme',
+                    'lexemeId'
+                  )}
+                />
+                <Column
+                  label="Word"
+                  dataKey="word"
+                  minWidth={118}
+                  width={118}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Language"
+                  dataKey="language"
+                  minWidth={76}
+                  width={76}
+                  cellRenderer={this.context.cellRenderer}
+                />
+                <Column
+                  label="Word Type"
+                  dataKey="wordType"
+                  minWidth={85}
+                  width={85}
+                  cellRenderer={this.context.cellRenderer}
+                />
+              </Table>
+            )}
+          </AutoSizer>
+        </Expander>
+      </React.Fragment>
     );
   }
 }
