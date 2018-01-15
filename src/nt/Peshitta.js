@@ -90,7 +90,7 @@ export default class Peshitta extends React.PureComponent {
   render = () => (
     <React.Fragment>
       <div className="flex-line">
-        <WordSearch />
+        <WordSearch style={{display: 'none'}} />
         <ContentLabel
           startBook={this.state.startBook}
           startChapter={this.state.startChapter}

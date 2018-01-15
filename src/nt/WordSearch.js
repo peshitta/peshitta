@@ -13,7 +13,7 @@ export default class WordSearch extends React.PureComponent {
   };
 
   render = () => (
-    <div className="flex-input" style={{ position: 'relative' }}>
+    <div className="flex-input" style={{ ...this.props.style, position: 'relative' }}>
       <i
         className={
           this.state.displayed

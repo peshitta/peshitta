@@ -3,6 +3,14 @@ import VirtualizedSelect from 'react-virtualized-select';
 import { SortDirection } from 'react-virtualized';
 import Immutable from 'immutable';
 
+const columnData = {
+  'root': {},
+  'lexeme': {},
+  'word': {},
+  'english': {},
+  'etymology': {}
+};
+
 export default class TableSearch extends React.PureComponent {
   state = {
     column: null,
@@ -10,20 +18,19 @@ export default class TableSearch extends React.PureComponent {
     finds: null
   };
 
-  findsByColumn = {};
-
-  onColumnChange = column => {
+   onColumnChange = column => {
     this.setState({ column, find: null });
     if (column) {
+      const table = this.props.table;
       const value = column.value;
-      if (!this.findsByColumn[value]) {
+      if (!columnData[table][value]) {
         const isId = value === 'id';
         const data = this.props.sortList({
           sortBy: value,
           sortDirection: SortDirection.ASC
         });
         let set = isId ? null : new Immutable.Set();
-        const c = (this.findsByColumn[value] = []);
+        const c = (columnData[table][value] = []);
         for (let i = 0, len = this.props.dataLen; i < len; i++) {
           const r = data.get(i);
           const label = column.flag ? (r[value] ? 'Yes' : 'No') : r[value];
@@ -35,7 +42,7 @@ export default class TableSearch extends React.PureComponent {
           }
         }
       }
-      this.setState({ finds: this.findsByColumn[value] });
+      this.setState({ finds: columnData[table][value] });
     } else {
       this.setState({ finds: null });
     }
