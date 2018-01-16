@@ -133,8 +133,8 @@ export default class English extends React.PureComponent {
                 <Column
                   label="Comment"
                   dataKey="comment"
-                  minWidth={200}
-                  width={200}
+                  minWidth={210}
+                  width={210}
                   cellRenderer={this.context.cellRenderer}
                 />
                 <Column
