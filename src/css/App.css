@@ -1,0 +1,173 @@
+.navbar {
+  padding: 0.5rem 0.5rem;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+  padding-left: 0;
+  padding-right: 0.5rem;
+}
+
+.navbar-toggler {
+  height: 38px;
+}
+
+div.goTo {
+  min-width: 213px;
+  margin-right: 10px;
+}
+
+div.search {
+  position: relative;
+  margin-right: 10px;
+}
+
+div.search input {
+  padding-right: 43px;
+}
+
+div.search button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.App-logo {
+  padding: 0;
+}
+
+.App-logo > img {
+  height: 40px;
+}
+
+.estrangela {
+  font-family: 'Estrangelo-V1.1';
+  font-size: larger;
+  font-weight: normal;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.estrangela-cell {
+  text-align: right;
+  padding-right: 5px;
+}
+
+.peshitta-grid {
+  border-right: 1px solid #e0e0e0;
+}
+
+.db-table {
+  font-size: small;
+}
+
+.header-style {
+  text-transform: none;
+  font-weight: normal;
+}
+
+.evenRow,
+.oddRow {
+  border-bottom: 1px solid #e0e0e0;
+}
+.evenRow {
+  background-color: #fafafa;
+}
+
+.cell {
+  padding: 0.25em 0.5em;
+  margin: 0;
+}
+
+.ReactVirtualized__Table__headerColumn {
+  margin: 0;
+}
+
+.ReactVirtualized__Table__rowColumn {
+  margin: 0;
+  border-right: 1px solid rgb(224, 224, 224);
+}
+
+.ReactVirtualized__Table__headerColumn:first-of-type {
+  margin: 0;
+}
+
+.ReactVirtualized__Table__rowColumn:first-of-type {
+  margin: 0;
+  border-left: 1px solid rgb(224, 224, 224);
+}
+
+.db-table .ReactVirtualized__Table__rowColumn {
+  line-height: 23px;
+}
+
+.syriac {
+  font-family: 'SertoJerusalem';
+  font-size: larger;
+  font-weight: normal;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.semitic {
+  font-size: larger;
+  font-weight: normal;
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.table th {
+  text-align: center;
+}
+
+.verba {
+  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono',
+    'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', monospace,
+    serif;
+  white-space: pre;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px 15px 0 15px;
+  font-size: smaller;
+}
+
+.mapper {
+  text-align: center;
+  margin-top: 70px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.flex-table {
+  flex: 1 1 auto;
+  margin: 0 0.5em 0.5em 0.5em;
+}
+
+.flex-line {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin: 0 0.5em 0 0.5em;
+}
+
+.flex-input {
+  flex: 1 1 auto;
+}
+
+.content-label {
+  padding-top: 6px;
+  text-align: right;
+  min-width: 340px;
+  white-space: nowrap;
+  height: 36px;
+}
