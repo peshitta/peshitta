@@ -283,6 +283,17 @@ export default class MapText extends React.PureComponent {
     }
   }
 
+  selectInput = () => {
+    const input = this.inputElement;
+    input && input.value && input.setSelectionRange(0, input.value.length);
+  }
+
+  copyOutput = () => {
+    const output = this.outputElement;
+    output && output.value && output.setSelectionRange(0, output.value.length);
+    document.execCommand('copy');
+  }
+
   componentDidMount() {
     this.niqqudButton.style.width = this.ipaButton.style.width = this.latinButton.style.width = this.syriacInputButton.style.width = this.hebrewInputButton.style.width = this.arabicInputButton.style.width = this.calInputButton.style.width = this.sedraInputButton.style.width = this.syriacOutputButton.style.width = this.hebrewOutputButton.style.width = this.arabicOutputButton.style.width = this.calOutputButton.style.width = this.sedraOutputButton.style.width = this.estrangelaOutputButton.style.width =
       this.estrangelaInputButton.offsetWidth + 'px';
@@ -385,6 +396,7 @@ export default class MapText extends React.PureComponent {
                   title="Source text"
                   className={this.getClassByCode(this.state.inputCode)}
                   onChange={this.handleSourceChange}
+                  onFocus={this.selectInput}
                   value={this.state.input}
                 />
               </FormGroup>
@@ -517,6 +529,7 @@ export default class MapText extends React.PureComponent {
                   title="Converted text"
                   className={this.getClassByCode(this.state.outputCode)}
                   value={this.state.output}
+                  onDoubleClick={this.copyOutput}
                 />
               </FormGroup>
             </Container>
