@@ -34,6 +34,7 @@ import { toCal as arabicToCal } from 'arabic-cal';
 export default class MapText extends React.PureComponent {
   state = {
     input: '',
+    ltr: true,
     output: '',
     niqqud: true,
     inputCode: 'estrangela',
@@ -48,6 +49,14 @@ export default class MapText extends React.PureComponent {
           ? 'ipa'
           : prevState.outputCode;
       return { inputCode, outputCode, input: '', output: '' };
+    });
+    this.inputElement.focus();
+  };
+
+  handleLtrClick = () => {
+    this.setState(prevState => {
+      const ltr = !prevState.ltr;
+      return { ltr, output: '' };
     });
     this.inputElement.focus();
   };
@@ -95,7 +104,8 @@ export default class MapText extends React.PureComponent {
       switch (inputCode) {
         case 'estrangela':
           output = clearDotting ? estrangelaRemoveDotting(text) : text;
-          output =  output.replace('f', 'l0').replace('F', 't0');
+          output = prevState.ltr ? output.split('').reverse().join('') : output;
+          output = output.replace('f', 'l0').replace('F', 't0');
           switch (outputCode) {
             case 'ipa':
               output = toIpa(estrangelaToCal(output));
@@ -270,9 +280,10 @@ export default class MapText extends React.PureComponent {
     });
   };
 
-  getClassByCode(code) {
+  getClassByCode(code, ltr) {
     switch (code) {
       case 'estrangela':
+        return ltr ? 'estrangela-ltr' : code;
       case 'syriac':
         return code;
       case 'hebrew':
@@ -315,8 +326,8 @@ export default class MapText extends React.PureComponent {
                     {this.state.outputCode}
                   </span>{' '}
                   {this.state.niqqud ||
-                  this.state.outputCode === 'ipa' ||
-                  this.state.outputCode === 'latin'
+                    this.state.outputCode === 'ipa' ||
+                    this.state.outputCode === 'latin'
                     ? ''
                     : 'consonant'}{' '}
                   text
@@ -329,10 +340,18 @@ export default class MapText extends React.PureComponent {
                     data-code="estrangela"
                     onClick={this.handleInputCodeClick}
                     active={this.state.inputCode === 'estrangela'}
-                    title="Estrangela ASCII code"
+                    title={"Estrangela ASCII code - " + (this.state.ltr ? "LTR" : "RTL")}
                     innerRef={button => (this.estrangelaInputButton = button)}
                   >
                     Estrangela
+                  </Button>
+                  <Button
+                    color="light"
+                    onClick={this.handleLtrClick}
+                    active={this.state.inputCode === 'estrangela'}
+                    title={(this.state.ltr ? "LTR" : "RTL")}
+                  >
+                    {(this.state.ltr ? "LTR" : "RTL")}
                   </Button>
                   <Button
                     color="light"
@@ -394,7 +413,7 @@ export default class MapText extends React.PureComponent {
                   innerRef={input => (this.inputElement = input)}
                   rows="3"
                   title="Source text"
-                  className={this.getClassByCode(this.state.inputCode)}
+                  className={this.getClassByCode(this.state.inputCode, this.state.ltr)}
                   onChange={this.handleSourceChange}
                   onFocus={this.selectInput}
                   value={this.state.input}

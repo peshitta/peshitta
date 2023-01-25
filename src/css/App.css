@@ -51,6 +51,15 @@ div.search button {
   unicode-bidi: bidi-override;
 }
 
+.estrangela-ltr {
+  font-family: 'Estrangelo-V1.1';
+  font-size: larger;
+  font-weight: normal;
+  direction: ltr;
+  unicode-bidi: normal;
+  text-align: right;
+}
+
 .estrangela-cell {
   text-align: right;
   padding-right: 5px;
