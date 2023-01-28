@@ -92,7 +92,7 @@ export default class MapText extends React.PureComponent {
     this.setState(prevState => {
       const inputCode = prevState.inputCode;
       const outputCode = prevState.outputCode;
-      const text = prevState.input;
+      let text = prevState.input;
       const clearDotting =
         !prevState.niqqud && outputCode !== 'ipa' && outputCode !== 'latin';
       let output = '';
@@ -101,6 +101,7 @@ export default class MapText extends React.PureComponent {
         return { output };
       }
 
+      text = text.trim();
       switch (inputCode) {
         case 'estrangela':
           output = clearDotting ? estrangelaRemoveDotting(text) : text;
@@ -299,10 +300,14 @@ export default class MapText extends React.PureComponent {
     input && input.value && input.setSelectionRange(0, input.value.length);
   }
 
-  copyOutput = () => {
+  copyAllOutput = () => {
     const output = this.outputElement;
-    output && output.value && output.setSelectionRange(0, output.value.length);
-    document.execCommand('copy');
+    if (output && output.value) {
+      output.focus();
+      output.setSelectionRange(0, output.value.length);
+      document.execCommand('copy');
+      window.getSelection().empty();
+    }
   }
 
   componentDidMount() {
@@ -535,8 +540,18 @@ export default class MapText extends React.PureComponent {
                 </ButtonGroup>
               </FormGroup>
               <FormGroup style={{ textAlign: 'center' }}>
-                <Button color="primary" onClick={this.handleConvert}>
+                <Button
+                  color="primary"
+                  onClick={this.handleConvert}
+                  title="Convert input text">
                   Convert
+                </Button>
+                &nbsp;
+                <Button
+                  color="secondary"
+                  onClick={this.copyAllOutput}
+                  title="Copy all text to the Clipboard">
+                  Copy All
                 </Button>
               </FormGroup>
               <FormGroup>
@@ -548,7 +563,6 @@ export default class MapText extends React.PureComponent {
                   title="Converted text"
                   className={this.getClassByCode(this.state.outputCode)}
                   value={this.state.output}
-                  onDoubleClick={this.copyOutput}
                 />
               </FormGroup>
             </Container>
