@@ -38,7 +38,7 @@ export default class MapText extends React.PureComponent {
     output: '',
     niqqud: true,
     inputCode: 'estrangela',
-    outputCode: 'ipa'
+    outputCode: 'syriac'
   };
 
   handleInputCodeClick = event => {

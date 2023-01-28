@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: normal;
   src: local('Estrangelo (V1.1)'), local('Estrangelo (V1.1) Regular'),
-    url(./font/Estrangelo.ttf) format('truetype');
+    url(font/Estrangelo.ttf) format('truetype');
   unicode-range: U+0000-00FF;
 }
 
@@ -12,7 +12,16 @@
 @font-face {
 	font-family: 'SertoJerusalem';
 	src: local('Serto Jerusalem');
-	src: url('./font/syrcomurhoy.woff') format('woff');
+	src: url('font/syrcomurhoy.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
+}
+
+/* Estrangelo Esarhaddon */
+@font-face {
+  font-family: 'Estrangelo Esarhaddon';
+  src: local('Estrangelo Esarhaddon'),
+  url('font/EstrangeloEsarhaddon.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
