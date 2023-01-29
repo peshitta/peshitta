@@ -106,7 +106,7 @@ export default class MapText extends React.PureComponent {
         case 'estrangela':
           output = clearDotting ? estrangelaRemoveDotting(text) : text;
           output = prevState.ltr ? output.split('').reverse().join('') : output;
-          output = output.replace('f', 'l0').replace('F', 't0');
+          output = output.replace(/f/g, 'l0').replace(/F/g, 't0');
           switch (outputCode) {
             case 'ipa':
               output = toIpa(estrangelaToCal(output));
